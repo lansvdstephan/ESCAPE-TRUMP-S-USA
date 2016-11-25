@@ -17,6 +17,15 @@ public class CarControl : MonoBehaviour {
 		wheelRL.motorTorque = enginePower * Input.GetAxis ("Vertical");
 		wheelFL.steerAngle = maxSteer * Input.GetAxis ("Horizontal");
 		wheelFL.steerAngle = maxSteer * Input.GetAxis ("Horizontal");
+
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            this.transform.FindChild("Seat").DetachChildren();
+            PhilMovement.player.SetActive(true);
+            PhilMovement.player.GetComponent<Rigidbody>().useGravity = false;
+            this.GetComponent<CarControl>().enabled = false;
+            //PhilMovement.transform.position=
+        }
 	
 	}
 }
