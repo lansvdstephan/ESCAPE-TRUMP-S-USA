@@ -14,11 +14,8 @@ public class PhilDialogue : MonoBehaviour {
 
     void Awake ()
     {
-        continueButton = dialoguePanel.transform.FindChild("Continue Button").GetComponent<Button>();
         dialogueText = dialoguePanel.transform.FindChild("Dialogue Text").GetComponent<Text>();
-        dialoguePanel.SetActive(false);
-        continueButton.onClick.AddListener(delegate { ContinueDialogue(); });
-        
+        dialoguePanel.SetActive(false);        
 
         if (Instance != null && Instance != this)
         {

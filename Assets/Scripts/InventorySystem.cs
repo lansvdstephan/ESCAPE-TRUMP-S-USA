@@ -8,16 +8,17 @@ public class InventorySystem : MonoBehaviour {
 
     private Image handImange;
     private Image[] inventoryImage;
-    private Image inventory1Image;
-    private Image inventory2Image;
+    private int numberOfImages;
 
     void Awake()
     {
-        inventoryImage = new Image[3];
+        numberOfImages = inventoryPanel.transform.childCount - 1;
+        inventoryImage = new Image[numberOfImages];
         handImange = inventoryPanel.transform.FindChild("Hand Item").GetComponent<Image>();
-        inventoryImage[0] = inventoryPanel.transform.FindChild("Inventory Item").GetComponent<Image>();
-        inventoryImage[1] = inventoryPanel.transform.FindChild("Inventory Item (1)").GetComponent<Image>();
-        inventoryImage[2] = inventoryPanel.transform.FindChild("Inventory Item (2)").GetComponent<Image>();
+        for (int i = 0; i < numberOfImages; i++)
+        {
+            inventoryImage[0] = inventoryPanel.transform.FindChild("Inventory Item" + i).GetComponent<Image>();
+        }
 
         if (Instance != null && Instance != this)
         {
@@ -38,7 +39,7 @@ public class InventorySystem : MonoBehaviour {
     public void SwitchInventoryImange()
     {
         int InventorySize = PhilMovement.player.transform.FindChild("Inventory").childCount;
-        if (InventorySize > 3) InventorySize = 3;
+        if (InventorySize > numberOfImages) InventorySize = numberOfImages;
         if (InventorySize > 0)
         {
             for (int i = 0; i < InventorySize; i++)
