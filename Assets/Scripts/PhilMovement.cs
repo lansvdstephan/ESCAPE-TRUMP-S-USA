@@ -31,16 +31,26 @@ public class PhilMovement : MonoBehaviour {
 
     void LateUpdate()
     {
-        Move();
-
-        if(player.transform.FindChild("Hand").childCount != 0)
+        if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
-            GetPickUpInteraction();
-            SwitchingItems();
+            Move();
+
+            if (player.transform.FindChild("Hand").childCount != 0)
+            {
+                GetPickUpInteraction();
+                SwitchingItems();
+            }
+            else
+            {
+                GetInteraction();
+            }
         }
         else
         {
-            GetInteraction();
+            if (Input.GetKeyUp("space"))
+            {
+                PhilDialogue.Instance.ContinueDialogue();
+            }
         }
     }
 
@@ -69,7 +79,6 @@ public class PhilMovement : MonoBehaviour {
     void GetInteraction()
     {
         //Preforming Raycast and Interaction
-        print("Interacted");
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
         if (Physics.Raycast(transform.position, fwd, out hit, 2))
