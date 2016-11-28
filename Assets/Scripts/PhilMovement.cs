@@ -21,16 +21,26 @@ public class PhilMovement : MonoBehaviour {
 
     void LateUpdate()
     {
-        Move();
-
-        if(player.transform.FindChild("Hand").childCount != 0)
+        if (PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
-            GetPickUpInteraction();
-            SwitchingItems();
+            if (Input.GetKeyUp("space"))
+            {
+                PhilDialogue.Instance.dialoguePanel.SetActive(false);
+            }
         }
         else
         {
-            GetInteraction();
+            Move();
+
+            if (player.transform.FindChild("Hand").childCount != 0)
+            {
+                GetPickUpInteraction();
+                SwitchingItems();
+            }
+            else
+            {
+                GetInteraction();
+            }
         }
 
     }
