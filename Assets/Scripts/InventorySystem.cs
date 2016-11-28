@@ -32,8 +32,11 @@ public class InventorySystem : MonoBehaviour {
 
     public void SwitchHandImange()
     {
-        handImange.sprite = PhilMovement.player.transform.FindChild("Hand").GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite;
-        print("image switched");
+        if (PhilMovement.player.transform.FindChild("Hand").GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite != null)
+        {
+            handImange.sprite = PhilMovement.player.transform.FindChild("Hand").GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite;
+            print("image switched");
+        }
     }
 
     public void SwitchInventoryImange()
@@ -44,7 +47,10 @@ public class InventorySystem : MonoBehaviour {
         {
             for (int i = 0; i < InventorySize; i++)
             {
-                inventoryImage[i].sprite = PhilMovement.player.transform.FindChild("Inventory").GetChild(i).GetChild(0).GetComponent<SpriteRenderer>().sprite;
+                if (PhilMovement.player.transform.FindChild("Inventory").GetChild(i).GetChild(0).GetComponent<SpriteRenderer>().sprite)
+                {
+                    inventoryImage[i].sprite = PhilMovement.player.transform.FindChild("Inventory").GetChild(i).GetChild(0).GetComponent<SpriteRenderer>().sprite;
+                }
             }
         }
     }
