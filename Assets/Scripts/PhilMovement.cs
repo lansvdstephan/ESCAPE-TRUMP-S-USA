@@ -79,7 +79,6 @@ public class PhilMovement : MonoBehaviour {
     void GetInteraction()
     {
         //Preforming Raycast and Interaction
-        print("Interacted");
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
         if (Physics.Raycast(transform.position, fwd, out hit, 2))
