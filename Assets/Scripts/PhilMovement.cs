@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System;
 
 public class PhilMovement : MonoBehaviour {
     public static GameObject player;
     public float speed;
+    private int health;
+    public Text healthText;
+  
     private Rigidbody rb;
     private Quaternion Rotation = Quaternion.LookRotation(new Vector3(0,0,1));
 
@@ -15,34 +19,29 @@ public class PhilMovement : MonoBehaviour {
 
     void Start ()
     {
+        health = 100;
         player = this.gameObject;
         rb = GetComponent<Rigidbody>();
     }
 
+    void Update()
+    {
+        setHealthText();
+    }
+
     void LateUpdate()
     {
-        if (PhilDialogue.Instance.dialoguePanel.activeSelf)
+        Move();
+
+        if(player.transform.FindChild("Hand").childCount != 0)
         {
-            if (Input.GetKeyUp("space"))
-            {
-                PhilDialogue.Instance.dialoguePanel.SetActive(false);
-            }
+            GetPickUpInteraction();
+            SwitchingItems();
         }
         else
         {
-            Move();
-
-            if (player.transform.FindChild("Hand").childCount != 0)
-            {
-                GetPickUpInteraction();
-                SwitchingItems();
-            }
-            else
-            {
-                GetInteraction();
-            }
+            GetInteraction();
         }
-
     }
 
     void Move()
@@ -83,6 +82,15 @@ public class PhilMovement : MonoBehaviour {
         }
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Enemy"))
+        {
+            health = Max(health - 20, 0);
+            other.gameObject.SetActive(false);
+        }
+    }
+
     void GetPickUpInteraction()
     {
         // Dropping item if left shift is pressed else doing action if space is pressed
@@ -93,8 +101,8 @@ public class PhilMovement : MonoBehaviour {
         }
         else if (Input.GetKeyUp("space"))
         {
-            GetInteraction();
             this.transform.FindChild("Hand").GetChild(0).GetComponent<PickUpAble>().GetAction();
+            GetInteraction();
         }
     }
 
@@ -110,5 +118,18 @@ public class PhilMovement : MonoBehaviour {
             this.transform.FindChild("Hand").GetChild(0).GetComponent<PickUpAble>().PlaceItemInFrontOfInventory(player);
             this.transform.FindChild("Inventory").GetChild(this.transform.FindChild("Inventory").childCount-1).GetComponent<PickUpAble>().PlaceItemInHand(player);
         }
+    }
+
+    void setHealthText()
+    {
+        healthText.text = "Health: " + health.ToString();
+    }
+
+    private int Max(int f1, int f2)
+    {
+        if (f1 > f2)
+            return f1;
+        else
+            return f2;
     }
 }
