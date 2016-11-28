@@ -15,7 +15,7 @@ public class CarControl : MonoBehaviour {
 	void FixedUpdate () {
 		wheelRR.motorTorque = enginePower * Input.GetAxis ("Vertical");
 		wheelRL.motorTorque = enginePower * Input.GetAxis ("Vertical");
-		wheelFL.steerAngle = maxSteer * Input.GetAxis ("Horizontal");
+		wheelFR.steerAngle = maxSteer * Input.GetAxis ("Horizontal");
 		wheelFL.steerAngle = maxSteer * Input.GetAxis ("Horizontal");
 
         if (Input.GetKeyUp(KeyCode.LeftShift))
