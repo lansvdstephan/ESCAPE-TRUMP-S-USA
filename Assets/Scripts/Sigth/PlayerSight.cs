@@ -18,6 +18,9 @@ public class PlayerSight : MonoBehaviour
     public Vector3 playerPosition;
     public Vector3 playerLastSeen;
 
+    public bool detected;
+    public AudioClip hey;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -65,6 +68,7 @@ public class PlayerSight : MonoBehaviour
                 {
                     if (hit.transform.gameObject.CompareTag("Player"))//if the obstacle that is reacht by the ray is tagged by "Player", than the enemy found the player
                     {
+                        DetectPlayer();
                         playerSeen = true;
                         playerLastSeen = playerPosition;
                     }
@@ -122,5 +126,14 @@ public class PlayerSight : MonoBehaviour
         float sum = difference.x + difference.y + difference.z;
         float result = Mathf.Sqrt(sum);
         return result;
+    }
+
+    public void DetectPlayer()
+    {
+        if (!detected && playerSeen)
+        {
+            SoundManager.instance.PlaySingleRandomized(hey);
+            detected = true;
+        }
     }
 }
