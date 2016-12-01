@@ -61,22 +61,12 @@ public class MoveonPath : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(fow.playerLastSeen - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
     }
-
-   void OnCollisionStay(Collider other)
-    {
-        StartCoroutine(pauseMovement());
-    }
+		
     public float Max(float f1, float f2)
     {
         if (f1 >= f2)
             return f1;
         else
             return f2;
-    }
-
-    IEnumerator pauseMovement()
-    {
-        yield return new WaitForSeconds(10);//assuming it takes 10 seconds to play the animation
-     
     }
 }
