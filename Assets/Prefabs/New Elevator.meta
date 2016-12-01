@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Textures.meta
 guid: c84c72596b0898942be281d44910e3d1
 folderAsset: yes
 timeCreated: 1480408959
+=======
+guid: f37c8ecde93244de6b7b4a55b92a6336
+folderAsset: yes
+timeCreated: 1480350746
+>>>>>>> Fixing_git:Assets/Prefabs/New Elevator.meta
 licenseType: Free
 DefaultImporter:
   userData: 

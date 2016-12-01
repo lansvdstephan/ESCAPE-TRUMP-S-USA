@@ -6,12 +6,21 @@ public class SwitchController : PhilInteractable {
     public GameObject switched;
     public bool unlocked = true;
     public int keyCode = 00; 
+<<<<<<< HEAD
 
     private bool switchFlipped = false;
     private string[] lockedDialogue;
     private string[] unLockedDialogue;
     private string[] wrongKey;
 
+=======
+    public bool switchFlipped = false;
+
+    private string[] lockedDialogue;
+    private string[] unLockedDialogue;
+    private string[] wrongKey;
+
+>>>>>>> Fixing_git
 
     void Awake()
     {
@@ -49,4 +58,8 @@ public class SwitchController : PhilInteractable {
         }
         else  PhilDialogue.Instance.AddNewDialogue(lockedDialogue);
     }
+
+	public void Lock(){
+		unlocked = false;
+	}
 }
