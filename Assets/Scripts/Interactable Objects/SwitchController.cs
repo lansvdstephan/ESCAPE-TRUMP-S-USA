@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class SwitchController : PhilInteractable {
@@ -6,7 +6,6 @@ public class SwitchController : PhilInteractable {
     public GameObject switched;
     public bool unlocked = true;
     public int keyCode = 00; 
-
     public bool switchFlipped = false;
 
     private string[] lockedDialogue;
