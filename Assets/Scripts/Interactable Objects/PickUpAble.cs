@@ -29,7 +29,7 @@ public class PickUpAble : PhilInteractable {
         this.transform.parent = player.transform.FindChild("Hand").transform;
         this.transform.position = player.transform.FindChild("Hand").transform.position;
         this.GetComponent<CapsuleCollider>().enabled = false;
-        this.GetComponent<MeshRenderer>().enabled = true;
+        this.enabled = false;
         InventorySystem.Instance.SwitchHandImange();
         InventorySystem.Instance.SwitchInventoryImange();
     }
@@ -40,7 +40,7 @@ public class PickUpAble : PhilInteractable {
         this.transform.parent = player.transform.FindChild("Inventory").transform;
         this.transform.position = player.transform.FindChild("Inventory").transform.position;
         this.GetComponent<CapsuleCollider>().enabled = false;
-        this.GetComponent<MeshRenderer>().enabled = false;
+        this.enabled = false;
         InventorySystem.Instance.SwitchInventoryImange();
     }
 
@@ -49,7 +49,7 @@ public class PickUpAble : PhilInteractable {
     {
         Transform Inventory = player.transform.FindChild("Inventory");
         this.GetComponent<CapsuleCollider>().enabled = false;
-        this.GetComponent<MeshRenderer>().enabled = false;
+        this.enabled = false;
         this.transform.position = Inventory.transform.position;
         int children = Inventory.transform.childCount;
         print(children);
