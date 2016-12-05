@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
+#if UNITY_EDITOR
 using UnityEditor;
+
 
 [CustomEditor(typeof(PlayerSight))]
 public class PlayerSightEditor : Editor
@@ -24,9 +25,5 @@ public class PlayerSightEditor : Editor
         
     }
 
-        // Use this for initialization
-        void Start () {
-	
-	}
-
 }
+#endif
