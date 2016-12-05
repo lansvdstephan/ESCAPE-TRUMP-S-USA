@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PickUpAble : PhilInteractable {
+	public string[] foundDialog;
 
     public override void Interact(GameObject player)
     {
+		PhilDialogue.Instance.AddNewDialogue(this.foundDialog);
         print("Interacted with object");
         if (player.transform.FindChild("Hand").childCount == 0 )
         {
@@ -29,7 +31,7 @@ public class PickUpAble : PhilInteractable {
         this.transform.parent = player.transform.FindChild("Hand").transform;
         this.transform.position = player.transform.FindChild("Hand").transform.position;
         this.GetComponent<CapsuleCollider>().enabled = false;
-        this.enabled = false;
+		this.gameObject.SetActive (true);
         InventorySystem.Instance.SwitchHandImange();
         InventorySystem.Instance.SwitchInventoryImange();
     }
@@ -40,7 +42,7 @@ public class PickUpAble : PhilInteractable {
         this.transform.parent = player.transform.FindChild("Inventory").transform;
         this.transform.position = player.transform.FindChild("Inventory").transform.position;
         this.GetComponent<CapsuleCollider>().enabled = false;
-        this.enabled = false;
+		this.gameObject.SetActive (false);
         InventorySystem.Instance.SwitchInventoryImange();
     }
 
@@ -49,7 +51,7 @@ public class PickUpAble : PhilInteractable {
     {
         Transform Inventory = player.transform.FindChild("Inventory");
         this.GetComponent<CapsuleCollider>().enabled = false;
-        this.enabled = false;
+		this.gameObject.SetActive (true);
         this.transform.position = Inventory.transform.position;
         int children = Inventory.transform.childCount;
         print(children);
