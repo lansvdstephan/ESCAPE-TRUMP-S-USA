@@ -19,7 +19,7 @@ public class SwitchController : PhilInteractable {
             lockedDialogue = new string[1];
             lockedDialogue[0] = "It is locked.";
         }
-        if (lockedDialogue.Length == 0)
+        if (unLockedDialogue.Length == 0)
         {
             unLockedDialogue = new string[1];
             unLockedDialogue[0] = "It is unlocked.";
