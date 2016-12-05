@@ -14,17 +14,17 @@ public class SwitchController : PhilInteractable {
 
     void Awake()
     {
-        if (lockedDialogue == null)
+        if (lockedDialogue.Length == 0)
         {
             lockedDialogue = new string[1];
             lockedDialogue[0] = "It is locked.";
         }
-        if (lockedDialogue == null)
+        if (lockedDialogue.Length == 0)
         {
             unLockedDialogue = new string[1];
             unLockedDialogue[0] = "It is unlocked.";
         }
-        if (wrongKey == null)
+        if (wrongKey.Length == 0)
         {
             wrongKey = new string[1];
             wrongKey[0] = "This is the wrong key.";
@@ -62,7 +62,7 @@ public class SwitchController : PhilInteractable {
         }
         else
         {
-            if (Input.GetKeyDown("space"))
+            if (Input.GetKeyUp("space"))
             {
                 PhilDialogue.Instance.ContinueDialogue();
             }

@@ -56,7 +56,7 @@ public class PickUpAble : PhilInteractable {
         InventorySystem.Instance.SwitchInventoryImange();
     }
 
-    //placing a object in front o your inventory
+    //placing a object in front of your inventory
     public void PlaceItemInFrontOfInventory(GameObject player)
     {
         Transform Inventory = player.transform.FindChild("Inventory");
