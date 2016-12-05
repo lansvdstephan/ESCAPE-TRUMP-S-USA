@@ -14,17 +14,17 @@ public class SwitchController : PhilInteractable {
 
     void Awake()
     {
-        if (lockedDialogue != null)
+        if (lockedDialogue == null)
         {
             lockedDialogue = new string[1];
             lockedDialogue[0] = "It is locked.";
         }
-        if (lockedDialogue != null)
+        if (lockedDialogue == null)
         {
             unLockedDialogue = new string[1];
             unLockedDialogue[0] = "It is unlocked.";
         }
-        if (wrongKey != null)
+        if (wrongKey == null)
         {
             wrongKey = new string[1];
             wrongKey[0] = "This is the wrong key.";

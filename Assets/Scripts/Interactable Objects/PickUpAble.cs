@@ -9,7 +9,7 @@ public class PickUpAble : PhilInteractable {
     {
         if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
-            PhilDialogue.Instance.AddNewDialogue(this.foundDialog);
+            if ( this.foundDialog != null) PhilDialogue.Instance.AddNewDialogue(this.foundDialog);
             print("Interacted with object");
             if (player.transform.FindChild("Hand").childCount == 0)
             {

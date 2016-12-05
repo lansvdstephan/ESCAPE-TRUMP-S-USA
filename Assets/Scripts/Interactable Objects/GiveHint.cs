@@ -9,7 +9,7 @@ public class GiveHint : PhilInteractable {
         if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
             print("hint");
-            PhilDialogue.Instance.AddNewDialogue(dialogue);
+            if (dialogue != null) PhilDialogue.Instance.AddNewDialogue(dialogue);
         }
         else
         {
