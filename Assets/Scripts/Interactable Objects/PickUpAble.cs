@@ -17,7 +17,8 @@ public class PickUpAble : PhilInteractable {
             }
             else
             {
-                PlaceItemInBackOfInventory(player);
+                PlaceItemInFrontOfInventory(player);
+                InventorySystem.Instance.SwitchInventoryImange();
             }
         }
         else
@@ -53,7 +54,7 @@ public class PickUpAble : PhilInteractable {
         this.transform.position = player.transform.FindChild("Inventory").transform.position;
         this.GetComponent<CapsuleCollider>().enabled = false;
 		this.gameObject.SetActive (false);
-        InventorySystem.Instance.SwitchInventoryImange();
+        
     }
 
     //placing a object in front of your inventory
@@ -76,6 +77,6 @@ public class PickUpAble : PhilInteractable {
         {
             Items[i].SetParent(Inventory.transform);
         }
-        InventorySystem.Instance.SwitchInventoryImange();
+        
     }
 }

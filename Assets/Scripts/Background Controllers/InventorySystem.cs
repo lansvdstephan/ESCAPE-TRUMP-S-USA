@@ -32,7 +32,7 @@ public class InventorySystem : MonoBehaviour {
 
     public void SwitchHandImange()
     {
-        handImange.sprite = PhilMovement.player.transform.FindChild("Hand").GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite;
+        if (PhilMovement.player.transform.FindChild("Hand").childCount != 0) handImange.sprite = PhilMovement.player.transform.FindChild("Hand").GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite;
         print("image switched");
 
     }

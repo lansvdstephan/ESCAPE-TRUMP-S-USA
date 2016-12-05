@@ -38,12 +38,12 @@ public class PhilMovement : MonoBehaviour {
         if (player.transform.FindChild("Hand").childCount != 0)
         {
             GetPickUpInteraction();
-            SwitchingItems();
         }
         else
         {
             GetInteraction();
         }
+        SwitchingItems();
     }
 
     void Move()
@@ -99,6 +99,9 @@ public class PhilMovement : MonoBehaviour {
         {
             this.transform.FindChild("Hand").GetChild(0).GetComponent<CapsuleCollider>().enabled = true;
             this.transform.FindChild("Hand").DetachChildren();
+            InventorySystem.Instance.SwitchInventoryImange();
+            InventorySystem.Instance.SwitchHandImange();
+
         }
         else if (Input.GetKeyUp("space"))
         {
@@ -113,11 +116,13 @@ public class PhilMovement : MonoBehaviour {
         {
             if (player.transform.FindChild("Hand").childCount != 0) this.transform.FindChild("Hand").GetChild(0).GetComponent<PickUpAble>().PlaceItemInBackOfInventory(player);
             if (this.transform.FindChild("Inventory").childCount != 0) this.transform.FindChild("Inventory").GetChild(0).GetComponent<PickUpAble>().PlaceItemInHand(player);
+            InventorySystem.Instance.SwitchInventoryImange();
         }
         else if (Input.GetKeyUp(KeyCode.X))
         {
             if (player.transform.FindChild("Hand").childCount != 0) this.transform.FindChild("Hand").GetChild(0).GetComponent<PickUpAble>().PlaceItemInFrontOfInventory(player);
             if (this.transform.FindChild("Inventory").childCount != 0) this.transform.FindChild("Inventory").GetChild(this.transform.FindChild("Inventory").childCount-1).GetComponent<PickUpAble>().PlaceItemInHand(player);
+            InventorySystem.Instance.SwitchInventoryImange();
         }
     }
 
