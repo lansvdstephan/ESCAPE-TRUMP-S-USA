@@ -111,13 +111,13 @@ public class PhilMovement : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            this.transform.FindChild("Hand").GetChild(0).GetComponent<PickUpAble>().PlaceItemInBackOfInventory(player);
-            this.transform.FindChild("Inventory").GetChild(0).GetComponent<PickUpAble>().PlaceItemInHand(player);
+            if (player.transform.FindChild("Hand").childCount != 0) this.transform.FindChild("Hand").GetChild(0).GetComponent<PickUpAble>().PlaceItemInBackOfInventory(player);
+            if (this.transform.FindChild("Inventory").childCount != 0) this.transform.FindChild("Inventory").GetChild(0).GetComponent<PickUpAble>().PlaceItemInHand(player);
         }
         else if (Input.GetKeyUp(KeyCode.X))
         {
-            this.transform.FindChild("Hand").GetChild(0).GetComponent<PickUpAble>().PlaceItemInFrontOfInventory(player);
-            this.transform.FindChild("Inventory").GetChild(this.transform.FindChild("Inventory").childCount-1).GetComponent<PickUpAble>().PlaceItemInHand(player);
+            if (player.transform.FindChild("Hand").childCount != 0) this.transform.FindChild("Hand").GetChild(0).GetComponent<PickUpAble>().PlaceItemInFrontOfInventory(player);
+            if (this.transform.FindChild("Inventory").childCount != 0) this.transform.FindChild("Inventory").GetChild(this.transform.FindChild("Inventory").childCount-1).GetComponent<PickUpAble>().PlaceItemInHand(player);
         }
     }
 
