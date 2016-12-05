@@ -31,8 +31,8 @@ public class PhilMovement : MonoBehaviour {
 
     void LateUpdate()
     {
-        if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
-        {
+        //if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
+        //{
             Move();
 
             if (player.transform.FindChild("Hand").childCount != 0)
@@ -44,14 +44,14 @@ public class PhilMovement : MonoBehaviour {
             {
                 GetInteraction();
             }
-        }
-        else
-        {
-            if (Input.GetKeyUp("space"))
-            {
-                PhilDialogue.Instance.ContinueDialogue();
-            }
-        }
+        
+//        //else
+//        {
+//            if (Input.GetKeyUp("space"))
+//            {
+//                PhilDialogue.Instance.ContinueDialogue();
+            //}
+        //}
     }
 
     void Move()

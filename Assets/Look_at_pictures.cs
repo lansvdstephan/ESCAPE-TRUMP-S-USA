@@ -2,33 +2,34 @@
 using System.Collections;
 
 public class Look_at_pictures : PhilInteractable {
+	
 	public Animator anim; 
 	public string[] dialogue = new string[1];
-	int goBush = Animator.StringToHash("Bush");
 
-	IEnumerator WaitForKeyDown(KeyCode keyCode)
-	{
-		while (!Input.GetKeyDown(keyCode))
-			yield return null;
-	}
-
-	IEnumerator Dialogue() {
-			anim.SetTrigger (goBush);
-			PhilDialogue.Instance.AddNewDialogue (dialogue);
-			yield return StartCoroutine (WaitForKeyDown (KeyCode.Space));
-			anim.SetTrigger (goBush);
-			PhilDialogue.Instance.ContinueDialogue ();
-			anim.SetTrigger (goBush);
-	}
-		
+	public bool ready = false;
+	private int goBush = Animator.StringToHash("Bush");
 
 	public override void Interact(GameObject Interacted)
 	{
-		
 		if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
 		{
-			Dialogue ();
+			print("hint");
+			anim.SetTrigger (goBush);
+			ready = true;
+			PhilDialogue.Instance.AddNewDialogue(dialogue);
+
 		}
+		else if (ready)
+		{
+			PhilDialogue.Instance.ContinueDialogue();
+			anim.SetTrigger (goBush);
+			ready = false;
+		}
+		else 
+		{
+			PhilDialogue.Instance.ContinueDialogue();
+		}
+
 	}
 }
 
