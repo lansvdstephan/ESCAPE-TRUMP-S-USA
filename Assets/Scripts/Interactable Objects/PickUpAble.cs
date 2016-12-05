@@ -7,15 +7,22 @@ public class PickUpAble : PhilInteractable {
 
     public override void Interact(GameObject player)
     {
-		PhilDialogue.Instance.AddNewDialogue(this.foundDialog);
-        print("Interacted with object");
-        if (player.transform.FindChild("Hand").childCount == 0 )
+        if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
-            PlaceItemInHand(player);
+            PhilDialogue.Instance.AddNewDialogue(this.foundDialog);
+            print("Interacted with object");
+            if (player.transform.FindChild("Hand").childCount == 0)
+            {
+                PlaceItemInHand(player);
+            }
+            else
+            {
+                PlaceItemInBackOfInventory(player);
+            }
         }
         else
         {
-            PlaceItemInBackOfInventory(player);
+            PhilDialogue.Instance.ContinueDialogue();
         }
     }
 
