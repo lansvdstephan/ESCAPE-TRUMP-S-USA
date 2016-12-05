@@ -8,46 +8,65 @@ public class SwitchController : PhilInteractable {
     public int keyCode = 00; 
     public bool switchFlipped = false;
 	public string[] lockedDialogue;
-    
-	private string[] unLockedDialogue;
-    private string[] wrongKey;
+   	public string[] unLockedDialogue;
+    public string[] wrongKey;
 
 
     void Awake()
     {
-        //lockedDialogue = new string[1];
-        //lockedDialogue[0] = "It is locked.";
-        unLockedDialogue = new string[1];
-        unLockedDialogue[0] = "It is unlocked.";
-        wrongKey = new string[1];
-        wrongKey[0] = "This is the wrong key.";
+        if (lockedDialogue != null)
+        {
+            lockedDialogue = new string[1];
+            lockedDialogue[0] = "It is locked.";
+        }
+        if (lockedDialogue != null)
+        {
+            unLockedDialogue = new string[1];
+            unLockedDialogue[0] = "It is unlocked.";
+        }
+        if (wrongKey != null)
+        {
+            wrongKey = new string[1];
+            wrongKey[0] = "This is the wrong key.";
+        }
     }
 
     public override void Interact(GameObject Player)
     {
-        print("puched switch");
-        if (unlocked)
+        if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
-            switchFlipped = !switchFlipped;
-            if (switchFlipped)
+            print("puched switch");
+            if (unlocked)
             {
-                switched.GetComponent<Switchable>().SwitchOn();
+                switchFlipped = !switchFlipped;
+                if (switchFlipped)
+                {
+                    switched.GetComponent<Switchable>().SwitchOn();
+                }
+                else
+                {
+                    switched.GetComponent<Switchable>().SwitchOff();
+                }
             }
-            else
+            else if (Player.transform.FindChild("Hand").childCount != 0 && Player.transform.FindChild("Hand").GetChild(0).GetComponent<Key>() != null)
             {
-                switched.GetComponent<Switchable>().SwitchOff();
+                if (Player.transform.FindChild("Hand").GetChild(0).GetComponent<Key>().keyCode == this.keyCode)
+                {
+                    unlocked = true;
+                    switched.GetComponent<Switchable>().SwitchOn();
+                    PhilDialogue.Instance.AddNewDialogue(unLockedDialogue);
+                }
+                else PhilDialogue.Instance.AddNewDialogue(wrongKey);
+            }
+            else PhilDialogue.Instance.AddNewDialogue(lockedDialogue);
+        }
+        else
+        {
+            if (Input.GetKeyDown("space"))
+            {
+                PhilDialogue.Instance.ContinueDialogue();
             }
         }
-        else if(Player.transform.FindChild("Hand").childCount !=0 && Player.transform.FindChild("Hand").GetChild(0).GetComponent<Key>() != null)
-        {
-            if (Player.transform.FindChild("Hand").GetChild(0).GetComponent<Key>().keyCode == this.keyCode)
-            {
-                unlocked = true;
-				switched.GetComponent<Switchable>().SwitchOn();
-            }
-            else PhilDialogue.Instance.AddNewDialogue(wrongKey);
-        }
-        else  PhilDialogue.Instance.AddNewDialogue(lockedDialogue);
     }
 
 	public void Lock(){
