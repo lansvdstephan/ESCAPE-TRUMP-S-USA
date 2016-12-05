@@ -29,7 +29,14 @@ public class PickUpAble : PhilInteractable {
     //Doing a action with a pickup item
     public virtual void GetAction()
     {
-        print("Did action with Item");
+        if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
+        {
+            print("Did action with Item");
+        }
+        else
+        {
+            PhilDialogue.Instance.ContinueDialogue();
+        }
     }
 
     //placing a object in your hand
