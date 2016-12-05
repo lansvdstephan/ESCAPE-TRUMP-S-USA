@@ -7,16 +7,16 @@ public class SwitchController : PhilInteractable {
     public bool unlocked = true;
     public int keyCode = 00; 
     public bool switchFlipped = false;
-
-    private string[] lockedDialogue;
-    private string[] unLockedDialogue;
+	public string[] lockedDialogue;
+    
+	private string[] unLockedDialogue;
     private string[] wrongKey;
 
 
     void Awake()
     {
-        lockedDialogue = new string[1];
-        lockedDialogue[0] = "It is locked.";
+        //lockedDialogue = new string[1];
+        //lockedDialogue[0] = "It is locked.";
         unLockedDialogue = new string[1];
         unLockedDialogue[0] = "It is unlocked.";
         wrongKey = new string[1];
@@ -42,8 +42,8 @@ public class SwitchController : PhilInteractable {
         {
             if (Player.transform.FindChild("Hand").GetChild(0).GetComponent<Key>().keyCode == this.keyCode)
             {
-                PhilDialogue.Instance.AddNewDialogue(unLockedDialogue);
                 unlocked = true;
+				switched.GetComponent<Switchable>().SwitchOn();
             }
             else PhilDialogue.Instance.AddNewDialogue(wrongKey);
         }

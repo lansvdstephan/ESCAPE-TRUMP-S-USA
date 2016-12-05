@@ -17,7 +17,7 @@ public class Call_Elevator : Switchable{
 
 	// Use this for initialization
 	public override void SwitchOn() {
-		controller.GetComponent<SwitchController> ().enabled = false;
+		controller.tag = "Untagged";
 		anim.SetTrigger (goUpHash);
 	}
 
