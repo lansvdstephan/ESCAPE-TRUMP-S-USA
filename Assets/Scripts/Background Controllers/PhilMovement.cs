@@ -100,7 +100,7 @@ public class PhilMovement : MonoBehaviour {
             this.transform.FindChild("Hand").GetChild(0).GetComponent<CapsuleCollider>().enabled = true;
             this.transform.FindChild("Hand").DetachChildren();
             InventorySystem.Instance.SwitchInventoryImange();
-            InventorySystem.Instance.SwitchHandImange();
+            InventorySystem.Instance.SwitchHandImage();
 
         }
         else if (Input.GetKeyUp("space"))

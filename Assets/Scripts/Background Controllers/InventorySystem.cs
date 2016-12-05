@@ -6,7 +6,7 @@ public class InventorySystem : MonoBehaviour {
     public static InventorySystem Instance { get; set; }
     public GameObject inventoryPanel;
 
-    private Image handImange;
+    private Image handImage;
     private Image[] inventoryImage;
     private int numberOfImages;
 
@@ -14,10 +14,10 @@ public class InventorySystem : MonoBehaviour {
     {
         numberOfImages = inventoryPanel.transform.childCount - 1;
         inventoryImage = new Image[numberOfImages];
-        handImange = inventoryPanel.transform.FindChild("Hand Item").GetComponent<Image>();
+        handImage = inventoryPanel.transform.FindChild("Hand Item").GetComponent<Image>();
         for (int i = 0; i < numberOfImages; i++)
         {
-            inventoryImage[0] = inventoryPanel.transform.FindChild("Inventory Item" + i).GetComponent<Image>();
+            inventoryImage[i] = inventoryPanel.transform.FindChild("Inventory Item" + i).GetComponent<Image>();
         }
 
         if (Instance != null && Instance != this)
@@ -30,10 +30,17 @@ public class InventorySystem : MonoBehaviour {
         }
     }
 
-    public void SwitchHandImange()
+    public void SwitchHandImage()
     {
-        if (PhilMovement.player.transform.FindChild("Hand").childCount != 0) handImange.sprite = PhilMovement.player.transform.FindChild("Hand").GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite;
-        print("image switched");
+        if (PhilMovement.player.transform.FindChild("Hand").childCount != 0)
+        {
+            handImage.sprite = PhilMovement.player.transform.FindChild("Hand").GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite;
+        }
+        else
+        {
+            handImage.sprite = null;
+        }
+            print("image switched");
 
     }
 
@@ -50,6 +57,16 @@ public class InventorySystem : MonoBehaviour {
 
             }
         }
+        else
+        {
+            for (int i = 0; i < numberOfImages; i++)
+            {
+
+                inventoryImage[i].sprite = null;
+
+            }
+        }
+
     }
 
 }
