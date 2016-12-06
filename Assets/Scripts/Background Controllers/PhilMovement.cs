@@ -29,8 +29,9 @@ public class PhilMovement : MonoBehaviour {
         setHealthText();
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
+        // Prefend moving if Dialogue window opend
         if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
             Move();
@@ -83,15 +84,7 @@ public class PhilMovement : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Enemy"))
-        {
-            health = Max(health - 20, 0);
-            other.gameObject.SetActive(false);
-        }
-    }
-
+    // Pick up item and keys
     void GetPickUpInteraction()
     {
         // Dropping item if left shift is pressed else doing action if space is pressed
@@ -126,6 +119,28 @@ public class PhilMovement : MonoBehaviour {
         }
     }
 
+    void OnTriggerStay(Collider other)
+    {
+        // Picking up Items
+        if (other.CompareTag("Pickup Item") && Input.GetKeyUp("space"))
+        {
+            print("Picked up item.");
+            other.GetComponent<PhilInteractable>().Interact(player);
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+       
+        //Damage
+        if (other.CompareTag("Enemy"))
+        {
+            health = Max(health - 20, 0);
+            other.gameObject.SetActive(false);
+        }
+    }
+
+    // Health
     void setHealthText()
     {
         healthText.text = "Health: " + health.ToString();
