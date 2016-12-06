@@ -1,20 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Look_at_pictures : PhilInteractable {
+public class LookAtObject : PhilInteractable {
 	
-	public Animator anim; 
+	public Animator anim;
+	public string trigger;
 	public string[] dialogue = new string[1];
 
-	public bool ready = false;
-	private int goBush = Animator.StringToHash("Bush");
+	private bool ready = false;
 
 	public override void Interact(GameObject Interacted)
 	{
 		if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
 		{
 			print("hint");
-			anim.SetTrigger (goBush);
+			anim.SetTrigger (Animator.StringToHash(trigger));
 			ready = true;
 			PhilDialogue.Instance.AddNewDialogue(dialogue);
 
@@ -22,7 +22,7 @@ public class Look_at_pictures : PhilInteractable {
 		else if (ready)
 		{
 			PhilDialogue.Instance.ContinueDialogue();
-			anim.SetTrigger (goBush);
+			anim.SetTrigger (Animator.StringToHash(trigger));
 			ready = false;
 		}
 		else 
