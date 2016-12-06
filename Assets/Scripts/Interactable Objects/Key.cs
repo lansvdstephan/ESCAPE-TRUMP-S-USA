@@ -5,8 +5,9 @@ public class Key : PickUpAble {
 
     public int keyCode = 00;
 
-    public override void GetAction()
+    public override bool GetAction()
     {
         base.GetAction();
+        return false;
     }
 }

@@ -114,7 +114,10 @@ public class PhilMovement : MonoBehaviour {
         }
         else if (Input.GetKeyUp("space"))
         {
-            this.transform.FindChild("Hand").GetChild(0).GetComponent<PickUpAble>().GetAction();
+            if (this.transform.FindChild("Hand").GetChild(0).GetComponent<PickUpAble>().GetAction())
+            {
+                return;
+            }
             GetInteraction();
         }
     }
