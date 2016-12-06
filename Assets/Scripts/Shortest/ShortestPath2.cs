@@ -68,7 +68,6 @@ public class ShortestPath2 : MonoBehaviour
         closedSet.Add(playerPos);
         dist = getShortestDistance(playerPos);
         Initialisation();
-        Debug.Log(map);
         AstarAlgorithm();
         routes = getRoute();
         return routes;

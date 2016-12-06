@@ -6,7 +6,7 @@ public class MoveonPath : MonoBehaviour
 {
     public EditorPath pathToFolow;
     public PlayerSight fow;
-    public ShortestPath2 shortest;
+    public NavMeshAgent agent;
 
     public int currentWayPointID = 0;
     public int step = 0;
@@ -20,14 +20,12 @@ public class MoveonPath : MonoBehaviour
     public float c;
     public bool check;
     private bool test;
-    public List<Vector3> route = new List<Vector3>();
     // Use this for initialization
     void Start()
     {
-        c = Min(10.0f, 8f + 2.1f);
+        agent = GetComponent<NavMeshAgent>();
         test = fow.playerSeen;
         //pathToFolow = GameObject.Find(pathName).GetComponent<EditorPath>();
-        route = shortest.routes;
     }
 
     // Update is called once per frame
@@ -46,7 +44,6 @@ public class MoveonPath : MonoBehaviour
         }
         else if (check)
         {
-            route = shortest.routes;
             walkShortestRoute();
         }
         else
@@ -81,21 +78,9 @@ public class MoveonPath : MonoBehaviour
 
     void walkShortestRoute()
     {
-        float distance = Vector3.Distance(route[step], transform.position);
-        transform.position = Vector3.MoveTowards(transform.position, route[step], Time.deltaTime * speed); //Move from current position to next position
-
-        Quaternion rotation = Quaternion.LookRotation(route[step] - transform.position); // position we are going to minus the position we are looking at
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
-        if (distance <= reachDistance)
-        {
-            step++;
-        }
-
-        if (step == route.Count)
-        {
-            step = 0;
-            check = false;
-        }
+        agent.SetDestination(pathToFolow.path_objects[currentWayPointID].position);
+        check = false;
+        agent.Stop();
     }
 
     public float Min(float f1, float f2)
