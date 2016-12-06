@@ -7,6 +7,6 @@ public class Key : PickUpAble {
 
     public override void GetAction()
     {
-        print("keying");
+        base.GetAction();
     }
 }

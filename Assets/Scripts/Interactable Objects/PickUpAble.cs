@@ -5,24 +5,42 @@ using System.Collections.Generic;
 public class PickUpAble : PhilInteractable {
 	public string[] foundDialog;
 
+    private Quaternion originalRotation;
+
+    void Awake()
+    {
+        originalRotation = this.transform.rotation;
+    }
+
     public override void Interact(GameObject player)
     {
-		PhilDialogue.Instance.AddNewDialogue(this.foundDialog);
-        print("Interacted with object");
-        if (player.transform.FindChild("Hand").childCount == 0 )
+        if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
-            PlaceItemInHand(player);
+            if ( this.foundDialog != null) PhilDialogue.Instance.AddNewDialogue(this.foundDialog);
+            print("Interacted with object");
+            if (player.transform.FindChild("Hand").childCount == 0)
+            {
+                PlaceItemInHand(player);
+            }
+            else
+            {
+                PlaceItemInFrontOfInventory(player);
+                InventorySystem.Instance.SwitchInventoryImange();
+            }
         }
         else
         {
-            PlaceItemInBackOfInventory(player);
+            PhilDialogue.Instance.ContinueDialogue();
         }
     }
 
     //Doing a action with a pickup item
     public virtual void GetAction()
     {
-        print("Did action with Item");
+        if (PhilDialogue.Instance.dialoguePanel.activeSelf)
+        {
+            PhilDialogue.Instance.ContinueDialogue();
+        }
     }
 
     //placing a object in your hand
@@ -30,9 +48,10 @@ public class PickUpAble : PhilInteractable {
     {
         this.transform.parent = player.transform.FindChild("Hand").transform;
         this.transform.position = player.transform.FindChild("Hand").transform.position;
+        this.transform.localRotation = originalRotation;
         this.GetComponent<CapsuleCollider>().enabled = false;
 		this.gameObject.SetActive (true);
-        InventorySystem.Instance.SwitchHandImange();
+        InventorySystem.Instance.SwitchHandImage();
         InventorySystem.Instance.SwitchInventoryImange();
     }
 
@@ -43,15 +62,15 @@ public class PickUpAble : PhilInteractable {
         this.transform.position = player.transform.FindChild("Inventory").transform.position;
         this.GetComponent<CapsuleCollider>().enabled = false;
 		this.gameObject.SetActive (false);
-        InventorySystem.Instance.SwitchInventoryImange();
+        
     }
 
-    //placing a object in front o your inventory
+    //placing a object in front of your inventory
     public void PlaceItemInFrontOfInventory(GameObject player)
     {
         Transform Inventory = player.transform.FindChild("Inventory");
         this.GetComponent<CapsuleCollider>().enabled = false;
-		this.gameObject.SetActive (true);
+		this.gameObject.SetActive (false);
         this.transform.position = Inventory.transform.position;
         int children = Inventory.transform.childCount;
         print(children);
@@ -66,6 +85,6 @@ public class PickUpAble : PhilInteractable {
         {
             Items[i].SetParent(Inventory.transform);
         }
-        InventorySystem.Instance.SwitchInventoryImange();
+        
     }
 }
