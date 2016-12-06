@@ -8,16 +8,17 @@ public class PhilMovement : MonoBehaviour {
     public float speed;
     private int health;
     public Text healthText;
-  
+
     private Rigidbody rb;
-    private Quaternion Rotation = Quaternion.LookRotation(new Vector3(0,0,1));
+    private Quaternion Rotation = Quaternion.LookRotation(new Vector3(0, 0, 1));
+    private float viewRange = 1;
 
     void Awake()
     {
         player = this.gameObject;
     }
 
-    void Start ()
+    void Start()
     {
         health = 100;
         player = this.gameObject;
@@ -71,17 +72,32 @@ public class PhilMovement : MonoBehaviour {
 
     void GetInteraction()
     {
-        //Preforming Raycast and Interaction
-        Vector3 fwd = transform.TransformDirection(Vector3.forward);
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, fwd, out hit, 2))
-        {
-            if (Input.GetKeyUp("space") && hit.transform.gameObject.CompareTag("Interactable Object"))
+        if (Input.GetKeyUp("space")) {
+            //Preforming Raycast and Interaction
+            Vector3 fwd = transform.TransformDirection(Vector3.forward);
+            Vector3 Xas = new Vector3(1, 0, 0);
+            Quaternion zeroPoint = Quaternion.Euler(Xas);
+            Quaternion forwardRotation = Quaternion.Euler(fwd.normalized);
+            RaycastHit hit;
+
+            for (float i = -0.2f; i <= 0.2f; i = i + 0.1f)
             {
-                print("Interacted with object");
-                hit.transform.gameObject.GetComponent<PhilInteractable>().Interact(player);
+                for (float j = -0.2f; j <= 0.2f; j = j + 0.1f)
+                {
+                    Vector3 offset = new Vector3(i * Mathf.Sin(Quaternion.Angle(zeroPoint, forwardRotation)), j, i * Mathf.Cos(Quaternion.Angle(zeroPoint, forwardRotation)));
+                    if (Physics.Raycast(transform.position + offset, fwd, out hit, viewRange))
+                    {
+                        if (hit.transform.gameObject.CompareTag("Interactable Object"))
+                        {
+                            print("Interacted with object");
+                            hit.transform.gameObject.GetComponent<PhilInteractable>().Interact(player);
+                            return;
+                        }
+                    }
+                }
             }
         }
+
     }
 
     // Pick up item and keys
