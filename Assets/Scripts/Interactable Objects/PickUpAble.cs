@@ -5,6 +5,13 @@ using System.Collections.Generic;
 public class PickUpAble : PhilInteractable {
 	public string[] foundDialog;
 
+    private Quaternion originalRotation;
+
+    void Awake()
+    {
+        originalRotation = this.transform.rotation;
+    }
+
     public override void Interact(GameObject player)
     {
         if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
@@ -41,6 +48,7 @@ public class PickUpAble : PhilInteractable {
     {
         this.transform.parent = player.transform.FindChild("Hand").transform;
         this.transform.position = player.transform.FindChild("Hand").transform.position;
+        this.transform.localRotation = originalRotation;
         this.GetComponent<CapsuleCollider>().enabled = false;
 		this.gameObject.SetActive (true);
         InventorySystem.Instance.SwitchHandImage();
