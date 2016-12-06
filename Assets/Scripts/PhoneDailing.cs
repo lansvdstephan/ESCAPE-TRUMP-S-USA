@@ -9,8 +9,8 @@ public class PhoneDailing : PhilInteractable {
 		if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
 		{
 			print("hint");
-			if (dialogue != null) PhilDialogue.Instance.AddNewDialogue(dialogue);
 			GetComponent<AudioSource>().Play();
+			PhilDialogue.Instance.AddNewDialogue(dialogue);
 		}
 		else
 		{
