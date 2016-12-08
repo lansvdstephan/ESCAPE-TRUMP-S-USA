@@ -106,8 +106,6 @@ public class ShortestPath2 : MonoBehaviour
             surroundingPointsUpdate(currentPoint, currentInfo);
             currentPoint = findNextclosedPoint();
             currentInfo = infoMatrix[(int)currentPoint.x, (int)currentPoint.y];
-            Debug.Log(currentPoint);
-            Debug.Log(currentInfo);
             closedSet.Add(currentPoint);
         }
     }

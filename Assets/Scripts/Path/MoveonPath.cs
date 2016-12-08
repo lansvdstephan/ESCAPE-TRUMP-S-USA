@@ -15,16 +15,11 @@ public class MoveonPath : MonoBehaviour
     public float rotationSpeed = 5.0f;
 
     private float reachDistance = 1.0f; //difference between the centre of the enemy and the point created by the EditorPath
-    public string pathName;
-
-    public float c;
     public bool check;
-    private bool test;
     // Use this for initialization
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        test = fow.playerSeen;
         //pathToFolow = GameObject.Find(pathName).GetComponent<EditorPath>();
     }
 
@@ -35,6 +30,8 @@ public class MoveonPath : MonoBehaviour
         {
             speed = 2.0f;
             followPath();
+           
+
         }
         else if (fow.playerSeen)
         {
@@ -79,6 +76,8 @@ public class MoveonPath : MonoBehaviour
     void walkShortestRoute()
     {
         agent.SetDestination(pathToFolow.path_objects[currentWayPointID].position);
+        Quaternion rotation = Quaternion.LookRotation(pathToFolow.path_objects[currentWayPointID].position - transform.position); // position we are going to minus the position we are looking at
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
         check = false;
         agent.Stop();
     }
