@@ -16,6 +16,7 @@ public class MoveonPath : MonoBehaviour
 
     private float reachDistance = 1.0f; //difference between the centre of the enemy and the point created by the EditorPath
     public bool check;
+    public bool seePlayer;
     // Use this for initialization
     void Start()
     {
@@ -26,18 +27,24 @@ public class MoveonPath : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if (!fow.playerSeen && !check)
-        {
-            speed = 2.0f;
-            followPath();
-           
+        seePlayer = fow.playerSeen;
 
-        }
-        else if (fow.playerSeen)
+        if (fow.playerSeen)
         {
             speed = Min(maxSpeed, speed + 0.005f);
             followPlayer();
             check = true;
+        }
+
+        else if (fow.other)
+        {
+            walkToOther();
+        }
+
+        else if (!check)
+        {
+            speed = 2.0f;
+            followPath();
         }
         else if (check)
         {
@@ -81,6 +88,23 @@ public class MoveonPath : MonoBehaviour
         check = false;
         agent.Stop();
     }
+
+    void walkToOther()
+    {
+        Debug.Log(transform.position);
+        Debug.Log(fow.otherPosition);
+        agent.Resume();
+        agent.SetDestination(fow.otherPosition);
+        Quaternion rotation = Quaternion.LookRotation(fow.otherPosition - transform.position); // position we are going to minus the position we are looking at
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+        float eps = 0.5f;
+        if (Mathf.Abs(fow.otherPosition.x - transform.position.x) < eps && Mathf.Abs(fow.otherPosition.z - transform.position.z) < eps)
+        {
+            agent.Stop();
+            fow.other = false;
+        }
+    }
+
 
     public float Min(float f1, float f2)
     {

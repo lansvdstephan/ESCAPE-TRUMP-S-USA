@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
 public class PlayerSight : MonoBehaviour
@@ -17,16 +18,28 @@ public class PlayerSight : MonoBehaviour
     public bool playerSeen;
     public Vector3 playerPosition;
     public Vector3 playerLastSeen;
+    public Vector3 otherPosition;
+
+    public bool other;
+    public int otherIndex = -1;
+
+    //Test Zone
+    public bool[] test;
+    public int indexn;
+
 
 	// Use this for initialization
 	void Start ()
     {
         playerSeen = false;
+        other = false;
+        
     }
 
     void Update()
     {
         findPlayer();
+        findEnemy();
     }
     void findPlayer()
     {
@@ -80,6 +93,61 @@ public class PlayerSight : MonoBehaviour
         }
     }
 
+    void findEnemy()
+    {
+        GameObject [] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        float[] distances = new float[enemies.Length];
+        bool[] otherSee = new bool[enemies.Length];
+        for(int i =0; i < enemies.Length; i++)
+        {
+            distances[i] = Vector3.Distance(transform.position, enemies[i].transform.position);
+            otherSee[i] = enemies[i].GetComponent<PlayerSight>().playerSeen;
+        }
+        test = otherSee;
+        if (!other)
+        {
+            otherIndex = firstEnemySeesPlayer(otherSee);
+            if(otherIndex != -1 && otherIndex != getOwnIndex(distances))
+                other = true;
+        }
+        if(other)
+        {
+            if(otherSee[otherIndex])
+            {
+                otherPosition = enemies[otherIndex].transform.position;
+            }
+            else
+            {
+                if(otherPosition.Equals(transform.position))
+                {
+                    other = false;
+                    otherIndex = 1;
+                }
+            }
+        }
+
+    }
+    private int getOwnIndex(float [] distances)
+    {
+        for(int i = 0; i<distances.Length; i++)
+        {
+            if (distances[i] == 0f)
+                return i;
+        }
+
+        return -1;
+    }
+    private int firstEnemySeesPlayer(bool [] otherSee)
+    {
+        for(int i = 0; i < otherSee.Length;i++)
+        {
+            if (otherSee[i])
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
     public Vector3 directionFromAngle(float angleInDegrees, bool isGlobal)
     {
         if (!isGlobal)
