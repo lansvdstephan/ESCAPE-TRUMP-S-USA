@@ -7,7 +7,11 @@ public class Key : PickUpAble {
 
     public override bool GetAction()
     {
-        base.GetAction();
+        if (base.GetAction())
+        {
+            return true;
+        }
+        print("you a ass");
         return false;
     }
 }
