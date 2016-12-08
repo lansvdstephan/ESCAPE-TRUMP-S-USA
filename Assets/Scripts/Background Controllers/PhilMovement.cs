@@ -157,6 +157,13 @@ public class PhilMovement : MonoBehaviour {
             health = Max(health - 20, 0);
             other.gameObject.SetActive(false);
         }
+
+        //Health
+        if (other.CompareTag("Health"))
+        {
+            health = Min(health + 10, 100);
+            other.gameObject.SetActive(false);
+        }
     }
 
     // Health
@@ -168,6 +175,14 @@ public class PhilMovement : MonoBehaviour {
     private int Max(int f1, int f2)
     {
         if (f1 > f2)
+            return f1;
+        else
+            return f2;
+    }
+
+    private int Min(int f1, int f2)
+    {
+        if (f1 < f2)
             return f1;
         else
             return f2;
