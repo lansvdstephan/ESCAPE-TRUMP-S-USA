@@ -22,8 +22,6 @@ public class Random_Searching : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(transform.position);
-        Debug.Log(random);
         if (transform.position.x == random.x && transform.position.z == random.z)
         {
             random = pickRandomPoint();
