@@ -3,11 +3,13 @@ using System.Collections;
 
 public class Rotation : MonoBehaviour {
 
-   public Vector3 point1 = new Vector3();
-   public Vector3 point2 = new Vector3();
+   public Vector3 point1;
+    public Vector3 point2;
    private Vector3 pointToGo = new Vector3();
     // Use this for initialization
     void Start () {
+        point1 = new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z);
+        point2= new Vector3(transform.position.x, transform.position.y, transform.position.z);
         pointToGo = point2;
 	}
 	
