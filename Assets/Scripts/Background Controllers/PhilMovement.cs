@@ -10,6 +10,7 @@ public class PhilMovement : MonoBehaviour {
     public Text healthText;
 
     private Rigidbody rb;
+	private Animator anim;
     private Quaternion Rotation = Quaternion.LookRotation(new Vector3(0, 0, 1));
     private float viewRange = 1;
 
@@ -22,7 +23,8 @@ public class PhilMovement : MonoBehaviour {
     {
         health = 100;
         player = this.gameObject;
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody> ();
+		anim = GetComponent<Animator> (); 
     }
 
     void Update()
@@ -53,9 +55,16 @@ public class PhilMovement : MonoBehaviour {
         float v = Input.GetAxis("Vertical");
         float h = Input.GetAxis("Horizontal");
 
+
         // movement
         Vector3 movement = new Vector3(h, 0f, v);
-        movement = movement.normalized * speed * Time.deltaTime;
+
+		if (v != 0 || h != 0) {
+			anim.SetBool ("Walking", true);
+		} else if (v == 0 && h == 0) {
+			anim.SetBool ("Walking", false);
+		}
+		movement = movement.normalized * speed * Time.deltaTime;
         rb.MovePosition(transform.position + movement);
 
         // turning
