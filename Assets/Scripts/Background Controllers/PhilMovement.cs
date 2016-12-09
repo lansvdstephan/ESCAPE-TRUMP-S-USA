@@ -32,7 +32,7 @@ public class PhilMovement : MonoBehaviour {
         setHealthText();
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         // Prefend moving if Dialogue window opend
         if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
