@@ -8,8 +8,8 @@ public class Rotation : MonoBehaviour {
    private Vector3 pointToGo = new Vector3();
     // Use this for initialization
     void Start () {
-        point1 = new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z);
-        point2= new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        point1 = new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z);
+        point2= new Vector3(transform.position.x, transform.position.y + 0.2f, transform.position.z);
         pointToGo = point2;
 	}
 	
