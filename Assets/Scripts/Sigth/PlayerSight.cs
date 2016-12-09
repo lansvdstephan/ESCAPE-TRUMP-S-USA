@@ -5,7 +5,7 @@ using System;
 
 public class PlayerSight : MonoBehaviour
 {
-    [Range(0,360)]
+    [Range(0, 360)]
     public float sightAngle = 110.0f;
     public float sightRadius = 10.0f;
     public float angle;
@@ -28,12 +28,12 @@ public class PlayerSight : MonoBehaviour
     public int indexn;
 
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         playerSeen = false;
         other = false;
-        
+
     }
 
     void Update()
@@ -44,7 +44,7 @@ public class PlayerSight : MonoBehaviour
     void findPlayer()
     {
         //Get the position of an enemy
-        Vector3 enemyPosition = transform.position; 
+        Vector3 enemyPosition = transform.position;
         //Get the position of the player
         playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
         //Determine the distance between the enemy and the player
@@ -69,16 +69,18 @@ public class PlayerSight : MonoBehaviour
             angle = getAngle(playerRadiusC, playerPosition);
             Vector3 AngleD = directionFromAngle(angle, false);
             Vector3 playerRadiusD = transform.position + AngleD * getDistance(transform.position, playerPosition); //player point on the playerradius
-
+            Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + 1.8f, transform.position.z), distance*AngleD, Color.red,2f);
             //if player is in view Radius
-            if (angle < sightAngle/2 && angle > (sightAngle * -1)/2)
+            if (angle < sightAngle / 2 && angle > (sightAngle * -1) / 2)
             {
                 RaycastHit hit; //Kind of an boolean variable for raycast hitting
-                if (Physics.Raycast(transform.position,AngleD.normalized, out hit, distance))//send out a Raycast in the direction of the player
+                
+                if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 1.8f, transform.position.z), AngleD.normalized, out hit, distance))//send out a Raycast in the direction of the player
                 {
                     if (hit.transform.gameObject.CompareTag("Player"))//if the obstacle that is reacht by the ray is tagged by "Player", than the enemy found the player
                     {
                         playerSeen = true;
+                        Debug.Log(playerSeen);
                         playerLastSeen = playerPosition;
                     }
                     else
@@ -95,10 +97,10 @@ public class PlayerSight : MonoBehaviour
 
     void findEnemy()
     {
-        GameObject [] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         float[] distances = new float[enemies.Length];
         bool[] otherSee = new bool[enemies.Length];
-        for(int i =0; i < enemies.Length; i++)
+        for (int i = 0; i < enemies.Length; i++)
         {
             distances[i] = Vector3.Distance(transform.position, enemies[i].transform.position);
             otherSee[i] = enemies[i].GetComponent<PlayerSight>().playerSeen;
@@ -106,19 +108,22 @@ public class PlayerSight : MonoBehaviour
         test = otherSee;
         if (!other)
         {
-            otherIndex = firstEnemySeesPlayer(otherSee);
-            if(otherIndex != -1 && otherIndex != getOwnIndex(distances))
+            int index  = firstEnemySeesPlayer(otherSee);
+            if (index != -1 && index != getOwnIndex(distances))
+            {
+                otherIndex = index;
                 other = true;
+            }
         }
-        if(other)
+        if (other)
         {
-            if(otherSee[otherIndex])
+            if (otherSee[otherIndex])
             {
                 otherPosition = enemies[otherIndex].transform.position;
             }
             else
             {
-                if(otherPosition.Equals(transform.position))
+                if (otherPosition.Equals(transform.position))
                 {
                     other = false;
                     otherIndex = 1;
@@ -127,9 +132,9 @@ public class PlayerSight : MonoBehaviour
         }
 
     }
-    private int getOwnIndex(float [] distances)
+    private int getOwnIndex(float[] distances)
     {
-        for(int i = 0; i<distances.Length; i++)
+        for (int i = 0; i < distances.Length; i++)
         {
             if (distances[i] == 0f)
                 return i;
@@ -137,9 +142,9 @@ public class PlayerSight : MonoBehaviour
 
         return -1;
     }
-    private int firstEnemySeesPlayer(bool [] otherSee)
+    private int firstEnemySeesPlayer(bool[] otherSee)
     {
-        for(int i = 0; i < otherSee.Length;i++)
+        for (int i = 0; i < otherSee.Length; i++)
         {
             if (otherSee[i])
             {
@@ -184,7 +189,7 @@ public class PlayerSight : MonoBehaviour
     /**
      * Returns the distance between two points 
      */
-    public float getDistance(Vector3 pos1,Vector3 pos2)
+    public float getDistance(Vector3 pos1, Vector3 pos2)
     {
         Vector3 difference = new Vector3((pos1.x - pos2.x) * (pos1.x - pos2.x), (pos1.y - pos2.y) * (pos1.y - pos2.y), (pos1.z - pos2.z) * (pos1.z - pos2.z));
         float sum = difference.x + difference.y + difference.z;

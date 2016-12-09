@@ -31,16 +31,17 @@ public class MoveonPath : MonoBehaviour
 
         if (fow.playerSeen)
         {
+            agent.Stop();
             speed = Min(maxSpeed, speed + 0.005f);
             followPlayer();
             check = true;
         }
-
+        
         else if (fow.other)
         {
             walkToOther();
         }
-
+        
         else if (!check)
         {
             speed = 2.0f;
@@ -75,9 +76,10 @@ public class MoveonPath : MonoBehaviour
 
     void followPlayer()
     {
-        transform.position = Vector3.MoveTowards(transform.position, fow.playerLastSeen, Time.deltaTime * speed); //Move from current position to next position
+        agent.SetDestination(fow.playerLastSeen);
         Quaternion rotation = Quaternion.LookRotation(fow.playerLastSeen - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+        agent.Stop();
     }
 
     void walkShortestRoute()
