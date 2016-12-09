@@ -62,10 +62,7 @@ public class SwitchController : PhilInteractable {
         }
         else
         {
-            if (Input.GetKeyUp("space"))
-            {
-                PhilDialogue.Instance.ContinueDialogue();
-            }
+            PhilDialogue.Instance.ContinueDialogue();
         }
     }
 
