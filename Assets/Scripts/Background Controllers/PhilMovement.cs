@@ -13,6 +13,7 @@ public class PhilMovement : MonoBehaviour {
 	private Animator anim;
     private Quaternion Rotation = Quaternion.LookRotation(new Vector3(0, 0, 1));
     private float viewRange = 1;
+    private bool pickedUp;
 
     void Awake()
     {
@@ -32,7 +33,7 @@ public class PhilMovement : MonoBehaviour {
         setHealthText();
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         // Prefend moving if Dialogue window opend
         if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
@@ -41,7 +42,14 @@ public class PhilMovement : MonoBehaviour {
         }
         if (player.transform.FindChild("Hand").childCount != 0)
         {
-            GetPickUpInteraction();
+            if (pickedUp)
+            {
+                GetPickUpInteraction();
+            }
+            else
+            {
+                pickedUp = true;
+            }
         }
         else
         {
@@ -58,7 +66,7 @@ public class PhilMovement : MonoBehaviour {
 
         // movement
         Vector3 movement = new Vector3(h, 0f, v);
-
+        
 		if (v != 0 || h != 0) {
 			anim.SetBool ("Walking", true);
 		} else if (v == 0 && h == 0) {
@@ -154,6 +162,7 @@ public class PhilMovement : MonoBehaviour {
         {
             print("Picked up item.");
             other.GetComponent<PhilInteractable>().Interact(player);
+            pickedUp = false;
         }
     }
 
