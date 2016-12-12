@@ -72,6 +72,7 @@ public class PhilMovement : MonoBehaviour {
 		} else if (v == 0 && h == 0) {
 			anim.SetBool ("Walking", false);
 		}
+        
 		movement = movement.normalized * speed * Time.deltaTime;
         rb.MovePosition(transform.position + movement);
 
