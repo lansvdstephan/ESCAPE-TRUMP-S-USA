@@ -10,7 +10,7 @@ public class PlayerSight : MonoBehaviour
     public float sightRadius = 10.0f;
     public float angle;
 
-    public LayerMask playerMask;
+    public float hearRadius = 20.0f;
 
     public float distance;
     public GameObject player;
@@ -20,25 +20,44 @@ public class PlayerSight : MonoBehaviour
     public Vector3 playerLastSeen;
     public Vector3 otherPosition;
 
-    public bool other;
+    public bool sees;
+    public bool hear;
     public int otherIndex = -1;
+    public Vector3 toGo = Vector3.zero; 
+
+
+    public GameObject[] enemies;
+    public float[] distances;
+    public bool[] currOther;
 
     //Test Zone
     public bool[] test;
     public int indexn;
+    public bool raycast;
+    public int seeing;
 
 
     // Use this for initialization
     void Start()
     {
         playerSeen = false;
-        other = false;
-
+        sees = false;
+        hear = false;
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        distances = new float[enemies.Length];
+        currOther = new bool[enemies.Length];
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            distances[i] = Vector3.Distance(transform.position, enemies[i].transform.position);
+            currOther[i] = enemies[i].GetComponent<PlayerSight>().playerSeen;
+        }
     }
 
     void Update()
     {
         findPlayer();
+        raycast = EnemyRaycast(enemies[0].transform.position, enemies[1].transform.position, 10f);
+        seeing = firstEnemySeesPlayer();
         findEnemy();
     }
     void findPlayer()
@@ -80,7 +99,6 @@ public class PlayerSight : MonoBehaviour
                     if (hit.transform.gameObject.CompareTag("Player"))//if the obstacle that is reacht by the ray is tagged by "Player", than the enemy found the player
                     {
                         playerSeen = true;
-                        Debug.Log(playerSeen);
                         playerLastSeen = playerPosition;
                     }
                     else
@@ -94,45 +112,45 @@ public class PlayerSight : MonoBehaviour
             playerSeen = false;
         }
     }
-
+    
     void findEnemy()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        float[] distances = new float[enemies.Length];
-        bool[] otherSee = new bool[enemies.Length];
         for (int i = 0; i < enemies.Length; i++)
         {
             distances[i] = Vector3.Distance(transform.position, enemies[i].transform.position);
-            otherSee[i] = enemies[i].GetComponent<PlayerSight>().playerSeen;
+            currOther[i] = enemies[i].GetComponent<PlayerSight>().playerSeen;
         }
-        test = otherSee;
-        if (!other)
+
+        //If an enemy still hasn't seen another enemy which saw to player --> Keep seaching(hearing/seeing)
+        if(!sees )
         {
-            int index  = firstEnemySeesPlayer(otherSee);
-            if (index != -1 && index != getOwnIndex(distances))
+            int index = firstEnemySeesPlayer();
+            indexn = index;
+            if(index != -1)
             {
+                sees = true;
                 otherIndex = index;
-                other = true;
+                toGo = enemies[otherIndex].transform.position + ( -2 *  transform.forward);
             }
         }
-        if (other)
+        if(sees)
         {
-            if (otherSee[otherIndex])
+            if(otherIndex != -1 && currOther[otherIndex])
             {
-                otherPosition = enemies[otherIndex].transform.position;
+                toGo = enemies[otherIndex].transform.position + (-2 * transform.forward);
             }
             else
             {
-                if (otherPosition.Equals(transform.position))
-                {
-                    other = false;
-                    otherIndex = 1;
-                }
+                sees = false;
+                otherIndex = -1;
             }
         }
-
     }
-    private int getOwnIndex(float[] distances)
+
+    /*
+     * Returns its own enemy index
+     */ 
+    private int getOwnIndex()
     {
         for (int i = 0; i < distances.Length; i++)
         {
@@ -142,17 +160,38 @@ public class PlayerSight : MonoBehaviour
 
         return -1;
     }
-    private int firstEnemySeesPlayer(bool[] otherSee)
+
+    /*
+     * Returns the index of the first enemie that sees the player, where the enemy is not far away
+     */ 
+    private int firstEnemySeesPlayer()
     {
-        for (int i = 0; i < otherSee.Length; i++)
+        for (int i = 0; i < currOther.Length; i++)
         {
-            if (otherSee[i])
+            if(currOther[i] && i != getOwnIndex())
             {
-                return i;
+                //Debug.Log((distances[i] <= sightRadius) + ";" + EnemyRaycast(enemies[getOwnIndex()].transform.position, enemies[i].transform.position, sightRadius));
+                Debug.Log((distances[i] <= sightRadius) + ";" + hear);
+                if (distances[i]<= sightRadius && EnemyRaycast(enemies[getOwnIndex()].transform.position, enemies[i].transform.position, sightRadius))
+                {
+                    sees = true;
+                    return i;
+                }
+     
+                else if (distances[i] <= hearRadius && hear == false)
+                {
+                    hear = true;
+                    toGo = enemies[i].transform.position + (-1 * transform.forward);
+                    return -1;
+                }
             }
         }
         return -1;
     }
+
+    /**
+     * Returns the direction of an angle
+     */
     public Vector3 directionFromAngle(float angleInDegrees, bool isGlobal)
     {
         if (!isGlobal)
@@ -178,6 +217,25 @@ public class PlayerSight : MonoBehaviour
         return angle;
     }
 
+    /**
+     * Looks wheter two objects can see eachother
+     * Checked
+     */ 
+    public bool EnemyRaycast(Vector3 pos1, Vector3 pos2, float dist)
+    {
+        Vector3 newDirection = pos2 - pos1;
+        RaycastHit hit; //Kind of an boolean variable for raycast hitting
+        Debug.DrawRay(pos1, newDirection,Color.blue,2f);
+        if (Physics.Raycast(pos1, newDirection.normalized, out hit, dist))//send out a Raycast in the direction of the player
+        {
+            if (hit.transform.gameObject.CompareTag("Enemy"))//if the obstacle that is reacht by the ray is tagged by "Player", than the enemy found the player
+            {
+                return true;
+            }
+            return false;
+        }
+                return false;
+    }
     /**
      * Returns the Euclidean length of a vector
      */
