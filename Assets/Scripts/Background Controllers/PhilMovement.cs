@@ -66,13 +66,13 @@ public class PhilMovement : MonoBehaviour {
 
         // movement
         Vector3 movement = new Vector3(h, 0f, v);
-        
+        /*
 		if (v != 0 || h != 0) {
 			anim.SetBool ("Walking", true);
 		} else if (v == 0 && h == 0) {
 			anim.SetBool ("Walking", false);
 		}
-        
+        -*/
 		movement = movement.normalized * speed * Time.deltaTime;
         rb.MovePosition(transform.position + movement);
 
