@@ -7,7 +7,6 @@ public class PhilDialogue : MonoBehaviour {
     public static PhilDialogue Instance { get; set; }
     public GameObject dialoguePanel;
 
-    private Button continueButton;
     private List<string> dialogueLines;
     private Text dialogueText;
     private int dialogueIndex;

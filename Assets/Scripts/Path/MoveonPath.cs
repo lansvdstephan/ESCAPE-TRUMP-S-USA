@@ -35,12 +35,12 @@ public class MoveonPath : MonoBehaviour
             followPlayer();
             check = true;
         }
-
-        else if (fow.other)
+        
+        else if (fow.sees || fow.hear)
         {
             walkToOther();
         }
-
+        
         else if (!check)
         {
             speed = 2.0f;
@@ -75,34 +75,42 @@ public class MoveonPath : MonoBehaviour
 
     void followPlayer()
     {
-        transform.position = Vector3.MoveTowards(transform.position, fow.playerLastSeen, Time.deltaTime * speed); //Move from current position to next position
+        agent.Resume();
+        agent.SetDestination(fow.playerLastSeen);
         Quaternion rotation = Quaternion.LookRotation(fow.playerLastSeen - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
     }
 
     void walkShortestRoute()
     {
+        agent.Resume();
         agent.SetDestination(pathToFolow.path_objects[currentWayPointID].position);
         Quaternion rotation = Quaternion.LookRotation(pathToFolow.path_objects[currentWayPointID].position - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
-        check = false;
-        agent.Stop();
+        float eps = 0.5f;
+        if (Mathf.Abs(pathToFolow.path_objects[currentWayPointID].position.x - transform.position.x) < eps && Mathf.Abs(pathToFolow.path_objects[currentWayPointID].position.z - transform.position.z) < eps)
+        {
+            agent.Stop();
+            check = false;
+        }
     }
 
     void walkToOther()
     {
-        Debug.Log(transform.position);
-        Debug.Log(fow.otherPosition);
-        agent.Resume();
-        agent.SetDestination(fow.otherPosition);
-        Quaternion rotation = Quaternion.LookRotation(fow.otherPosition - transform.position); // position we are going to minus the position we are looking at
+        agent.SetDestination(fow.toGo);
+        Quaternion rotation = Quaternion.LookRotation(fow.toGo - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+        Debug.Log(transform.position == (fow.toGo));
         float eps = 0.5f;
-        if (Mathf.Abs(fow.otherPosition.x - transform.position.x) < eps && Mathf.Abs(fow.otherPosition.z - transform.position.z) < eps)
+        if (Mathf.Abs(fow.toGo.x - transform.position.x) < eps && Mathf.Abs(fow.toGo.z - transform.position.z) < eps)
         {
             agent.Stop();
-            fow.other = false;
+            fow.hear = false;
+            fow.sees = false;
+            check = true;
         }
+        
+
     }
 
 
