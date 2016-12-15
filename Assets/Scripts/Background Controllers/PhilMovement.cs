@@ -71,9 +71,7 @@ public class PhilMovement : MonoBehaviour {
 
 
         // movement
-<<<<<<< HEAD
-		Vector3 movement = new Vector3(h, 0f, v);
-=======
+
         Vector3 movement = new Vector3(h, 0f, v);
 
 
