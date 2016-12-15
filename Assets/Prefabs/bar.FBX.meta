@@ -1,0 +1,248 @@
+fileFormatVersion: 2
+guid: 3ae279dd2ffa775448fbe0838913618d
+timeCreated: 1481795557
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: bar
+    100002: //RootNode
+    100004: bar metal
+    100006: bar mirror
+    100008: bar mirror 1
+    100010: bar mirror 2
+    100012: bar mirror 3
+    100014: bar mirror 4
+    100016: bar mirror 5
+    100018: bar mirror 6
+    100020: Block:priz
+    100022: Block:priz 1
+    100024: Block:spot
+    100026: Block:spot 1
+    100028: Block:spot 2
+    100030: Block:spot04
+    100032: Block:wallwasher02
+    100034: Box1578958127
+    100036: Box1578958128
+    100038: Box1578958129
+    100040: Box1578958130
+    100042: Box1578958131
+    100044: Box1578958132
+    100046: Box1578958133
+    100048: Box1578958134
+    100050: Box1578958135
+    100052: Box1578958136
+    100054: Box1578958137
+    100056: Box1578958138
+    100058: Box1578958139
+    100060: Box1578958140
+    100062: Box1578958141
+    100064: Box1578958142
+    100066: Box1578958143
+    100068: Box1578958144
+    100070: Box1578958145
+    100072: Box1578958146
+    100074: Box1578958147
+    100076: Box1578958148
+    100078: Layer:priz
+    400000: //RootNode
+    400002: bar
+    400004: bar metal
+    400006: bar mirror
+    400008: bar mirror 1
+    400010: bar mirror 2
+    400012: bar mirror 3
+    400014: bar mirror 4
+    400016: bar mirror 5
+    400018: bar mirror 6
+    400020: Block:priz
+    400022: Block:priz 1
+    400024: Block:spot
+    400026: Block:spot 1
+    400028: Block:spot 2
+    400030: Block:spot04
+    400032: Block:wallwasher02
+    400034: Box1578958127
+    400036: Box1578958128
+    400038: Box1578958129
+    400040: Box1578958130
+    400042: Box1578958131
+    400044: Box1578958132
+    400046: Box1578958133
+    400048: Box1578958134
+    400050: Box1578958135
+    400052: Box1578958136
+    400054: Box1578958137
+    400056: Box1578958138
+    400058: Box1578958139
+    400060: Box1578958140
+    400062: Box1578958141
+    400064: Box1578958142
+    400066: Box1578958143
+    400068: Box1578958144
+    400070: Box1578958145
+    400072: Box1578958146
+    400074: Box1578958147
+    400076: Box1578958148
+    400078: Layer:priz
+    2300000: bar
+    2300002: bar metal
+    2300004: bar mirror
+    2300006: bar mirror 1
+    2300008: bar mirror 2
+    2300010: bar mirror 3
+    2300012: bar mirror 4
+    2300014: bar mirror 5
+    2300016: bar mirror 6
+    2300018: Box1578958127
+    2300020: Box1578958128
+    2300022: Box1578958129
+    2300024: Box1578958130
+    2300026: Box1578958131
+    2300028: Box1578958132
+    2300030: Box1578958133
+    2300032: Box1578958134
+    2300034: Box1578958135
+    2300036: Box1578958136
+    2300038: Box1578958137
+    2300040: Box1578958138
+    2300042: Box1578958139
+    2300044: Box1578958140
+    2300046: Box1578958141
+    2300048: Box1578958142
+    2300050: Box1578958143
+    2300052: Box1578958144
+    2300054: Box1578958145
+    2300056: Box1578958146
+    2300058: Box1578958147
+    2300060: Box1578958148
+    2300062: Layer:priz
+    3300000: bar
+    3300002: bar metal
+    3300004: bar mirror
+    3300006: bar mirror 1
+    3300008: bar mirror 2
+    3300010: bar mirror 3
+    3300012: bar mirror 4
+    3300014: bar mirror 5
+    3300016: bar mirror 6
+    3300018: Box1578958127
+    3300020: Box1578958128
+    3300022: Box1578958129
+    3300024: Box1578958130
+    3300026: Box1578958131
+    3300028: Box1578958132
+    3300030: Box1578958133
+    3300032: Box1578958134
+    3300034: Box1578958135
+    3300036: Box1578958136
+    3300038: Box1578958137
+    3300040: Box1578958138
+    3300042: Box1578958139
+    3300044: Box1578958140
+    3300046: Box1578958141
+    3300048: Box1578958142
+    3300050: Box1578958143
+    3300052: Box1578958144
+    3300054: Box1578958145
+    3300056: Box1578958146
+    3300058: Box1578958147
+    3300060: Box1578958148
+    3300062: Layer:priz
+    4300000: Layer:priz
+    4300002: bar
+    4300004: bar metal
+    4300006: bar mirror
+    4300008: bar mirror
+    4300010: bar mirror
+    4300012: bar mirror
+    4300014: bar mirror
+    4300016: bar mirror
+    4300018: bar mirror
+    4300020: Box1578958127
+    4300022: Box1578958128
+    4300024: Box1578958129
+    4300026: Box1578958130
+    4300028: Box1578958131
+    4300030: Box1578958132
+    4300032: Box1578958133
+    4300034: Box1578958134
+    4300036: Box1578958135
+    4300038: Box1578958136
+    4300040: Box1578958137
+    4300042: Box1578958138
+    4300044: Box1578958139
+    4300046: Box1578958140
+    4300048: Box1578958141
+    4300050: Box1578958142
+    4300052: Box1578958143
+    4300054: Box1578958144
+    4300056: Box1578958145
+    4300058: Box1578958146
+    4300060: Box1578958147
+    4300062: Box1578958148
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
