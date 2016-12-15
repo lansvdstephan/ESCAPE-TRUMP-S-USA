@@ -74,17 +74,6 @@ public class PhilMovement : MonoBehaviour {
 
         Vector3 movement = new Vector3(h, 0f, v);
 
-
-
-        
-		//if (v != 0 || h != 0) {
-		//	anim.SetBool ("Walking", true);
-		//} else if (v == 0 && h == 0) {
-		//	anim.SetBool ("Walking", false);
-		//}
-        
->>>>>>> 03102d719c137858aadcbcd298b00faa946da12f
-
 		movement = movement.normalized * speed * Time.deltaTime;
         rb.MovePosition(transform.position + movement);
 
