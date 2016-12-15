@@ -6,6 +6,7 @@ public class Call_Elevator : Switchable{
 
 	public Animator anim; 
 	public GameObject controller;
+	public GameObject player;
 	public string nextLevelName;
 	int goUpHash = Animator.StringToHash("Go up");
 	int goDownHash = Animator.StringToHash("Go down");
@@ -22,14 +23,16 @@ public class Call_Elevator : Switchable{
 	}
 
 	public IEnumerator NextLevel(){
-		float sec = 1.4f;
+		float sec = 2f;
 		yield return new WaitForSeconds (sec);
 		PhilMovement.player.SetActive(false);
-		yield return new WaitForSeconds (1);
+		yield return new WaitForSeconds (sec);
 		SceneManager.LoadScene(nextLevelName);
 	}
 
 	public override void SwitchOff() {
+		player.GetComponent<PhilMovement>().enabled = false;
+		player.GetComponent<Animator> ().SetBool ("Walking", false);
 		anim.SetTrigger (goDownHash);
 		StartCoroutine(NextLevel());
 	}
