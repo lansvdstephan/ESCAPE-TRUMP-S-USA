@@ -15,6 +15,7 @@ public class PhilMovement : MonoBehaviour {
     private float viewRange = 1;
 
 	private int animWalkingHash = Animator.StringToHash("Walking");
+    private int animPickupHash = Animator.StringToHash("Pickup");
 
     private bool pickedUp;
 
@@ -48,6 +49,7 @@ public class PhilMovement : MonoBehaviour {
             if (pickedUp)
             {
                 GetPickUpInteraction();
+                PickupAnimations();
             }
             else
             {
@@ -73,13 +75,13 @@ public class PhilMovement : MonoBehaviour {
 
 
 
-        /*
-		if (v != 0 || h != 0) {
-			anim.SetBool ("Walking", true);
-		} else if (v == 0 && h == 0) {
-			anim.SetBool ("Walking", false);
-		}
-        -*/
+        
+		//if (v != 0 || h != 0) {
+		//	anim.SetBool ("Walking", true);
+		//} else if (v == 0 && h == 0) {
+		//	anim.SetBool ("Walking", false);
+		//}
+        
 
 		movement = movement.normalized * speed * Time.deltaTime;
         rb.MovePosition(transform.position + movement);
@@ -229,4 +231,10 @@ public class PhilMovement : MonoBehaviour {
 			anim.SetBool (animWalkingHash, false);
 		}
 	}
+
+    void PickupAnimations()
+    {
+        anim.SetBool(animPickupHash, true);
+        anim.SetBool(animPickupHash, false);
+    }
 }
