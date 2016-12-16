@@ -10,7 +10,7 @@ public class smartSearching : MonoBehaviour
     public int previous;
     public int current;
     public int next;
-
+    public Vector3 pointToGO = new Vector3();
     //Test-Zone
     public List<float> test = new List<float>();
     public List<float> test2 = new List<float>();
@@ -35,24 +35,26 @@ public class smartSearching : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update ()
+    public void Update ()
     {
-        moveToNextPoint(next);
     }
     
 
 
-    private void moveToNextPoint(int index)
+    public void moveToNextPoint()
     {
-        transform.position = Vector3.MoveTowards(transform.position, grid[index].transform.position, Time.deltaTime * 4.0f);
-        Quaternion rotation = Quaternion.LookRotation(grid[index].transform.position - transform.position); // position we are going to minus the position we are looking at
+        transform.position = Vector3.MoveTowards(transform.position, grid[next].transform.position, Time.deltaTime * 2.0f);
+        Quaternion rotation = Quaternion.LookRotation(grid[next].transform.position - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10f);
-        if(transform.position == grid[index].transform.position)
+        Debug.Log(transform.position == grid[next].transform.position);
+        float eps = 0.1f;
+        if(Mathf.Abs(transform.position.x - grid[next].transform.position.x) <eps && Mathf.Abs(transform.position.z - grid[next].transform.position.z) < eps)
         {
-            times_visited[index] = times_visited[index] + 1;
+            times_visited[next] = times_visited[next] + 1;
             previous = current;
             current = next;
             next = chanceList();
+            pointToGO = grid[next].transform.position;
         }
 
     }
