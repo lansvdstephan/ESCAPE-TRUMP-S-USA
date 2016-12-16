@@ -17,6 +17,7 @@ public class smartSearching : MonoBehaviour
     public List<int> testi = new List<int>();
     public List<int> testi2 = new List<int>();
 
+    public float randi = 0f;
     public float ftest = 0f;
     public int itest = 0;
 
@@ -28,7 +29,7 @@ public class smartSearching : MonoBehaviour
         grid = cE.grid_points;
         visitable = allPoints();
         times_visited[0] = 1;
-        previous = 0;
+        previous = 13;
         current = 0;
         next = 1;
     }
@@ -93,7 +94,8 @@ public class smartSearching : MonoBehaviour
             }
         }
 
-        double random = Random.Range(0f, 1f);
+        float random = Random.Range(0f, 1f);
+        randi = random;
         int indexNextPoint = 0;
         for (int i = 0; i < currVisited.Count; i++)
         {
