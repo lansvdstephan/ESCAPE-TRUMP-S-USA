@@ -30,13 +30,6 @@ public class PlayerSight : MonoBehaviour
     public float[] distances;
     public bool[] currOther;
 
-    //Test Zone
-    public bool[] test;
-    public int indexn;
-    public bool raycast;
-    public int seeing;
-
-
     // Use this for initialization
     void Start()
     {
@@ -56,8 +49,6 @@ public class PlayerSight : MonoBehaviour
     void Update()
     {
         findPlayer();
-        raycast = EnemyRaycast(enemies[0].transform.position, enemies[1].transform.position, 10f);
-        seeing = firstEnemySeesPlayer();
         findEnemy();
     }
     void findPlayer()
@@ -115,6 +106,7 @@ public class PlayerSight : MonoBehaviour
     
     void findEnemy()
     {
+        //Updates the distances and the enemies that sees the player
         for (int i = 0; i < enemies.Length; i++)
         {
             distances[i] = Vector3.Distance(transform.position, enemies[i].transform.position);
@@ -125,7 +117,6 @@ public class PlayerSight : MonoBehaviour
         if(!sees )
         {
             int index = firstEnemySeesPlayer();
-            indexn = index;
             if(index != -1)
             {
                 sees = true;
@@ -133,6 +124,7 @@ public class PlayerSight : MonoBehaviour
                 toGo = enemies[otherIndex].transform.position + ( -2 *  transform.forward);
             }
         }
+        //When another enemy which is seeing the player is found --> Update the position ToGO until player escaped
         if(sees)
         {
             if(otherIndex != -1 && currOther[otherIndex])
