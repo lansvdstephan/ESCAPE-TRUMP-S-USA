@@ -92,6 +92,11 @@ public class ShortestPath2 : MonoBehaviour
             path.Add(point);
         }
         path.Reverse(0, path.Count);
+
+        for(int i = 1; i < route.Count; i++)
+        {
+            Debug.DrawLine(path[i - 1], path[i], Color.black);
+        }
         return path;
     }
 
@@ -125,7 +130,7 @@ public class ShortestPath2 : MonoBehaviour
                 if (!isObject(temp))
                     map[j, i] = 1;
                 else
-                    map[j, i] = 0;
+                    map[j, i] = 0; 
             }
         }
 

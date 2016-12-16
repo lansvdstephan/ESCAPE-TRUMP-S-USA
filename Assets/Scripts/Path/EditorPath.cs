@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class EditorPath : MonoBehaviour
 {
-    public Color rayColor = Color.white;
+    public Color rayColor = Color.black;
     public List<Transform> path_objects = new List<Transform> ();
     Transform[] theArray;
 

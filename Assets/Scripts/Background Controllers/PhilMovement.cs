@@ -5,6 +5,7 @@ using System;
 
 public class PhilMovement : MonoBehaviour {
     public static GameObject player;
+    public MoveonPath mop;
     public float speed;
     private int health;
     public Text healthText;
@@ -174,7 +175,7 @@ public class PhilMovement : MonoBehaviour {
         if (other.CompareTag("Enemy"))
         {
             health = Max(health - 20, 0);
-            other.gameObject.SetActive(false);
+            mop.hitPlayer = true;
         }
 
         //Health
