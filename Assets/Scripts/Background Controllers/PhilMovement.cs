@@ -14,7 +14,12 @@ public class PhilMovement : MonoBehaviour {
 	private Animator anim;
     private Quaternion Rotation = Quaternion.LookRotation(new Vector3(0, 0, 1));
     private float viewRange = 1;
+
+	private int animWalkingHash = Animator.StringToHash("Walking");
+    private int animPickupHash = Animator.StringToHash("Pickup");
+
     private bool pickedUp;
+
 
     void Awake()
     {
@@ -26,7 +31,7 @@ public class PhilMovement : MonoBehaviour {
         health = 100;
         player = this.gameObject;
         rb = GetComponent<Rigidbody> ();
-		anim = GetComponent<Animator> (); 
+		anim = GetComponent<Animator> ();
     }
 
     void Update()
@@ -37,8 +42,7 @@ public class PhilMovement : MonoBehaviour {
     void LateUpdate()
     {
         // Prefend moving if Dialogue window opend
-        if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
-        {
+        if (!PhilDialogue.Instance.dialoguePanel.activeSelf) {
             Move();
         }
         if (player.transform.FindChild("Hand").childCount != 0)
@@ -46,6 +50,7 @@ public class PhilMovement : MonoBehaviour {
             if (pickedUp)
             {
                 GetPickUpInteraction();
+                PickupAnimations();
             }
             else
             {
@@ -57,6 +62,7 @@ public class PhilMovement : MonoBehaviour {
             GetInteraction();
         }
         SwitchingItems();
+		MovementAnimations ();
     }
 
     void Move()
@@ -66,14 +72,9 @@ public class PhilMovement : MonoBehaviour {
 
 
         // movement
+
         Vector3 movement = new Vector3(h, 0f, v);
-        
-		if (v != 0 || h != 0) {
-			anim.SetBool ("Walking", true);
-		} else if (v == 0 && h == 0) {
-			anim.SetBool ("Walking", false);
-		}
-        
+
 		movement = movement.normalized * speed * Time.deltaTime;
         rb.MovePosition(transform.position + movement);
 
@@ -206,5 +207,26 @@ public class PhilMovement : MonoBehaviour {
             return f1;
         else
             return f2;
+    }
+
+	void MovementAnimations(){
+		float v = Input.GetAxis("Vertical");
+		float h = Input.GetAxis("Horizontal");
+		
+		if (v != 0 || h != 0) {
+			anim.SetBool (animWalkingHash, true);
+		}
+		if (v == 0 && h == 0) {
+			anim.SetBool (animWalkingHash, false);
+		}
+		else if (PhilDialogue.Instance.dialoguePanel.activeSelf){
+			anim.SetBool (animWalkingHash, false);
+		}
+	}
+
+    void PickupAnimations()
+    {
+        anim.SetBool(animPickupHash, true);
+        anim.SetBool(animPickupHash, false);
     }
 }
