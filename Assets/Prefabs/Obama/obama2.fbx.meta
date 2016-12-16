@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: fbb90f401a8eecd46aa625473ee82a0c
-timeCreated: 1481798079
+timeCreated: 1481814777
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -231,11 +231,17 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
-    animationImportErrors: 
+    animationImportErrors: '
+
+      Imported file ''obama2'' conversion failed: Transform ''lowerleg.L'' is not
+      an ancestor of ''footcontroller.L''
+
+
+'
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -254,7 +260,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 1
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -486,7 +492,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 1
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
