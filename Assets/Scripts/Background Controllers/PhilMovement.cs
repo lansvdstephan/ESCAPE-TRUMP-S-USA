@@ -12,7 +12,7 @@ public class PhilMovement : MonoBehaviour {
 
     private Rigidbody rb;
 	private Animator anim;
-    private Quaternion Rotation = Quaternion.LookRotation(new Vector3(0, 0, 1));
+    private Quaternion Rotation;
     private float viewRange = 1;
 
 	private int animWalkingHash = Animator.StringToHash("Walking");
@@ -23,6 +23,7 @@ public class PhilMovement : MonoBehaviour {
 
     void Awake()
     {
+		Rotation = this.transform.rotation;
         player = this.gameObject;
     }
 
