@@ -16,9 +16,12 @@ public class PhilMovement : MonoBehaviour {
     private float viewRange = 1;
 
 	private int animWalkingHash = Animator.StringToHash("Walking");
-    private int animPickupHash = Animator.StringToHash("Pickup");
+    private int animPickupHash = Animator.StringToHash("PickupTrigger");
 
     private bool pickedUp;
+    public bool blockedMovement = false;
+
+    
 
 
     void Awake()
@@ -42,7 +45,7 @@ public class PhilMovement : MonoBehaviour {
     void LateUpdate()
     {
         // Prefend moving if Dialogue window opend
-        if (!PhilDialogue.Instance.dialoguePanel.activeSelf) {
+        if (!PhilDialogue.Instance.dialoguePanel.activeSelf&&!blockedMovement) {
             Move();
         }
         if (player.transform.FindChild("Hand").childCount != 0)
@@ -50,7 +53,6 @@ public class PhilMovement : MonoBehaviour {
             if (pickedUp)
             {
                 GetPickUpInteraction();
-                PickupAnimations();
             }
             else
             {
@@ -63,6 +65,7 @@ public class PhilMovement : MonoBehaviour {
         }
         SwitchingItems();
 		MovementAnimations ();
+        PickupAnimations();
     }
 
     void Move()
@@ -226,7 +229,14 @@ public class PhilMovement : MonoBehaviour {
 
     void PickupAnimations()
     {
-        anim.SetBool(animPickupHash, true);
-        anim.SetBool(animPickupHash, false);
+        if (Input.GetKeyUp("space"))
+            if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
+            {
+                blockedMovement = true;
+                anim.SetTrigger(animPickupHash);
+                //TODO: Wait until animation is finished
+                blockedMovement = false;    
+            }
     }
+
 }
