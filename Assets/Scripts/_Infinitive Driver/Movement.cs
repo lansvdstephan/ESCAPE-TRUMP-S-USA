@@ -6,7 +6,7 @@ using System;
 public class Movement : MonoBehaviour {
     public float speed = 1;
 
-    private float fuel = 10;
+    private float fuel = 100;
     public Text fuelText;
 	
 	// Update is called once per frame
@@ -33,14 +33,22 @@ public class Movement : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstackle"))
-        {
-            Destroy(this.gameObject);
-        }
         if (other.CompareTag("Fuel"))
         {
             this.fuel += 10;
             Destroy(other.gameObject);
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Obstackle"))
+        {
+            Destroy(this.gameObject);
+        }
+        if (collision.gameObject.CompareTag("Building"))
+        {
+            Destroy(this.gameObject);
         }
     }
 }
