@@ -15,7 +15,8 @@ public class Movement : MonoBehaviour {
         if (fuel > 0)
         {
             float h = Input.GetAxis("Horizontal");
-            Vector3 movement = new Vector3(h, 0, 1);
+            float v = Input.GetAxis("Vertical");
+            Vector3 movement = new Vector3(h, 0, 2 + v);
             movement = movement * speed * Time.deltaTime;
             this.transform.position = this.transform.position + movement;
             fuel -= Time.deltaTime * 2;
