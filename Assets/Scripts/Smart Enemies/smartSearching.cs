@@ -344,7 +344,6 @@ public class smartSearching : MonoBehaviour
     {
 
         smop.timeLeft2 = smop.timeLeft2 - Time.deltaTime;
-        Debug.Log(smop.timeLeft2);
         if (smop.timeLeft2 > 2f)
             transform.Rotate(new Vector3(0, 90, 0) * Time.deltaTime);
         else if (smop.timeLeft2 > 0)

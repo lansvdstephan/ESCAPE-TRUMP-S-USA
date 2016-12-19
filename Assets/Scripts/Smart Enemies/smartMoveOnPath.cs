@@ -44,15 +44,21 @@ public class smartMoveOnPath : MonoBehaviour
 
         else if (fow.playerSeen)
         {
+            check = true;
             speed = Min(maxSpeed, speed + 0.005f);
             followPlayer();
-            check = true;
             firstTime = false;
+            firstpoint = false;
+            pause = false;
+            count = 0;
         }
 
         else if (fow.sees || fow.hear)
         {
             walkToOther();
+            firstTime = false;
+            firstpoint = false;
+            pause = false;
         }
 
         else if (!check)
@@ -79,11 +85,14 @@ public class smartMoveOnPath : MonoBehaviour
                 moveToRandom();
             }
            
-                   
         }
         else
         {
+            firstTime = false;
+            firstpoint = false;
+            pause = false;
         }
+        Debug.Log(check);   
     }
 
     void pauseMovement()
@@ -182,9 +191,10 @@ public class smartMoveOnPath : MonoBehaviour
         float eps = 0.1f;
         if (Mathf.Abs(toGo.x - transform.position.x) < eps && Mathf.Abs(toGo.z - transform.position.z) < eps)
         {
-            agent.Stop();
             firstpoint = false;
             pause = true;
+            agent.Stop();
+            
         }
     }
     public float Min(float f1, float f2)
