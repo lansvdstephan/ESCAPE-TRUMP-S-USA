@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: 3ae279dd2ffa775448fbe0838913618d
-timeCreated: 1481795557
+guid: 24842a82026474949a936bb95951b695
+timeCreated: 1482157437
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: bar
-    100002: //RootNode
+    100000: //RootNode
+    100002: bar
     100004: bar metal
     100006: bar mirror
     100008: bar mirror 1
@@ -45,8 +45,8 @@ ModelImporter:
     100074: Box1578958147
     100076: Box1578958148
     100078: Layer:priz
-    400000: //RootNode
-    400002: bar
+    400000: bar
+    400002: //RootNode
     400004: bar metal
     400006: bar mirror
     400008: bar mirror 1
