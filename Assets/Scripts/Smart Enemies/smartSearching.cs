@@ -306,7 +306,7 @@ public class smartSearching : MonoBehaviour
     }
     */
 
-    public int getClosestPoint(Vector3 target)
+    public int getClosestPoint()
     {
         pointDistances();
         Vector2 mini = Minf(distancesToLastSeen2);

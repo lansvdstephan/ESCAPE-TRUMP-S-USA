@@ -10,7 +10,7 @@ public class PlayerSight : MonoBehaviour
     public float sightRadius = 10.0f;
     public float angle;
 
-    public float hearRadius = 20.0f;
+    public float hearRadius = 10.0f;
 
     public float distance;
     public GameObject player;
