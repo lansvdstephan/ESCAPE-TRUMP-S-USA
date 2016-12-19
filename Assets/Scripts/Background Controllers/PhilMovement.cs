@@ -8,13 +8,13 @@ public class PhilMovement : MonoBehaviour {
     public MoveonPath mop;
     public smartMoveOnPath smop;
     public float speed;
-    private int health;
+    public int health;
     public Text healthText;
 
     private Rigidbody rb;
     private GameObject hand;
 	private Animator anim;
-    private Quaternion Rotation = Quaternion.LookRotation(new Vector3(0, 0, 1));
+    private Quaternion Rotation;
     private float viewRange = 1;
 
 	private int animWalkingHash = Animator.StringToHash("Walking");
@@ -25,6 +25,7 @@ public class PhilMovement : MonoBehaviour {
 
     void Awake()
     {
+		Rotation = this.transform.rotation;
         player = this.gameObject;
         hand = this.transform.FindChild("Armature").FindChild("Bone").FindChild("handik.R").FindChild("handik.R_end").FindChild("Hand").gameObject;
     }
@@ -174,13 +175,12 @@ public class PhilMovement : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-       
         //Damage
         if (other.CompareTag("Enemy"))
         {
             health = Max(health - 20, 0);
-            mop.hitPlayer = true;
             smop.hitPlayer = true;
+            mop.hitPlayer = true;
         }
 
         //Health

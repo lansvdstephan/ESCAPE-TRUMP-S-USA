@@ -5,10 +5,16 @@ public class StartGame : MonoBehaviour{
 
 	public string[] dialogue;
 	public GameObject dialoguePanel;
+	public Animator trump;
+	public Animator camera;
+
+	private bool stop = true;
+	private int counter;
 
 	// Use this for initialization
 	void Start() {
 		print("start game");
+		camera.SetTrigger ("TV");
 		PhilDialogue.Instance.AddNewDialogue(dialogue);
 	}
 	
@@ -17,9 +23,19 @@ public class StartGame : MonoBehaviour{
 		if (Input.GetKeyUp ("space")) {
 			if (dialoguePanel.activeSelf) {
 				PhilDialogue.Instance.ContinueDialogue ();
+
+				counter++;
 			}
 		} else if (!dialoguePanel.activeSelf) {
+			camera.SetTrigger ("TV");
 			Destroy (this);
+		}
+		if (counter == 8) {
+			if (stop) {
+				stop = false;
+				print ("Playing door kicking sounds");
+				trump.SetTrigger ("Trump at the door");
+			}
 		}
 	}
 }

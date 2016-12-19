@@ -11,4 +11,8 @@ public class StripeMovement : MonoBehaviour {
         this.transform.position = this.transform.position + movement;
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        speed = 0;
+    }
 }

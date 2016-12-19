@@ -7,12 +7,13 @@ public class smartMoveOnPath : MonoBehaviour
     public PlayerSight fow;
     public NavMeshAgent agent;
     public smartSearching ss;
-  
+    public PhilMovement player;
     public int step = 0;
     public float speed = 2.0f;
     public float maxSpeed = 3.0f;
     public float rotationSpeed = 5.0f;
     public float timeLeft2 = 3f;
+    public bool damageTaken = false;
 
     private float reachDistance = 1.0f; //difference between the centre of the enemy and the point created by the EditorPath
     public bool check;
@@ -44,15 +45,21 @@ public class smartMoveOnPath : MonoBehaviour
 
         else if (fow.playerSeen)
         {
+            check = true;
             speed = Min(maxSpeed, speed + 0.005f);
             followPlayer();
-            check = true;
             firstTime = false;
+            firstpoint = false;
+            pause = false;
+            count = 0;
         }
 
         else if (fow.sees || fow.hear)
         {
             walkToOther();
+            firstTime = false;
+            firstpoint = false;
+            pause = false;
         }
 
         else if (!check)
@@ -79,11 +86,14 @@ public class smartMoveOnPath : MonoBehaviour
                 moveToRandom();
             }
            
-                   
         }
         else
         {
+            firstTime = false;
+            firstpoint = false;
+            pause = false;
         }
+        TakeDamage();   
     }
 
     void pauseMovement()
@@ -91,7 +101,7 @@ public class smartMoveOnPath : MonoBehaviour
         timeLeft -= Time.deltaTime;
         if (timeLeft < 0)
         {
-            
+            damageTaken = false;
             hitPlayer = false;
             timeLeft = 1f;
         }
@@ -182,9 +192,22 @@ public class smartMoveOnPath : MonoBehaviour
         float eps = 0.1f;
         if (Mathf.Abs(toGo.x - transform.position.x) < eps && Mathf.Abs(toGo.z - transform.position.z) < eps)
         {
-            agent.Stop();
             firstpoint = false;
             pause = true;
+            agent.Stop();
+            
+        }
+    }
+
+    private void TakeDamage()
+    {
+        float dist = Vector3.Distance(transform.position, player.transform.position);
+        Debug.Log(dist);
+        if(!damageTaken && dist < 1.25f)
+        {
+            damageTaken = true;
+            hitPlayer = true;
+            player.health = player.health - 20;
         }
     }
     public float Min(float f1, float f2)
