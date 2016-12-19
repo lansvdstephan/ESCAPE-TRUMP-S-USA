@@ -5,6 +5,7 @@ using System;
 
 public class PhilMovement : MonoBehaviour {
     public static GameObject player;
+    public static GameObject hand;
     public MoveonPath mop;
     public smartMoveOnPath smop;
     public float speed;
@@ -12,7 +13,6 @@ public class PhilMovement : MonoBehaviour {
     public Text healthText;
 
     private Rigidbody rb;
-    private GameObject hand;
 	private Animator anim;
     private Quaternion Rotation;
     private float viewRange = 1;

@@ -45,9 +45,9 @@ public class CarInteract : PhilInteractable {
                 //player.GetComponent<Rigidbody> ().useGravity = false;
                 this.GetComponent<CarControl>().enabled = true;
             }
-            else if (player.transform.FindChild("Hand").childCount != 0 && player.transform.FindChild("Hand").GetChild(0).GetComponent<Key>() != null)
+            else if (PhilMovement.hand.transform.childCount != 0 && PhilMovement.hand.transform.GetChild(0).GetComponent<Key>() != null)
             {
-                if (player.transform.FindChild("Hand").GetChild(0).GetComponent<Key>().keyCode == this.keyCode)
+                if (PhilMovement.hand.transform.GetChild(0).GetComponent<Key>().keyCode == this.keyCode)
                 {
                     unlocked = true;
                     PhilDialogue.Instance.AddNewDialogue(unLockedDialogue);
