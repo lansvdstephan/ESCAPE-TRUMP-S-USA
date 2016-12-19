@@ -6,6 +6,7 @@ using System;
 public class PhilMovement : MonoBehaviour {
     public static GameObject player;
     public MoveonPath mop;
+    public smartMoveOnPath smop;
     public float speed;
     private int health;
     public Text healthText;
@@ -178,6 +179,7 @@ public class PhilMovement : MonoBehaviour {
         {
             health = Max(health - 20, 0);
             mop.hitPlayer = true;
+            smop.hitPlayer = true;
         }
 
         //Health
