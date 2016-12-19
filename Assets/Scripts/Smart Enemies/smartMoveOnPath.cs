@@ -7,12 +7,13 @@ public class smartMoveOnPath : MonoBehaviour
     public PlayerSight fow;
     public NavMeshAgent agent;
     public smartSearching ss;
-  
+    public PhilMovement player;
     public int step = 0;
     public float speed = 2.0f;
     public float maxSpeed = 3.0f;
     public float rotationSpeed = 5.0f;
     public float timeLeft2 = 3f;
+    public bool damageTaken = false;
 
     private float reachDistance = 1.0f; //difference between the centre of the enemy and the point created by the EditorPath
     public bool check;
@@ -92,7 +93,7 @@ public class smartMoveOnPath : MonoBehaviour
             firstpoint = false;
             pause = false;
         }
-        Debug.Log(check);   
+        TakeDamage();   
     }
 
     void pauseMovement()
@@ -100,7 +101,7 @@ public class smartMoveOnPath : MonoBehaviour
         timeLeft -= Time.deltaTime;
         if (timeLeft < 0)
         {
-            
+            damageTaken = false;
             hitPlayer = false;
             timeLeft = 1f;
         }
@@ -195,6 +196,18 @@ public class smartMoveOnPath : MonoBehaviour
             pause = true;
             agent.Stop();
             
+        }
+    }
+
+    private void TakeDamage()
+    {
+        float dist = Vector3.Distance(transform.position, player.transform.position);
+        Debug.Log(dist);
+        if(!damageTaken && dist < 1.25f)
+        {
+            damageTaken = true;
+            hitPlayer = true;
+            player.health = player.health - 20;
         }
     }
     public float Min(float f1, float f2)

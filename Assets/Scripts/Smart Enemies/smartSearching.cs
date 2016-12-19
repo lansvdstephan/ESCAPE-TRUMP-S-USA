@@ -451,7 +451,7 @@ public class smartSearching : MonoBehaviour
     //Checked
     private bool isObject(Vector3 p1)
     {
-        float extraRange = 0.5f;
+        float extraRange = 0.6f;
         float heigth = 10f;
         int count = 0;
         Vector3 toCompare = p1;

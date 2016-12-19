@@ -8,7 +8,7 @@ public class PhilMovement : MonoBehaviour {
     public MoveonPath mop;
     public smartMoveOnPath smop;
     public float speed;
-    private int health;
+    public int health;
     public Text healthText;
 
     private Rigidbody rb;
@@ -173,13 +173,12 @@ public class PhilMovement : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-       
         //Damage
         if (other.CompareTag("Enemy"))
         {
             health = Max(health - 20, 0);
-            mop.hitPlayer = true;
             smop.hitPlayer = true;
+            mop.hitPlayer = true;
         }
 
         //Health
