@@ -17,13 +17,13 @@ public class smartSearching : MonoBehaviour
     public bool firstPoint;
     private float timeLeft = 3f;
     public Vector3 furtherToGO = new Vector3();
+    private int max = 0;
 
     //Test-Zone
     public List<float> test = new List<float>();
     public List<float> test2 = new List<float>();
     public List<int> testi = new List<int>();
     public List<int> testi2 = new List<int>();
-
 
     public List<float> distancesToLastSeen2 = new List<float>();
 
@@ -386,8 +386,21 @@ public class smartSearching : MonoBehaviour
         furtherToGO = transform.position + dirToGo *randomDistance;
         if(isObject(furtherToGO))
         {
-            randomPoint();
+            max = max + 1;
+            if (max < 100)
+                randomPoint();
+            else
+            {
+               
+                smop.check = false;
+                smop.firstpoint = false;
+                smop.firstTime = false;
+                smop.pause = false;
+                smop.agent.Stop();
+            }
+
         }
+        max = 0;
         Debug.DrawLine(transform.position, furtherToGO, Color.black);
         return furtherToGO;
     }
@@ -438,7 +451,7 @@ public class smartSearching : MonoBehaviour
     //Checked
     private bool isObject(Vector3 p1)
     {
-        float extraRange = 0.5f;
+        float extraRange = 0.6f;
         float heigth = 10f;
         int count = 0;
         Vector3 toCompare = p1;

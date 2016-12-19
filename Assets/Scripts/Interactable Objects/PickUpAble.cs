@@ -6,6 +6,7 @@ public class PickUpAble : PhilInteractable {
 	public string[] foundDialog;
 
     private Quaternion originalRotation;
+    private GameObject hand;
 
     void Awake()
     {
@@ -14,11 +15,13 @@ public class PickUpAble : PhilInteractable {
 
     public override void Interact(GameObject player)
     {
+        hand = player.transform.FindChild("Armature").FindChild("Bone").FindChild("handik.R").FindChild("handik.R_end").FindChild("Hand").gameObject;
+    
         if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
             if ( this.foundDialog != null) PhilDialogue.Instance.AddNewDialogue(this.foundDialog);
             print("Interacted with object");
-            if (player.transform.FindChild("Hand").childCount == 0)
+            if (hand.transform.childCount == 0)
             {
                 PlaceItemInHand(player);
             }
@@ -48,8 +51,8 @@ public class PickUpAble : PhilInteractable {
     //placing a object in your hand
     public void PlaceItemInHand(GameObject player)
     {
-        this.transform.parent = player.transform.FindChild("Hand").transform;
-        this.transform.position = player.transform.FindChild("Hand").transform.position;
+        this.transform.parent = hand.transform;
+        this.transform.position = hand.transform.position;
         this.transform.localRotation = originalRotation;
         this.GetComponent<CapsuleCollider>().enabled = false;
 		this.gameObject.SetActive (true);

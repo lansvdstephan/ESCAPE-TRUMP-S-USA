@@ -7,6 +7,8 @@ public class MoveonPath : MonoBehaviour
     public EditorPath pathToFolow;
     public PlayerSight fow;
     public NavMeshAgent agent;
+    public PhilMovement player;
+    public bool damageTaken = false;
 
     public int currentWayPointID = 0;
     public int step = 0;
@@ -57,6 +59,7 @@ public class MoveonPath : MonoBehaviour
         else
         {
         }
+        TakeDamage();
     }
 
     void pauseMovement()
@@ -64,6 +67,7 @@ public class MoveonPath : MonoBehaviour
         timeLeft -= Time.deltaTime;
         if (timeLeft < 0)
         {
+            damageTaken = false;
             hitPlayer = false;
             timeLeft = 1f;
         }
@@ -128,6 +132,17 @@ public class MoveonPath : MonoBehaviour
 
     }
 
+    private void TakeDamage()
+    {
+        float dist = Vector3.Distance(transform.position, player.transform.position);
+        Debug.Log(dist);
+        if (!damageTaken && dist < 1.25f)
+        {
+            damageTaken = true;
+            hitPlayer = true;
+            player.health = player.health - 20;
+        }
+    }
 
     public float Min(float f1, float f2)
     {
