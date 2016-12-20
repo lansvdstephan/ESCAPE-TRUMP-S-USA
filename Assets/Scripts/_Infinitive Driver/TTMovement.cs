@@ -4,12 +4,20 @@ using System.Collections;
 public class TTMovement : MonoBehaviour
 {
     public GameObject player;
+    public Transform firePoint;
+
+    [Header("Shooting")]
+    public GameObject bulletPrefab;
+    public float fireRate = 1f;
+    private float fireCountdown = 0f;
 
     private Vector3 offset;
     private float minDistance = 10;
+    private float maxDistance = 60;
     private float[] hArr;
     private float hBorder = 0.65f;
     private float speed;
+    
 
     void Awake()
     {
@@ -32,15 +40,35 @@ public class TTMovement : MonoBehaviour
         float h = GetHorizontalMovement();
         Vector3 movement = new Vector3(h, 0, 2);
         movement = movement * speed * Time.deltaTime;
-        if (this.transform.position.z - player.transform.position.z > minDistance)
+        this.transform.position = this.transform.position + movement;
+        // prefenting the tank to come to close or to go to far
+        if (this.transform.position.z - player.transform.position.z < minDistance)
         {
-            this.transform.position = this.transform.position + movement;
-        }
-        else
-        {
-            this.transform.position = this.transform.position + movement;
             this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, player.transform.position.z + minDistance);
         }
+        else if (this.transform.position.z - player.transform.position.z > maxDistance)
+        {
+            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, player.transform.position.z + maxDistance);
+        }
+
+        // prefenting the tank to leave the road
+        if (this.transform.position.x < -14f)
+        {
+            this.transform.position = new Vector3(-14f, this.transform.position.y, this.transform.position.z);
+        }
+        else if (this.transform.position.x  > 4f)
+        {
+            this.transform.position = new Vector3( 4f, this.transform.position.y, this.transform.position.z);
+        }
+
+
+
+        if (player != null && fireCountdown <= 0f)
+        {
+            Shoot();
+            fireCountdown = 1f / fireRate;
+        }
+        fireCountdown -= Time.deltaTime;
     }
 
     float GetHorizontalMovement()
@@ -59,5 +87,14 @@ public class TTMovement : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
 
+    }
+
+    void Shoot()
+    {
+        GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Bullet bullet = bulletGO.GetComponent<Bullet>();
+
+        if (bullet != null)
+            bullet.Seek(player.transform);
     }
 }
