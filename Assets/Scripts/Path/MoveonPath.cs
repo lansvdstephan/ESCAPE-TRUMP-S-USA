@@ -7,9 +7,8 @@ public class MoveonPath : MonoBehaviour
     public EditorPath pathToFolow;
     public PlayerSight fow;
     public NavMeshAgent agent;
-
-    private Animator guardAnim;
-    private int animWalkingHash = Animator.StringToHash("GuardWalking");
+    public PhilMovement player;
+    public bool damageTaken = false;
 
     public int currentWayPointID = 0;
     public int step = 0;
@@ -60,19 +59,18 @@ public class MoveonPath : MonoBehaviour
         else
         {
         }
+        TakeDamage();
     }
 
     void pauseMovement()
     {
-        //guardAnim.SetBool(animWalkingHash, false);
         timeLeft -= Time.deltaTime;
         if (timeLeft < 0)
         {
+            damageTaken = false;
             hitPlayer = false;
             timeLeft = 1f;
-            //guardAnim.SetBool(animWalkingHash, true);
         }
-        
     }
 
     void followPath()
@@ -134,6 +132,17 @@ public class MoveonPath : MonoBehaviour
 
     }
 
+    private void TakeDamage()
+    {
+        float dist = Vector3.Distance(transform.position, player.transform.position);
+        Debug.Log(dist);
+        if (!damageTaken && dist < 1.25f)
+        {
+            damageTaken = true;
+            hitPlayer = true;
+            player.health = player.health - 20;
+        }
+    }
 
     public float Min(float f1, float f2)
     {
