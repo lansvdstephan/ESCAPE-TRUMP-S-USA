@@ -5,6 +5,7 @@ using System;
 
 public class Movement : MonoBehaviour {
     public float speed = 1;
+    public float correctedSpeed;
 
     private float fuel = 100;
     public Text fuelText;
@@ -16,7 +17,8 @@ public class Movement : MonoBehaviour {
         {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
-            Vector3 movement = new Vector3(h, 0, 2 - v);
+            Vector3 movement = new Vector3(h, 0, 2 + v);
+            correctedSpeed = speed * (2 + v);
             movement = movement * speed * Time.deltaTime;
             this.transform.position = this.transform.position + movement;
             fuel -= Time.deltaTime * 2;

@@ -15,8 +15,8 @@ public class Bullet : MonoBehaviour {
     public void Seek(Transform _target)
     {
         targetPosition = _target.position;
-        float targetSpeed = _target.GetComponent<Movement>().speed;
-        float zCorrection = ((this.transform.position - targetPosition).magnitude / (speed+targetSpeed*2)) * targetSpeed * 2;
+        float targetSpeed = _target.GetComponent<Movement>().correctedSpeed;
+        float zCorrection = ((this.transform.position - targetPosition).magnitude / (speed+targetSpeed)) * targetSpeed;
         targetPosition = new Vector3(targetPosition.x, targetPosition.y, targetPosition.z +zCorrection);
     }
 
