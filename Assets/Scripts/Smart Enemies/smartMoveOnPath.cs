@@ -7,30 +7,19 @@ public class smartMoveOnPath : MonoBehaviour
     public PlayerSight fow;
     public NavMeshAgent agent;
     public smartSearching ss;
-    public PhilMovement player;
+  
     public int step = 0;
     public float speed = 2.0f;
     public float maxSpeed = 3.0f;
     public float rotationSpeed = 5.0f;
-    public float timeLeft2 = 3f;
-    public bool damageTaken = false;
 
     private float reachDistance = 1.0f; //difference between the centre of the enemy and the point created by the EditorPath
     public bool check;
     public bool hitPlayer;
-    public bool firstpoint;
-    public bool pause;
-    public bool firstTime;
-    public Vector3 toGo;
-
-    private int count = 0;
     private float timeLeft = 1f;
     // Use this for initialization
     void Start()
     {
-        firstpoint = false;
-        pause = false;
-        firstTime = false;
         agent = GetComponent<NavMeshAgent>();
         //pathToFolow = GameObject.Find(pathName).GetComponent<EditorPath>();
     }
@@ -45,55 +34,28 @@ public class smartMoveOnPath : MonoBehaviour
 
         else if (fow.playerSeen)
         {
-            check = true;
             speed = Min(maxSpeed, speed + 0.005f);
             followPlayer();
-            firstTime = false;
-            firstpoint = false;
-            pause = false;
-            count = 0;
+            check = true;
         }
 
         else if (fow.sees || fow.hear)
         {
             walkToOther();
-            firstTime = false;
-            firstpoint = false;
-            pause = false;
         }
 
         else if (!check)
         {
             speed = 2.0f;
             searchSmart();
-            firstTime = false;
-            firstpoint = false;
-            pause = false;
         }
         else if (check)
         {
-            if (!firstpoint && !pause)
-            {
-                nextPoint();
-            }
-            else if (pause)
-            {
-                firstTime = false;
-                ss.pauseMovement();
-            }
-            else if (firstpoint && !pause)
-            {
-                moveToRandom();
-            }
-           
+            walkShortestRoute();
         }
         else
         {
-            firstTime = false;
-            firstpoint = false;
-            pause = false;
         }
-        TakeDamage();   
     }
 
     void pauseMovement()
@@ -101,7 +63,6 @@ public class smartMoveOnPath : MonoBehaviour
         timeLeft -= Time.deltaTime;
         if (timeLeft < 0)
         {
-            damageTaken = false;
             hitPlayer = false;
             timeLeft = 1f;
         }
@@ -136,7 +97,7 @@ public class smartMoveOnPath : MonoBehaviour
         agent.SetDestination(fow.toGo);
         Quaternion rotation = Quaternion.LookRotation(fow.toGo - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
-        //Debug.Log(transform.position == (fow.toGo));
+        Debug.Log(transform.position == (fow.toGo));
         float eps = 0.5f;
         if (Mathf.Abs(fow.toGo.x - transform.position.x) < eps && Mathf.Abs(fow.toGo.z - transform.position.z) < eps)
         {
@@ -150,66 +111,8 @@ public class smartMoveOnPath : MonoBehaviour
     void searchSmart()
     {
         ss.moveToNextPoint();
-        check = false;
     }
 
-    void nextPoint()
-    {
-        agent.Resume();
-        int nextpoint = ss.getClosestPoint();
-        agent.SetDestination(ss.grid[nextpoint].transform.position);
-        Quaternion rotation = Quaternion.LookRotation(ss.grid[nextpoint].transform.position - transform.position); // position we are going to minus the position we are looking at
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10f);
-        float eps = 0.0005f;
-        if (transform.position.x - ss.grid[nextpoint].transform.position.x <eps && transform.position.z - ss.grid[nextpoint].transform.position.z < eps)
-        {
-            count = count + 1;
-            firstpoint = true;
-            pause = true;
-            ss.times_visited[nextpoint] = ss.times_visited[nextpoint] + 1;
-            agent.Stop();
-            if (count == 2)
-            {
-                count = 0;
-                check = false;
-                pause = false;
-                firstpoint = false;
-            }
-        }
-    }
-
-    void moveToRandom()
-    {
-        agent.Resume();
-        if (!firstTime)
-        {
-            toGo = ss.randomPoint();
-            firstTime = true;
-        }
-        agent.SetDestination(toGo);
-        Quaternion rotation = Quaternion.LookRotation(toGo - transform.position); // position we are going to minus the position we are looking at
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
-        float eps = 0.1f;
-        if (Mathf.Abs(toGo.x - transform.position.x) < eps && Mathf.Abs(toGo.z - transform.position.z) < eps)
-        {
-            firstpoint = false;
-            pause = true;
-            agent.Stop();
-            
-        }
-    }
-
-    private void TakeDamage()
-    {
-        float dist = Vector3.Distance(transform.position, player.transform.position);
-        Debug.Log(dist);
-        if(!damageTaken && dist < 1.25f)
-        {
-            damageTaken = true;
-            hitPlayer = true;
-            player.health = player.health - 20;
-        }
-    }
     public float Min(float f1, float f2)
     {
         if (f1 < f2)

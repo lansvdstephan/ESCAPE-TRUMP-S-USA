@@ -10,7 +10,7 @@ public class PlayerSight : MonoBehaviour
     public float sightRadius = 10.0f;
     public float angle;
 
-    public float hearRadius = 10.0f;
+    public float hearRadius = 20.0f;
 
     public float distance;
     public GameObject player;
@@ -163,7 +163,7 @@ public class PlayerSight : MonoBehaviour
             if(currOther[i] && i != getOwnIndex())
             {
                 //Debug.Log((distances[i] <= sightRadius) + ";" + EnemyRaycast(enemies[getOwnIndex()].transform.position, enemies[i].transform.position, sightRadius));
-                //Debug.Log((distances[i] <= sightRadius) + ";" + hear);
+                Debug.Log((distances[i] <= sightRadius) + ";" + hear);
                 if (distances[i]<= sightRadius && EnemyRaycast(enemies[getOwnIndex()].transform.position, enemies[i].transform.position, sightRadius))
                 {
                     sees = true;

@@ -48,9 +48,9 @@ public class SwitchController : PhilInteractable {
                     switched.GetComponent<Switchable>().SwitchOff();
                 }
             }
-            else if (PhilMovement.hand.transform.childCount != 0 && PhilMovement.hand.transform.GetChild(0).GetComponent<Key>() != null)
+            else if (Player.transform.FindChild("Hand").childCount != 0 && Player.transform.FindChild("Hand").GetChild(0).GetComponent<Key>() != null)
             {
-                if (PhilMovement.hand.transform.GetChild(0).GetComponent<Key>().keyCode == this.keyCode)
+                if (Player.transform.FindChild("Hand").GetChild(0).GetComponent<Key>().keyCode == this.keyCode)
                 {
                     unlocked = true;
                     switched.GetComponent<Switchable>().SwitchOn();
