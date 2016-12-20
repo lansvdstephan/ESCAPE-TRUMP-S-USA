@@ -16,8 +16,6 @@ public class TTMovement : MonoBehaviour {
     private float[] hArr;
     private float hBorder = 0.65f;
     private float speed;
-<<<<<<< HEAD
-    
 
     void Awake()
     {
@@ -27,13 +25,8 @@ public class TTMovement : MonoBehaviour {
             hArr[i] = 0f;
         }
     }
-
-    void Start()
-    {
-=======
 	
 	void Start () {
->>>>>>> 6c918eab8b933f9ff70cafd9fac5c64d9ace3a9c
         offset = this.transform.position - player.transform.position;
         speed = player.GetComponent<Movement>().speed;
 	}
@@ -53,7 +46,6 @@ public class TTMovement : MonoBehaviour {
         {
             this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, player.transform.position.z + maxDistance);
         }
-<<<<<<< HEAD
 
         // prefenting the tank to leave the road
         if (this.transform.position.x < -14f)
@@ -65,18 +57,12 @@ public class TTMovement : MonoBehaviour {
             this.transform.position = new Vector3( 4f, this.transform.position.y, this.transform.position.z);
         }
 
-
-
         if (player != null && fireCountdown <= 0f)
         {
             Shoot();
             fireCountdown = 1f / fireRate;
         }
         fireCountdown -= Time.deltaTime;
-=======
-        
-
->>>>>>> 6c918eab8b933f9ff70cafd9fac5c64d9ace3a9c
     }
 
     private float GetHorizontalMovement()
@@ -91,7 +77,6 @@ public class TTMovement : MonoBehaviour {
         }
         return h;
     }
-<<<<<<< HEAD
 
     void OnCollisionEnter(Collision collision)
     {
@@ -106,6 +91,4 @@ public class TTMovement : MonoBehaviour {
         if (bullet != null)
             bullet.Seek(player.transform);
     }
-=======
->>>>>>> 6c918eab8b933f9ff70cafd9fac5c64d9ace3a9c
 }
