@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TTMovement : MonoBehaviour
-{
+public class TTMovement : MonoBehaviour {
     public GameObject player;
     public Transform firePoint;
 
@@ -17,6 +16,7 @@ public class TTMovement : MonoBehaviour
     private float[] hArr;
     private float hBorder = 0.65f;
     private float speed;
+<<<<<<< HEAD
     
 
     void Awake()
@@ -30,13 +30,16 @@ public class TTMovement : MonoBehaviour
 
     void Start()
     {
+=======
+	
+	void Start () {
+>>>>>>> 6c918eab8b933f9ff70cafd9fac5c64d9ace3a9c
         offset = this.transform.position - player.transform.position;
         speed = player.GetComponent<Movement>().speed;
-    }
+	}
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         float h = GetHorizontalMovement();
         Vector3 movement = new Vector3(h, 0, 2);
         movement = movement * speed * Time.deltaTime;
@@ -50,6 +53,7 @@ public class TTMovement : MonoBehaviour
         {
             this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, player.transform.position.z + maxDistance);
         }
+<<<<<<< HEAD
 
         // prefenting the tank to leave the road
         if (this.transform.position.x < -14f)
@@ -69,20 +73,25 @@ public class TTMovement : MonoBehaviour
             fireCountdown = 1f / fireRate;
         }
         fireCountdown -= Time.deltaTime;
+=======
+        
+
+>>>>>>> 6c918eab8b933f9ff70cafd9fac5c64d9ace3a9c
     }
 
-    float GetHorizontalMovement()
+    private float GetHorizontalMovement()
     {
         hArr[2] = hArr[1];
         hArr[1] = hArr[0];
         hArr[0] = Random.Range(-1f, 1f);
         float h = (hArr[2] + hArr[1] + hArr[0]) / 3;
-        if (h < hBorder && h > -hBorder)
+        if ( h < hBorder && h > -hBorder)
         {
             h = 0;
         }
         return h;
     }
+<<<<<<< HEAD
 
     void OnCollisionEnter(Collision collision)
     {
@@ -97,4 +106,6 @@ public class TTMovement : MonoBehaviour
         if (bullet != null)
             bullet.Seek(player.transform);
     }
+=======
+>>>>>>> 6c918eab8b933f9ff70cafd9fac5c64d9ace3a9c
 }
