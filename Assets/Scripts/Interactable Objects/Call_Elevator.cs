@@ -23,7 +23,7 @@ public class Call_Elevator : Switchable{
 	}
 
 	public IEnumerator NextLevel(){
-		float sec = 1.4f;
+		float sec = 2f;
 		yield return new WaitForSeconds (sec);
 		PhilMovement.player.SetActive(false);
 		yield return new WaitForSeconds (sec);

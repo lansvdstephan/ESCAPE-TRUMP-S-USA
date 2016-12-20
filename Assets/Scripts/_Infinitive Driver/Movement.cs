@@ -16,7 +16,7 @@ public class Movement : MonoBehaviour {
         {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
-            Vector3 movement = new Vector3(h, 0, 2 + v);
+            Vector3 movement = new Vector3(h, 0, 2 - v);
             movement = movement * speed * Time.deltaTime;
             this.transform.position = this.transform.position + movement;
             fuel -= Time.deltaTime * 2;
@@ -34,6 +34,10 @@ public class Movement : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Obstackle"))
+        {
+            Destroy(this.gameObject);
+        }
         if (other.CompareTag("Fuel"))
         {
             this.fuel += 10;
@@ -47,9 +51,6 @@ public class Movement : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
-        if (collision.gameObject.CompareTag("Building"))
-        {
-            Destroy(this.gameObject);
-        }
     }
+
 }

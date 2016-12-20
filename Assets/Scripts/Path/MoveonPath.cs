@@ -8,7 +8,10 @@ public class MoveonPath : MonoBehaviour
     public PlayerSight fow;
     public NavMeshAgent agent;
     public PhilMovement player;
-    public bool damageTaken = false;
+    public bool damageTaken;
+
+    private Animator guardAnim;
+    private int animWalkingHash = Animator.StringToHash("GuardWalking");
 
     public int currentWayPointID = 0;
     public int step = 0;
@@ -64,13 +67,15 @@ public class MoveonPath : MonoBehaviour
 
     void pauseMovement()
     {
+        //guardAnim.SetBool(animWalkingHash, false);
         timeLeft -= Time.deltaTime;
         if (timeLeft < 0)
         {
-            damageTaken = false;
             hitPlayer = false;
             timeLeft = 1f;
+            //guardAnim.SetBool(animWalkingHash, true);
         }
+        
     }
 
     void followPath()
