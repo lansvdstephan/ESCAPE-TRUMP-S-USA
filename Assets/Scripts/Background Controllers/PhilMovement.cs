@@ -175,6 +175,7 @@ public class PhilMovement : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
+
         //Damage
         if (other.CompareTag("Enemy"))
         {
@@ -182,6 +183,7 @@ public class PhilMovement : MonoBehaviour {
             smop.hitPlayer = true;
             mop.hitPlayer = true;
         }
+
 
         //Health
         if (other.CompareTag("Health"))
