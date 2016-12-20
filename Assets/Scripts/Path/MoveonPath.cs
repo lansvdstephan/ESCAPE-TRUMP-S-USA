@@ -140,13 +140,20 @@ public class MoveonPath : MonoBehaviour
         {
             damageTaken = true;
             hitPlayer = true;
-            player.health = player.health - 20;
+            player.health = Max(player.health - 20,0);
         }
     }
 
     public float Min(float f1, float f2)
     {
         if (f1 < f2)
+            return f1;
+        else
+            return f2;
+    }
+    private int Max(int f1, int f2)
+    {
+        if (f1 > f2)
             return f1;
         else
             return f2;
