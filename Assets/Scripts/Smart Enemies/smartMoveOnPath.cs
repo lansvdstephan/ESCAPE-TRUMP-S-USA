@@ -160,7 +160,7 @@ public class smartMoveOnPath : MonoBehaviour
         agent.SetDestination(ss.grid[nextpoint].transform.position);
         Quaternion rotation = Quaternion.LookRotation(ss.grid[nextpoint].transform.position - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10f);
-        float eps = 0.0005f;
+        float eps = 0.001f;
         if (transform.position.x - ss.grid[nextpoint].transform.position.x <eps && transform.position.z - ss.grid[nextpoint].transform.position.z < eps)
         {
             count = count + 1;
@@ -207,12 +207,19 @@ public class smartMoveOnPath : MonoBehaviour
         {
             damageTaken = true;
             hitPlayer = true;
-            player.health = player.health - 20;
+            player.health = Max(player.health - 20,0);
         }
     }
     public float Min(float f1, float f2)
     {
         if (f1 < f2)
+            return f1;
+        else
+            return f2;
+    }
+    private int Max(int f1, int f2)
+    {
+        if (f1 > f2)
             return f1;
         else
             return f2;

@@ -18,6 +18,7 @@ public class smartSearching : MonoBehaviour
     private float timeLeft = 3f;
     public Vector3 furtherToGO = new Vector3();
     private int max = 0;
+    public List<float> distances = new List<float>();
 
     //Test-Zone
     public List<float> test = new List<float>();
@@ -39,12 +40,11 @@ public class smartSearching : MonoBehaviour
         grid = cE.grid_points;
         visitable = allPoints();
         times_visited[0] = 1;
-        previous = 13;
+        previous = times_visited.Count;
         current = 0;
         next = 1;
         firstPoint = false;
         pause = false;
-        getRandomAngle(20f, 170f);
     }
 
     // Update is called once per frame
@@ -64,7 +64,8 @@ public class smartSearching : MonoBehaviour
         Debug.DrawLine(transform.position, pointB, Color.cyan);
         Debug.Log(randomRange.x + ";" + randomRange.y);
         */
-       // randomPoint();
+        // randomPoint();
+        pointDistances()     ;
     }
 
 
@@ -166,6 +167,7 @@ public class smartSearching : MonoBehaviour
             times_visited.Add(0);
             toReturn.Add(temp);
         }
+        
         return toReturn;
     }
 
