@@ -6,12 +6,16 @@ public class InventorySystem : MonoBehaviour {
     public static InventorySystem Instance { get; set; }
     public GameObject inventoryPanel;
 
+    private GameObject hand;
+    private GameObject inventory;
     private Image handImage;
     private Image[] inventoryImage;
     private int numberOfImages;
 
     void Awake()
     {
+        hand = PhilMovement.player.transform.FindChild("Armature").FindChild("Bone").FindChild("handik.R").FindChild("handik.R_end").FindChild("Hand").gameObject;
+        inventory = PhilMovement.player.transform.FindChild("Inventory").gameObject;
         numberOfImages = inventoryPanel.transform.childCount - 1;
         inventoryImage = new Image[numberOfImages];
         handImage = inventoryPanel.transform.FindChild("Hand Item").GetComponent<Image>();
@@ -32,9 +36,9 @@ public class InventorySystem : MonoBehaviour {
 
     public void SwitchHandImage()
     {
-        if (PhilMovement.player.transform.FindChild("Hand").childCount != 0)
+        if (hand.transform.childCount != 0)
         {
-            handImage.sprite = PhilMovement.player.transform.FindChild("Hand").GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite;
+            handImage.sprite = hand.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite;
         }
         else
         {
@@ -46,14 +50,14 @@ public class InventorySystem : MonoBehaviour {
 
     public void SwitchInventoryImange()
     {
-        int InventorySize = PhilMovement.player.transform.FindChild("Inventory").childCount;
+        int InventorySize = inventory.transform.childCount;
         if (InventorySize > numberOfImages) InventorySize = numberOfImages;
         if (InventorySize > 0)
         {
             for (int i = 0; i < InventorySize; i++)
             {
 
-                inventoryImage[i].sprite = PhilMovement.player.transform.FindChild("Inventory").GetChild(i).GetChild(0).GetComponent<SpriteRenderer>().sprite;
+                inventoryImage[i].sprite = inventory.transform.GetChild(i).GetChild(0).GetComponent<SpriteRenderer>().sprite;
 
             }
         }

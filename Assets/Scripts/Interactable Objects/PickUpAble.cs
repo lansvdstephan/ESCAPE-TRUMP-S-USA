@@ -18,7 +18,7 @@ public class PickUpAble : PhilInteractable {
         {
             if ( this.foundDialog != null) PhilDialogue.Instance.AddNewDialogue(this.foundDialog);
             print("Interacted with object");
-            if (player.transform.FindChild("Hand").childCount == 0)
+            if (PhilMovement.hand.transform.childCount == 0)
             {
                 PlaceItemInHand(player);
             }
@@ -34,7 +34,7 @@ public class PickUpAble : PhilInteractable {
         }
     }
 
-    //Doing a action with a pickup item
+    //Doing an action with a pickup item
     public virtual bool GetAction()
     {
         if (PhilDialogue.Instance.dialoguePanel.activeSelf)
@@ -48,8 +48,8 @@ public class PickUpAble : PhilInteractable {
     //placing a object in your hand
     public void PlaceItemInHand(GameObject player)
     {
-        this.transform.parent = player.transform.FindChild("Hand").transform;
-        this.transform.position = player.transform.FindChild("Hand").transform.position;
+        this.transform.parent = PhilMovement.hand.transform;
+        this.transform.position = PhilMovement.hand.transform.position;
         this.transform.localRotation = originalRotation;
         this.GetComponent<CapsuleCollider>().enabled = false;
 		this.gameObject.SetActive (true);
