@@ -9,15 +9,21 @@ public class QuizDialogue : MonoBehaviour
     public GameObject quizPanel;
     public string[] questions;
     public bool[] answers;
-    public int questionAmount;
+    public string introText;
+    public GameObject buttonTrue;
+    public GameObject buttonFalse;
+    public bool endDialogue;
+
 
     private List<string> questionLines;
     private List<bool> questionAnswers;
     private List<int> answeredQuestions;
-    private Text trueFalseText; //deze text zie je op je scherm 
-    private Text quizText; // deze text zie je op je scherm
+    private Text quizText; 
     private int quizIndex;
-  
+    private int questionAmount;
+    private Text trueFalseText;
+   
+   
 
     void Awake()
     {
@@ -35,48 +41,66 @@ public class QuizDialogue : MonoBehaviour
         }
     }
 
-    public void StartQuiz() //aanroepen op spatie
+    public void StartQuiz()
     {
-        Time.timeScale = 0.0f;
-        questionLines = new List<string>(questions.Length);
-        questionLines.AddRange(questions); //kopieer questions naar de lijst 
-        questionAnswers = new List<bool>(answers.Length);
-        questionAnswers.AddRange(answers); //kopieer answers naar de lijst 
-        answeredQuestions = new List<int>(questions.Length); //lijst is leeg 
-        quizIndex = Random.Range(0, questions.Length); 
-        answeredQuestions.Add(quizIndex);
-        trueFalseText.text = "True or False: ";
-        quizText.text = questionLines[quizIndex]; 
+        buttonTrue.SetActive(false);
+        buttonFalse.SetActive(false);
         quizPanel.SetActive(true);
-        
+        Time.timeScale = 0.0f;
+        questionAmount = 0;
+        trueFalseText.text = "\n " + ">>Access denied";
+        quizText.text = ">>Answer Security Questions \n" + ">>5 questions should be answered correctly";
+       
     }
 
+    public void ContinueQuiz()
+    { 
+        buttonTrue.SetActive(true);
+        buttonFalse.SetActive(true);
 
-    public void CheckAnswer(bool ans) // deze functie aanroepen on click 
+        questionLines = new List<string>(questions.Length);
+        questionLines.AddRange(questions);
+        questionAnswers = new List<bool>(answers.Length);
+        questionAnswers.AddRange(answers);
+        answeredQuestions = new List<int>(questions.Length);
+        quizIndex = Random.Range(0, questions.Length);
+        answeredQuestions.Add(quizIndex);
+        trueFalseText.text = "True or False: ";
+        quizText.text = questionLines[quizIndex];
+
+    }
+     
+
+    public void CheckAnswer(bool ans) 
     {
         if (questionAnswers[quizIndex] == ans) 
         {
             questionAmount++;
             if (questionAmount == 5)
             {
-                quizText.text = "You found the code: 1946";
-                if (Input.GetButtonUp("space"))
-                {
-                    Time.timeScale = 1.0f;
-                    quizPanel.SetActive(false);
-                }
+                quizText.text = "Code: Secret Area == 1946";
+                trueFalseText.text = " ";
+                buttonTrue.SetActive(false);
+                buttonFalse.SetActive(false);
+                endDialogue = true;
             }
             else
             {
-                NextQuestion(); 
-            }
+                NextQuestion();
+            } 
             
         } else {
             quizPanel.SetActive(false);
             Time.timeScale = 1.0f;
        }
     }
-  
+
+    public void ShutDown()
+    {
+        Time.timeScale = 1.0f;
+        quizPanel.SetActive(false);
+        endDialogue = false;
+    } 
 
     public void NextQuestion()
     {
