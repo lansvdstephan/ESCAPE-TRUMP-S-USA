@@ -85,7 +85,7 @@ public class PlayerSight : MonoBehaviour
             {
                 RaycastHit hit; //Kind of an boolean variable for raycast hitting
                 
-                if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 1.8f, transform.position.z), AngleD.normalized, out hit, distance))//send out a Raycast in the direction of the player
+                if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 1.2f, transform.position.z), AngleD.normalized, out hit, distance))//send out a Raycast in the direction of the player
                 {
                     if (hit.transform.gameObject.CompareTag("Player"))//if the obstacle that is reached by the ray is tagged by "Player", than the enemy found the player
                     {
