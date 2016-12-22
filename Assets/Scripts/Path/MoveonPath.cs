@@ -119,7 +119,6 @@ public class MoveonPath : MonoBehaviour
         agent.SetDestination(fow.toGo);
         Quaternion rotation = Quaternion.LookRotation(fow.toGo - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
-        Debug.Log(transform.position == (fow.toGo));
         float eps = 0.5f;
         if (Mathf.Abs(fow.toGo.x - transform.position.x) < eps && Mathf.Abs(fow.toGo.z - transform.position.z) < eps)
         {
@@ -135,7 +134,6 @@ public class MoveonPath : MonoBehaviour
     private void TakeDamage()
     {
         float dist = Vector3.Distance(transform.position, player.transform.position);
-        Debug.Log(dist);
         if (!damageTaken && dist < 1.25f)
         {
             damageTaken = true;

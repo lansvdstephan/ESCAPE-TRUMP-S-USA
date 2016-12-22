@@ -25,6 +25,15 @@ public class smartMoveOnPath : MonoBehaviour
 
     private int count = 0;
     private float timeLeft = 1f;
+
+    //SHOOTING
+    public GameObject bullet;
+    public Transform firePoint;
+    public float fireRate = 0.2f;
+    public float fireCountDown = 0f;
+    private bool richten = false;
+
+
     // Use this for initialization
     void Start()
     {
@@ -52,6 +61,28 @@ public class smartMoveOnPath : MonoBehaviour
             firstpoint = false;
             pause = false;
             count = 0;
+            Debug.Log(fireCountDown + ";" + richten);
+            if (fireCountDown > 0.11f && fireCountDown < 0.15f && !richten)
+            {
+                richten = true;
+                fireCountDown = 0.1f;
+            }
+            else if (richten)
+            {
+                pauseMovement();
+            }
+            else if (fireCountDown <= 0)
+            {
+                Shoot();
+                fireCountDown = 1 / fireRate;
+                fireCountDown = fireCountDown - Time.deltaTime;
+            }
+            else
+            {
+                fireCountDown = fireCountDown - Time.deltaTime;
+            }
+
+
         }
 
         else if (fow.sees || fow.hear)
@@ -98,14 +129,20 @@ public class smartMoveOnPath : MonoBehaviour
 
     void pauseMovement()
     {
+        Debug.Log("pause");
         timeLeft -= Time.deltaTime;
+        agent.Stop();
         if (timeLeft < 0)
         {
+            Debug.Log("STOP");
+            agent.Resume();
             damageTaken = false;
             hitPlayer = false;
             timeLeft = 1f;
+            richten = false;
         }
     }
+
 
 
     void followPlayer()
@@ -202,7 +239,7 @@ public class smartMoveOnPath : MonoBehaviour
     private void TakeDamage()
     {
         float dist = Vector3.Distance(transform.position, player.transform.position);
-        Debug.Log(dist);
+
         if(!damageTaken && dist < 1.25f)
         {
             damageTaken = true;
@@ -224,4 +261,14 @@ public class smartMoveOnPath : MonoBehaviour
         else
             return f2;
     }
+
+    private void Shoot()
+    {
+        GameObject bulletGO = (GameObject)Instantiate(bullet, firePoint.position, firePoint.rotation);
+        Bullets bullets = bulletGO.GetComponent<Bullets>();
+        Debug.Log("Been here");
+        if (bullet != null)
+            bullets.Seek(player.transform.position);
+    }
 }
+
