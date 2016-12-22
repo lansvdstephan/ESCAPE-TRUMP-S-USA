@@ -12,9 +12,9 @@ public class InventorySystem : MonoBehaviour {
     private Image[] inventoryImage;
     private int numberOfImages;
 
-    void Awake()
+    void Start()
     {
-        hand = PhilMovement.player.transform.FindChild("Armature").FindChild("Bone").FindChild("handik.R").FindChild("handik.R_end").FindChild("Hand").gameObject;
+        hand = PhilMovement.hand;
         inventory = PhilMovement.player.transform.FindChild("Inventory").gameObject;
         numberOfImages = inventoryPanel.transform.childCount - 1;
         inventoryImage = new Image[numberOfImages];
