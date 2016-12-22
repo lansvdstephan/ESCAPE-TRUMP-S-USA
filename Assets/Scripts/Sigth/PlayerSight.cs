@@ -79,7 +79,7 @@ public class PlayerSight : MonoBehaviour
             angle = getAngle(playerRadiusC, playerPosition);
             Vector3 AngleD = directionFromAngle(angle, false);
             Vector3 playerRadiusD = transform.position + AngleD * getDistance(transform.position, playerPosition); //player point on the playerradius
-            Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + 1.2f, transform.position.z), distance*AngleD, Color.red,2f);
+            Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + 1.1f, transform.position.z), distance*AngleD, Color.red,2f);
             //if player is in view Radius
             if (angle < sightAngle / 2 && angle > (sightAngle * -1) / 2)
             {
