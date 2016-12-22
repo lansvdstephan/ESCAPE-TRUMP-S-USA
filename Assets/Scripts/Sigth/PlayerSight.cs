@@ -79,7 +79,7 @@ public class PlayerSight : MonoBehaviour
             angle = getAngle(playerRadiusC, playerPosition);
             Vector3 AngleD = directionFromAngle(angle, false);
             Vector3 playerRadiusD = transform.position + AngleD * getDistance(transform.position, playerPosition); //player point on the playerradius
-            Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + 1.8f, transform.position.z), distance*AngleD, Color.red,2f);
+            Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + 1.2f, transform.position.z), distance*AngleD, Color.red,2f);
             //if player is in view Radius
             if (angle < sightAngle / 2 && angle > (sightAngle * -1) / 2)
             {
@@ -87,7 +87,7 @@ public class PlayerSight : MonoBehaviour
                 
                 if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 1.8f, transform.position.z), AngleD.normalized, out hit, distance))//send out a Raycast in the direction of the player
                 {
-                    if (hit.transform.gameObject.CompareTag("Player"))//if the obstacle that is reacht by the ray is tagged by "Player", than the enemy found the player
+                    if (hit.transform.gameObject.CompareTag("Player"))//if the obstacle that is reached by the ray is tagged by "Player", than the enemy found the player
                     {
                         playerSeen = true;
                         playerLastSeen = playerPosition;
