@@ -35,7 +35,6 @@ public class Creator : MonoBehaviour {
             {
                 if (counter % 2 == 0)
                 {
-                    print("u smell");
                     Instantiate(obj[i].gameObjectArr[Random.Range(0, obj[i].gameObjectArr.Length)], 
                         new Vector3(0, this.gameObject.transform.position.y, this.gameObject.transform.position.z), Quaternion.identity);
                     counter++;

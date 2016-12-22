@@ -5,7 +5,6 @@ public class DestroyerTest : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other)
     {
-        print("stupid ass");
         if (other.gameObject.transform.parent != null)
         {
             Destroy(other.gameObject.transform.parent);
@@ -16,4 +15,16 @@ public class DestroyerTest : MonoBehaviour {
         }
 	
 	}
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.transform.parent != null)
+        {
+            Destroy(collision.gameObject.transform.parent);
+        }
+        else
+        {
+            Destroy(collision.gameObject);
+        }
+    }
 }
