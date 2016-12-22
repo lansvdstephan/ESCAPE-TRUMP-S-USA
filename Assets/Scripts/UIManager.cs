@@ -4,13 +4,13 @@ using System.Collections;
 
 public class UIManager : MonoBehaviour {
 
+    public GameObject gameOverPanel;
     public GameObject pausePanel;
     public bool isPaused;
     public static UIManager instance = null;
 	// Use this for initialization
 	void Start () {
-        isPaused = false;
-	
+        isPaused = false;	
 	}
 
     void Awake()
@@ -30,6 +30,11 @@ void Update () {
         {
             SwitchPause();
         }
+        if (GameObject.FindWithTag("Player").GetComponent<PhilMovement>().health == 0)
+        {
+            GameOver(true);
+        }
+        
 	
 	}
 
@@ -50,4 +55,19 @@ void Update () {
     {
         isPaused = !isPaused;
     }
+
+    public void GameOver(bool a)
+    {
+        if (a == true)
+        {
+            gameOverPanel.SetActive(true);
+        }
+        else
+        {
+            GameObject.FindWithTag("Player").GetComponent<PhilMovement>().health = 100;
+            gameOverPanel.SetActive(false);
+        }
+    }
+
+
 }
