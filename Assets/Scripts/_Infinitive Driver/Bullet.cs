@@ -2,18 +2,18 @@
 using System.Collections;
 
 public class Bullet : MonoBehaviour {
-
-    private Vector3 targetPosition;
-
     public float speed = 70f;
-
-    public int damage = 50;
-
+    public int damage = 10;
     public float explosionRadius = 5f;
     public GameObject impactEffect;
 
+    private Vector3 targetPosition;
+    private bool TargetHitted = false;
+    private GameObject target;
+
     public void Seek(Transform _target)
     {
+        target = _target.gameObject;
         targetPosition = _target.position;
         float targetSpeed = _target.GetComponent<Movement>().correctedSpeed;
         float zCorrection = ((this.transform.position - targetPosition).magnitude / (speed+targetSpeed)) * targetSpeed;
@@ -33,9 +33,10 @@ public class Bullet : MonoBehaviour {
         Vector3 dir = targetPosition - transform.position;
         float distanceThisFrame = speed * Time.deltaTime;
 
-        if (dir.magnitude <= distanceThisFrame)
+        if (dir.magnitude <= distanceThisFrame && !TargetHitted)
         {
             HitTarget();
+            TargetHitted = !TargetHitted;
             return;
         }
 
@@ -48,11 +49,12 @@ public class Bullet : MonoBehaviour {
         GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
         Destroy(effectIns, 5f);
         Explode();
-        Destroy(this.gameObject);
+        //this.gameObject.SetActive(false);
     }
 
     void Explode()
     {
+        this.gameObject.GetComponent<AudioSource>().Play();
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach (Collider collider in colliders)
         {
@@ -61,15 +63,19 @@ public class Bullet : MonoBehaviour {
                 Damage(collider.transform);
             }
         }
+        Invoke("Dead", 3);
     }
 
     void Damage(Transform enemy)
     {
-        /*Enemy e = enemy.GetComponent<Enemy>();
-
-        if (e != null)
+        if (target != null)
         {
-            e.TakeDamage(damage);
-        }*/
+            target.GetComponent<Movement>().health = target.GetComponent<Movement>().health - damage;
+        }
+    }
+
+    void Dead()
+    {
+        Destroy(this.gameObject);
     }
 }

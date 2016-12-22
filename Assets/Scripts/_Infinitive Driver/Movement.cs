@@ -6,14 +6,20 @@ using System;
 public class Movement : MonoBehaviour {
     public float speed = 1;
     public float correctedSpeed;
+    public float health = 100;
+    public float damageDoneByCollision = 10;
+    public float fuel = 100;
 
-    private float fuel = 100;
+    [Header("Texts")]
     public Text fuelText;
+    public Text winText;
+    public Text healthText;
 	
 	// Update is called once per frame
 	void Update () {
         SetFuelText();
-        if (fuel > 0)
+        SetHealthText();
+        if (fuel > 0 && health > 0)
         {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
@@ -25,7 +31,12 @@ public class Movement : MonoBehaviour {
         }
         else
         {
-            Destroy(this.gameObject);
+            winText.text = "You are Crashed";
+            this.enabled = false;
+        }
+        if (this.transform.position.z > 100)
+        {
+            winText.text = "You win";
         }
     }
 
@@ -34,15 +45,21 @@ public class Movement : MonoBehaviour {
         fuelText.text = "Fuel:" + fuel.ToString();
     }
 
+    private void SetHealthText()
+    {
+        healthText.text = "Health:" + health.ToString();
+    }
+
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstackle"))
-        {
-            Destroy(this.gameObject);
-        }
         if (other.CompareTag("Fuel"))
         {
             this.fuel += 10;
+            Destroy(other.gameObject);
+        }
+        if (other.CompareTag("Health"))
+        {
+            this.health += 20;
             Destroy(other.gameObject);
         }
     }
@@ -51,7 +68,8 @@ public class Movement : MonoBehaviour {
     {
         if (collision.gameObject.CompareTag("Obstackle"))
         {
-            Destroy(this.gameObject);
+            winText.text= "You are Crashed";
+            this.health = this.health - damageDoneByCollision;
         }
     }
 
