@@ -4,6 +4,7 @@ using System.Collections;
 
 public class UIManager : MonoBehaviour {
 
+    public GameObject mainMenuPanel;
     public GameObject gameOverPanel;
     public GameObject pausePanel;
     public bool isPaused;
@@ -26,7 +27,7 @@ public class UIManager : MonoBehaviour {
 // Update is called once per frame
 void Update () {
         PauseGame(isPaused);
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel")&&mainMenuPanel.activeSelf==false)
         {
             SwitchPause();
         }
@@ -60,12 +61,14 @@ void Update () {
     {
         if (a == true)
         {
+            Time.timeScale = 0.0f;
             gameOverPanel.SetActive(true);
         }
         else
         {
             GameObject.FindWithTag("Player").GetComponent<PhilMovement>().health = 100;
             gameOverPanel.SetActive(false);
+            Time.timeScale = 1.0f;
         }
     }
 
