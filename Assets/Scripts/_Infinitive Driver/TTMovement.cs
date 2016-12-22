@@ -8,9 +8,8 @@ public class TTMovement : MonoBehaviour {
     [Header("Shooting")]
     public GameObject bulletPrefab;
     public float fireRate = 1f;
-    private float fireCountdown = 0f;
+    private float fireCountdown = 1f;
 
-    private Vector3 offset;
     private float minDistance = 10;
     private float maxDistance = 60;
     private float[] hArr;
@@ -27,7 +26,6 @@ public class TTMovement : MonoBehaviour {
     }
 	
 	void Start () {
-        offset = this.transform.position - player.transform.position;
         speed = player.GetComponent<Movement>().speed;
 	}
 

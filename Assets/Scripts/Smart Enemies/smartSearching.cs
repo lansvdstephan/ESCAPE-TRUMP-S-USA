@@ -460,7 +460,7 @@ public class smartSearching : MonoBehaviour
         Vector3 above = p1;
         above.x = above.x + extraRange;
         Vector3 left = p1;
-        left.x = left.z - extraRange;
+        left.z = left.z - extraRange;
         Vector3 right = p1;
         right.z = right.z + extraRange;
         Vector3 down = p1;
