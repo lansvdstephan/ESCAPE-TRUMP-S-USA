@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayMovie1 : MonoBehaviour {
+public class PlayMovie : MonoBehaviour {
 
 	public MovieTexture movTexture;
 	public Animator alarm;
