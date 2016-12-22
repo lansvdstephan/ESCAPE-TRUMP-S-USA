@@ -6,10 +6,12 @@ public class PickUpAble : PhilInteractable {
 	public string[] foundDialog;
 
     private Quaternion originalRotation;
+    private Vector3 originalScale;
 
     void Awake()
     {
         originalRotation = this.transform.rotation;
+        originalScale = this.transform.lossyScale;
     }
 
     public override void Interact(GameObject player)
@@ -51,6 +53,7 @@ public class PickUpAble : PhilInteractable {
         this.transform.parent = PhilMovement.hand.transform;
         this.transform.position = PhilMovement.hand.transform.position;
         this.transform.localRotation = originalRotation;
+        this.transform.localScale = originalScale;
         this.GetComponent<CapsuleCollider>().enabled = false;
 		this.gameObject.SetActive (true);
         InventorySystem.Instance.SwitchHandImage();

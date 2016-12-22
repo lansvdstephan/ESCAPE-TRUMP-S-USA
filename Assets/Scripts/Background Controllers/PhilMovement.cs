@@ -28,6 +28,9 @@ public class PhilMovement : MonoBehaviour {
 		Rotation = this.transform.rotation;
         player = this.gameObject;
         hand = this.transform.FindChild("Armature").FindChild("Bone").FindChild("handik.R").FindChild("handik.R_end").FindChild("Hand").gameObject;
+        print(hand.transform.lossyScale);
+        hand.transform.localScale = new Vector3(hand.transform.localScale.x / hand.transform.lossyScale.x, hand.transform.localScale.y / hand.transform.lossyScale.y, hand.transform.localScale.z / hand.transform.lossyScale.z);
+        print(hand.transform.lossyScale);
     }
 
     void Start()
