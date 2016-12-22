@@ -5,11 +5,9 @@ using System;
 
 public class PhilMovement : MonoBehaviour {
     public static GameObject player;
-    public static GameObject hand;
     public MoveonPath mop;
-    public smartMoveOnPath smop;
     public float speed;
-    public int health;
+    private int health;
     public Text healthText;
 
     private Rigidbody rb;
@@ -27,7 +25,6 @@ public class PhilMovement : MonoBehaviour {
     {
 		Rotation = this.transform.rotation;
         player = this.gameObject;
-        hand = this.transform.FindChild("Armature").FindChild("Bone").FindChild("handik.R").FindChild("handik.R_end").FindChild("Hand").gameObject;
     }
 
     void Start()
@@ -49,7 +46,7 @@ public class PhilMovement : MonoBehaviour {
         if (!PhilDialogue.Instance.dialoguePanel.activeSelf) {
             Move();
         }
-        if (hand.transform.childCount != 0)
+        if (player.transform.FindChild("Hand").childCount != 0)
         {
             if (pickedUp)
             {
@@ -130,15 +127,15 @@ public class PhilMovement : MonoBehaviour {
         // Dropping item if left shift is pressed else doing action if space is pressed
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-           hand.transform.GetChild(0).GetComponent<CapsuleCollider>().enabled = true;
-           hand.transform.DetachChildren();
+            this.transform.FindChild("Hand").GetChild(0).GetComponent<CapsuleCollider>().enabled = true;
+            this.transform.FindChild("Hand").DetachChildren();
             InventorySystem.Instance.SwitchInventoryImange();
             InventorySystem.Instance.SwitchHandImage();
 
         }
         else if (Input.GetKeyUp("space"))
         {
-            if (hand.transform.GetChild(0).GetComponent<PickUpAble>().GetAction())
+            if (this.transform.FindChild("Hand").GetChild(0).GetComponent<PickUpAble>().GetAction())
             {
                 return;
             }
@@ -150,13 +147,13 @@ public class PhilMovement : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            if (hand.transform.childCount != 0) hand.transform.GetChild(0).GetComponent<PickUpAble>().PlaceItemInBackOfInventory(player);
+            if (player.transform.FindChild("Hand").childCount != 0) this.transform.FindChild("Hand").GetChild(0).GetComponent<PickUpAble>().PlaceItemInBackOfInventory(player);
             if (this.transform.FindChild("Inventory").childCount != 0) this.transform.FindChild("Inventory").GetChild(0).GetComponent<PickUpAble>().PlaceItemInHand(player);
             InventorySystem.Instance.SwitchInventoryImange();
         }
         else if (Input.GetKeyUp(KeyCode.X))
         {
-            if (hand.transform.childCount != 0) hand.transform.GetChild(0).GetComponent<PickUpAble>().PlaceItemInFrontOfInventory(player);
+            if (player.transform.FindChild("Hand").childCount != 0) this.transform.FindChild("Hand").GetChild(0).GetComponent<PickUpAble>().PlaceItemInFrontOfInventory(player);
             if (this.transform.FindChild("Inventory").childCount != 0) this.transform.FindChild("Inventory").GetChild(this.transform.FindChild("Inventory").childCount-1).GetComponent<PickUpAble>().PlaceItemInHand(player);
             InventorySystem.Instance.SwitchInventoryImange();
         }
@@ -174,7 +171,15 @@ public class PhilMovement : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other)
-    { 
+    {
+       
+        //Damage
+        if (other.CompareTag("Enemy"))
+        {
+            health = Max(health - 20, 0);
+            mop.hitPlayer = true;
+        }
+
         //Health
         if (other.CompareTag("Health"))
         {

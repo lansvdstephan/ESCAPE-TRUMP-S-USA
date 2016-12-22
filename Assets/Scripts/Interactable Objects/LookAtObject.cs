@@ -19,15 +19,10 @@ public class LookAtObject : PhilInteractable {
 			PhilDialogue.Instance.AddNewDialogue(dialogue);
 
 		}
-		else if (ready)
-		{
-			PhilDialogue.Instance.ContinueDialogue();
-			anim.SetTrigger (Animator.StringToHash(trigger));
-			ready = false;
-		}
 		else 
 		{
 			PhilDialogue.Instance.ContinueDialogue();
+			anim.SetTrigger (Animator.StringToHash(trigger));
 		}
 
 	}
