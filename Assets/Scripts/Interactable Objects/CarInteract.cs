@@ -43,7 +43,8 @@ public class CarInteract : PhilInteractable {
         {
             if (unlocked)
             {
-                player.SetActive(false);
+				player.transform.localScale = new Vector3 (0.1f, 0.1f, 0.1f);
+
                 //player.GetComponent<PhilMovement> ().enabled = false;
                 //player.GetComponent<MeshRenderer> ().enabled = false;
                 player.transform.parent = this.transform.FindChild("Seat").transform;

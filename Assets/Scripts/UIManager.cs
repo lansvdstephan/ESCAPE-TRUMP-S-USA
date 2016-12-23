@@ -35,10 +35,15 @@ public class UIManager : MonoBehaviour {
 
         }
 		if (GameObject.FindWithTag ("Player") != null) {
-			if (GameObject.FindWithTag ("Player").GetComponent<PhilMovement> ().health == 0/*||GameObject.FindWithTag("Player").GetComponent<Movement>().health==0|| GameObject.FindWithTag("Player").GetComponent<Movement>().fuel==0*/) {
-				GameOver (true);
+			if (GameObject.FindWithTag ("Player").GetComponent<PhilMovement> () != null) {
+				if (GameObject.FindWithTag ("Player").GetComponent<PhilMovement> ().health <= 0/*||GameObject.FindWithTag("Player").GetComponent<Movement>().health==0|| GameObject.FindWithTag("Player").GetComponent<Movement>().fuel==0*/) {
+					GameOver (true);
+				}
+			} else if (GameObject.FindWithTag ("Player").GetComponent<Movement> () != null) {
+				if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().health <= 0|| GameObject.FindWithTag("Player").GetComponent<Movement>().fuel==0) {
+					GameOver (true);
+				}
 			}
-        
 		}
 	}
 
@@ -83,7 +88,13 @@ public class UIManager : MonoBehaviour {
         }
         else
         {
-            GameObject.FindWithTag("Player").GetComponent<PhilMovement>().health = 100;
+			if (GameObject.FindWithTag ("Player").GetComponent<PhilMovement> () != null) {
+				GameObject.FindWithTag("Player").GetComponent<PhilMovement>().health = 100;
+			} else if (GameObject.FindWithTag ("Player").GetComponent<Movement> () != null) {
+				GameObject.FindWithTag("Player").GetComponent<Movement>().health = 1000;
+				GameObject.FindWithTag ("Player").GetComponent<Movement> ().fuel = 100;
+			}
+             
 			gameOverPanel.gameObject.SetActive(false);
             Time.timeScale = 1.0f;
         }
