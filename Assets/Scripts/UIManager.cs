@@ -3,10 +3,12 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class UIManager : MonoBehaviour {
+	UIManager uimanager;
 
-    public GameObject mainMenuPanel;
-    public GameObject gameOverPanel;
-    public GameObject pausePanel;
+	public MenuPanel activePanel;
+	public MenuPanel mainMenuPanel;
+	public MenuPanel gameOverPanel;
+	public MenuPanel pausePanel;
     public bool isPaused;
     public static UIManager instance = null;
 	// Use this for initialization
@@ -21,15 +23,16 @@ public class UIManager : MonoBehaviour {
         else if (instance != this)
             Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(this);
     }
 
 // Update is called once per frame
-void Update () {
-        PauseGame(isPaused);
-        if (Input.GetButtonDown("Cancel")&&mainMenuPanel.activeSelf==false)
+	void Update () {
+//        PauseGame(isPaused);
+		if (Input.GetButtonDown("Cancel") && activePanel.panelName == "pause")
         {
             SwitchPause();
+
         }
 		if (GameObject.FindWithTag ("Player") != null) {
 			if (GameObject.FindWithTag ("Player").GetComponent<PhilMovement> ().health == 0/*||GameObject.FindWithTag("Player").GetComponent<Movement>().health==0|| GameObject.FindWithTag("Player").GetComponent<Movement>().fuel==0*/) {
@@ -37,6 +40,10 @@ void Update () {
 			}
         
 		}
+	}
+
+	public void SetActivePanel(MenuPanel panel) {
+		activePanel = panel;
 	}
 
     void PauseGame(bool state)
@@ -49,12 +56,22 @@ void Update () {
         {
             Time.timeScale = 1.0f;  //Unpaused       
         }
-        pausePanel.SetActive(state);
+        pausePanel.gameObject.SetActive(state);
     }
 
     public void SwitchPause()
     {
         isPaused = !isPaused;
+		activePanel.gameObject.SetActive(isPaused);
+		if (isPaused)
+		{
+			Time.timeScale = 0.0f;  //Paused
+		}
+		else
+		{
+			Time.timeScale = 1.0f;  //Unpaused       
+		}
+		Debug.Log (isPaused);
     }
 
     public void GameOver(bool a)
@@ -62,12 +79,12 @@ void Update () {
         if (a == true)
         {
             Time.timeScale = 0.0f;
-            gameOverPanel.SetActive(true);
+			gameOverPanel.gameObject.SetActive(true);
         }
         else
         {
             GameObject.FindWithTag("Player").GetComponent<PhilMovement>().health = 100;
-            gameOverPanel.SetActive(false);
+			gameOverPanel.gameObject.SetActive(false);
             Time.timeScale = 1.0f;
         }
     }
