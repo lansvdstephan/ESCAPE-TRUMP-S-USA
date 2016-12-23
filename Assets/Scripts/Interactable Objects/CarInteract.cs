@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class CarInteract : PhilInteractable {
     public bool unlocked = true;
@@ -29,6 +30,12 @@ public class CarInteract : PhilInteractable {
         }
     }
 
+    public IEnumerator NextLevel()
+    {
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene("Driving level");
+    }
+
     public override void Interact(GameObject player)
     {
 
@@ -43,7 +50,9 @@ public class CarInteract : PhilInteractable {
                 //player.transform.position = this.transform.FindChild ("Seat").transform.position;
                 //player.GetComponent<BoxCollider> ().enabled = false;
                 //player.GetComponent<Rigidbody> ().useGravity = false;
-                this.GetComponent<CarControl>().enabled = true;
+                this.GetComponent<Animator>().SetTrigger("Drive Away");
+                StartCoroutine(NextLevel());
+
             }
             else if (PhilMovement.hand.transform.childCount != 0 && PhilMovement.hand.transform.GetChild(0).GetComponent<Key>() != null)
             {
