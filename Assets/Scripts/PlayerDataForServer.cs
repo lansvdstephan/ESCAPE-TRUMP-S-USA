@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.Analytics;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerDataForServer : MonoBehaviour {
 	public int counter;
@@ -17,21 +19,22 @@ public class PlayerDataForServer : MonoBehaviour {
 		if (Input.GetKeyUp ("space")) {
 			counter++;
 		}
-//		if (Application.loadedLevel == 2){
-//			Analytics.CustomEvent("First Level", new Dictionary<string, object>
-//				{
-//					{ "spaces", counter },
-//					{ "time",  timer    }
-//				});
-//		}
-//		if (Application.loadedLevel == 3){
-//			Analytics.CustomEvent("Second Level", new Dictionary<string, object>
-//				{
-//					{ "spaces", counter },
-//					{ "time",  timer    }
-//				});
+		if (Application.loadedLevel == 2){
+			Analytics.CustomEvent("First Level", new Dictionary<string, object>
+				{
+					{ "spaces", counter },
+					{ "time",  timer    }
+				});
+		}
+		if (Application.loadedLevel == 3){
+			Analytics.CustomEvent("Second Level", new Dictionary<string, object>
+				{
+					{ "spaces", counter },
+					{ "time",  timer    }
+				});
 		}
 	}
+}
 
 
 				
