@@ -8,4 +8,9 @@ public class LoadSceneOnClick : MonoBehaviour {
     {
         SceneManager.LoadScene(sceneIndex);
     }
+
+	public void LoadCurrentScene()
+	{
+		SceneManager.LoadScene(SceneManager.GetActiveScene ().buildIndex);
+	}
 }
