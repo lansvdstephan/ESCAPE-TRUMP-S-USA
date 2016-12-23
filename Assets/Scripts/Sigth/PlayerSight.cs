@@ -30,6 +30,8 @@ public class PlayerSight : MonoBehaviour
     public float[] distances;
     public bool[] currOther;
 
+ 
+
     // Use this for initialization
     void Start()
     {

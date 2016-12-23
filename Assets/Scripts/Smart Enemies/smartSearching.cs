@@ -20,6 +20,8 @@ public class smartSearching : MonoBehaviour
     private int max = 0;
     public List<float> distances = new List<float>();
 
+  
+
     //Test-Zone
     public List<float> test = new List<float>();
     public List<float> test2 = new List<float>();
@@ -48,6 +50,8 @@ public class smartSearching : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+        prevPoint = curPoint;
+        curPoint = transform.position;
         pointDistances()     ;
     }
 

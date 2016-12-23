@@ -20,9 +20,13 @@ public class MoveonPath : MonoBehaviour
     public bool check;
     public bool hitPlayer;
     private float timeLeft = 1f;
+    private Vector3 curPoint;
+    private Vector3 prevPoint;
     // Use this for initialization
     void Start()
     {
+        curPoint = transform.position;
+        prevPoint = Vector3.zero;
         agent = GetComponent<NavMeshAgent>();
         //pathToFolow = GameObject.Find(pathName).GetComponent<EditorPath>();
     }
@@ -30,15 +34,21 @@ public class MoveonPath : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        prevPoint = curPoint;
+        curPoint = transform.position;
+
         if(hitPlayer)
         {
             pauseMovement();
+            agent.Stop();
         }
 
         else if (fow.playerSeen)
         {
             speed = Min(maxSpeed, speed + 0.005f);
             followPlayer();
+            if (!check)
+                this.gameObject.GetComponent<AudioSource>().Play();
             check = true;
         }
         
@@ -103,7 +113,7 @@ public class MoveonPath : MonoBehaviour
     {
         agent.Resume();
         agent.SetDestination(pathToFolow.path_objects[currentWayPointID].position);
-        Quaternion rotation = Quaternion.LookRotation(pathToFolow.path_objects[currentWayPointID].position - transform.position); // position we are going to minus the position we are looking at
+        Quaternion rotation = Quaternion.LookRotation(curPoint - prevPoint); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
         float eps = 0.5f;
         if (Mathf.Abs(pathToFolow.path_objects[currentWayPointID].position.x - transform.position.x) < eps && Mathf.Abs(pathToFolow.path_objects[currentWayPointID].position.z - transform.position.z) < eps)
@@ -117,7 +127,7 @@ public class MoveonPath : MonoBehaviour
     {
         agent.Resume();
         agent.SetDestination(fow.toGo);
-        Quaternion rotation = Quaternion.LookRotation(fow.toGo - transform.position); // position we are going to minus the position we are looking at
+        Quaternion rotation = Quaternion.LookRotation(curPoint - prevPoint); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
         float eps = 0.5f;
         if (Mathf.Abs(fow.toGo.x - transform.position.x) < eps && Mathf.Abs(fow.toGo.z - transform.position.z) < eps)
