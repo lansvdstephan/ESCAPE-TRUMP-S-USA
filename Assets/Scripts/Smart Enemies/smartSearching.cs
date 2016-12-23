@@ -50,8 +50,6 @@ public class smartSearching : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        prevPoint = curPoint;
-        curPoint = transform.position;
         pointDistances()     ;
     }
 
