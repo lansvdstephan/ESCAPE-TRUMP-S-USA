@@ -138,7 +138,7 @@ public class MoveonPath : MonoBehaviour
         {
             damageTaken = true;
             hitPlayer = true;
-            player.health = player.health - 20;
+            player.health = Max(player.health - 20,0);
         }
     }
 
@@ -148,5 +148,12 @@ public class MoveonPath : MonoBehaviour
             return f1;
         else
             return f2;
+    }
+    public int Max(int f1, int f2)
+    {
+        if (f1 < f2)
+            return f2;
+        else
+            return f1;
     }
 }
