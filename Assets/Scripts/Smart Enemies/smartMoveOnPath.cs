@@ -61,7 +61,7 @@ public class smartMoveOnPath : MonoBehaviour
             firstpoint = false;
             pause = false;
             count = 0;
-            Debug.Log(fireCountDown + ";" + richten);
+     
             if (fireCountDown > 0.11f && fireCountDown < 0.15f && !richten)
             {
                 richten = true;
@@ -129,12 +129,10 @@ public class smartMoveOnPath : MonoBehaviour
 
     void pauseMovement()
     {
-        Debug.Log("pause");
         timeLeft -= Time.deltaTime;
         agent.Stop();
         if (timeLeft < 0)
         {
-            Debug.Log("STOP");
             agent.Resume();
             damageTaken = false;
             hitPlayer = false;
@@ -155,14 +153,12 @@ public class smartMoveOnPath : MonoBehaviour
 
     void walkShortestRoute()
     {
-        agent.Resume();
         agent.SetDestination(ss.pointToGO);
         Quaternion rotation = Quaternion.LookRotation(ss.pointToGO - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
         float eps = 0.5f;
         if (Mathf.Abs(ss.pointToGO.x - transform.position.x) < eps && Mathf.Abs(ss.pointToGO.z - transform.position.z) < eps)
         {
-            agent.Stop();
             check = false;
         }
     }
@@ -266,7 +262,7 @@ public class smartMoveOnPath : MonoBehaviour
     {
         GameObject bulletGO = (GameObject)Instantiate(bullet, firePoint.position, firePoint.rotation);
         Bullets bullets = bulletGO.GetComponent<Bullets>();
-        Debug.Log("Been here");
+        
         if (bullet != null)
             bullets.Seek(player.transform.position);
     }

@@ -31,7 +31,7 @@ public class smartSearching : MonoBehaviour
     public float randi = 0f;
     public float ftest = 0f;
     public int itest = 0;
-
+    public List<int> testje = new List<int>();
     //BETWEEN TWO POINTS IN THE GRID NO ENEMY OR PLAYER CAN BE PLACED!!!!!!
 
     // Use this for initialization
@@ -40,31 +40,14 @@ public class smartSearching : MonoBehaviour
         grid = cE.grid_points;
         visitable = allPoints();
         times_visited[0] = 1;
-        previous = times_visited.Count;
-        current = 0;
-        next = 1;
         firstPoint = false;
         pause = false;
+        testje = onePoint(35);
     }
 
     // Update is called once per frame
     public void Update()
     {
-        //furtherSearching();
-        /*
-        float range = 20;
-        float angle = 0;
-        Vector2 randomRange = getRandomAngle(range, angle);
-        Vector3 dirA = fow.directionFromAngle(-1 * range, false);
-        Vector3 dirB = fow.directionFromAngle(range, false);
-
-        Vector3 pointA = transform.position + dirA * 5;
-        Vector3 pointB = transform.position + dirB * 5;
-        Debug.DrawLine(transform.position, pointA, Color.cyan);
-        Debug.DrawLine(transform.position, pointB, Color.cyan);
-        Debug.Log(randomRange.x + ";" + randomRange.y);
-        */
-        // randomPoint();
         pointDistances()     ;
     }
 
@@ -75,7 +58,6 @@ public class smartSearching : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, grid[next].transform.position, Time.deltaTime * 2.0f);
         Quaternion rotation = Quaternion.LookRotation(grid[next].transform.position - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10f);
-        //Debug.Log(transform.position == grid[next].transform.position);
         float eps = 0.1f;
         if (Mathf.Abs(transform.position.x - grid[next].transform.position.x) < eps && Mathf.Abs(transform.position.z - grid[next].transform.position.z) < eps)
         {
@@ -90,11 +72,16 @@ public class smartSearching : MonoBehaviour
 
     private int chanceList()
     {
-        List<int> currVisitable = visitable[next];
-        if (currVisitable.Count != 1)
+        List<int> currVisitable = visitable[current];
+        Debug.Log(visitable[current].Count);
+        Debug.Log(visitable[current]);
+        testje = visitable[previous];
+        if(visitable[current].Count != 1)
         {
             currVisitable.Remove(previous);
         }
+
+        
         List<float> chance = new List<float>();
         List<float> ratio = new List<float>();
         List<int> currVisited = new List<int>();
@@ -190,6 +177,7 @@ public class smartSearching : MonoBehaviour
                 }
             }
         }
+       
         return toReturn;
     }
     /*
