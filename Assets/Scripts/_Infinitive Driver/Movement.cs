@@ -14,6 +14,8 @@ public class Movement : MonoBehaviour {
     public Text fuelText;
     public Text winText;
     public Text healthText;
+
+    private float points;
 	
 	// Update is called once per frame
 	void Update () {
@@ -34,10 +36,9 @@ public class Movement : MonoBehaviour {
             winText.text = "You are Crashed";
             this.enabled = false;
         }
-        if (this.transform.position.z > 100)
-        {
-            winText.text = "You win";
-        }
+        points = this.transform.position.z;
+        winText.text = points.ToString();
+        
     }
 
     private void SetFuelText()
@@ -64,7 +65,7 @@ public class Movement : MonoBehaviour {
         }
         if (other.gameObject.CompareTag("Obstackle"))
         {
-            winText.text = "You are Crashed";
+            //winText.text = "You are Crashed";
             this.health = this.health - damageDoneByCollision;
         }
     }
