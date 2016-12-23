@@ -12,7 +12,7 @@ public class EditorRandom : MonoBehaviour
         Vector3 point1 = rs.point1;
         Vector3 point2 = rs.point2;
         Vector3 point3 = new Vector3(rs.point1.x, rs.point1.y, rs.point2.z);
-        Vector3 point4 = new Vector3(rs.point2.z, rs.point2.y, rs.point1.z);
+        Vector3 point4 = new Vector3(rs.point2.x, rs.point2.y, rs.point1.z);
         Gizmos.color = rayColor;
         Gizmos.DrawLine(point1, point3);
         Gizmos.DrawLine(point1, point4);

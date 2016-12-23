@@ -8,6 +8,9 @@ public class Bullets : MonoBehaviour {
     public void Seek(Vector3 _target)
     {
         target = _target;
+        target.y = target.y + 1.2f;
+        target = target + 25*transform.forward;
+        Debug.DrawRay(transform.position, target - transform.position, Color.blue,2f);
     }
 	
 	// Update is called once per frame
@@ -22,17 +25,11 @@ public class Bullets : MonoBehaviour {
         Vector3 dir = target - transform.position;
         float distanceThisFrame = speed * Time.deltaTime;
 
-        if(dir.magnitude <= distanceThisFrame)
-        {
-            HitTarget();
-            return;
-        }
-
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
 
 	}
 
-    void HitTarget()
+    void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
     }
