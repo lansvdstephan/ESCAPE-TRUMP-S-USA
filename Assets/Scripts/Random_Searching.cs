@@ -16,7 +16,7 @@ public class Random_Searching : MonoBehaviour
     {
         Debug.Log(transform.position);
         agent = GetComponent<NavMeshAgent>();
-        random = pickRandomPoint();
+        random = transform.position;
         agent.SetDestination(random);
     }
 
@@ -30,20 +30,34 @@ public class Random_Searching : MonoBehaviour
     }
     public Vector3 pickRandomPoint()
     {
-        float rangex = Mathf.Abs(point2.x - point1.x);
-        float randomx = (Random.value * rangex) - point2.x;
-        float rangez = Mathf.Abs(point2.z - point1.z);
-        float randomz = (Random.value * rangez) - point2.z;
+        float randomx = 0f;
+        if (point1.x < point2.x)
+            randomx = Random.Range(point1.x, point2.x);
+        else
+            randomx = Random.Range(point2.x, point1.x);
+        
+        float randomz = 0f;
+        if (point1.z < point2.z)
+            randomz = Random.Range(point1.z, point2.z);
+        else
+            randomz = Random.Range(point2.z, point1.z);
+
+
         Vector3 next = new Vector3(randomx, 0.5f, randomz);
+        Debug.Log(randomx + ";" + randomz);
         while (isObject(next))
         {
-             rangex = Mathf.Abs(point2.x - point1.x);
-             randomx = (Random.value * rangex) - point2.x;
+            if (point1.x < point2.x)
+                randomx = Random.Range(point1.x, point2.x);
+            else
+                randomx = Random.Range(point2.x, point1.x);
+            
+            if (point1.z < point2.z)
+                randomx = Random.Range(point1.z, point2.z);
+            else
+                randomx = Random.Range(point2.z, point1.z);
 
-             rangez = Mathf.Abs(point2.z - point1.z);
-             randomz = (Random.value * rangez) - point2.z;
-             next = new Vector3(randomx, 0.5f, randomz);
-
+            next = new Vector3(randomx, 0.5f, randomz);
         }
         return next;
     }
