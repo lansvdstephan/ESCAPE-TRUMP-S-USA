@@ -25,6 +25,8 @@ public class smartMoveOnPath : MonoBehaviour
 
     private int count = 0;
     private float timeLeft = 1f;
+    private Vector3 curPoint;
+    private Vector3 prevPoint;
 
     //SHOOTING
     public GameObject bullet;
@@ -41,6 +43,9 @@ public class smartMoveOnPath : MonoBehaviour
         pause = false;
         firstTime = false;
         agent = GetComponent<NavMeshAgent>();
+
+        curPoint = transform.position;
+        prevPoint = Vector3.zero;
         //pathToFolow = GameObject.Find(pathName).GetComponent<EditorPath>();
     }
 
@@ -154,7 +159,7 @@ public class smartMoveOnPath : MonoBehaviour
     void walkShortestRoute()
     {
         agent.SetDestination(ss.pointToGO);
-        Quaternion rotation = Quaternion.LookRotation(ss.pointToGO - transform.position); // position we are going to minus the position we are looking at
+        Quaternion rotation = Quaternion.LookRotation(curPoint - prevPoint); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
         float eps = 0.5f;
         if (Mathf.Abs(ss.pointToGO.x - transform.position.x) < eps && Mathf.Abs(ss.pointToGO.z - transform.position.z) < eps)
@@ -167,7 +172,7 @@ public class smartMoveOnPath : MonoBehaviour
     {
         agent.Resume();
         agent.SetDestination(fow.toGo);
-        Quaternion rotation = Quaternion.LookRotation(fow.toGo - transform.position); // position we are going to minus the position we are looking at
+        Quaternion rotation = Quaternion.LookRotation(curPoint - prevPoint); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
         //Debug.Log(transform.position == (fow.toGo));
         float eps = 0.5f;
