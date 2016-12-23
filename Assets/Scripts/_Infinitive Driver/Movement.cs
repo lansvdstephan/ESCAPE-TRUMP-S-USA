@@ -15,7 +15,7 @@ public class Movement : MonoBehaviour {
     public Text winText;
     public Text healthText;
 
-    private float points;
+    public float points;
 	
 	// Update is called once per frame
 	void Update () {
