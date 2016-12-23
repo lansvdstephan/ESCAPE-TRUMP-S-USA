@@ -3,8 +3,8 @@ using System.Collections;
 
 public class StartGame : MonoBehaviour{
 
+    public GameObject dialoguePanel;
 	public string[] dialogue;
-	public GameObject dialoguePanel;
 	public Animator trump;
 	public Animator camera;
 

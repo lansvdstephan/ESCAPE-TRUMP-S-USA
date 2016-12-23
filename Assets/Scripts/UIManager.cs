@@ -31,12 +31,12 @@ void Update () {
         {
             SwitchPause();
         }
-        if (GameObject.FindWithTag("Player").GetComponent<PhilMovement>().health == 0/*||GameObject.FindWithTag("Player").GetComponent<Movement>().health==0|| GameObject.FindWithTag("Player").GetComponent<Movement>().fuel==0*/)
-        {
-            GameOver(true);
-        }
+		if (GameObject.FindWithTag ("Player") != null) {
+			if (GameObject.FindWithTag ("Player").GetComponent<PhilMovement> ().health == 0/*||GameObject.FindWithTag("Player").GetComponent<Movement>().health==0|| GameObject.FindWithTag("Player").GetComponent<Movement>().fuel==0*/) {
+				GameOver (true);
+			}
         
-	
+		}
 	}
 
     void PauseGame(bool state)

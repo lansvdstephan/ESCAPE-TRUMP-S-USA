@@ -62,6 +62,11 @@ public class Movement : MonoBehaviour {
             this.health += 20;
             Destroy(other.gameObject);
         }
+        if (other.gameObject.CompareTag("Obstackle"))
+        {
+            winText.text = "You are Crashed";
+            this.health = this.health - damageDoneByCollision;
+        }
     }
 
     void OnCollisionEnter(Collision collision)

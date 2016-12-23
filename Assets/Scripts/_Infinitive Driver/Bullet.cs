@@ -8,44 +8,50 @@ public class Bullet : MonoBehaviour {
     public GameObject impactEffect;
 
     private Vector3 targetPosition;
-    private bool TargetHitted = false;
+    private bool targetHitted = false;
+    private bool go = false;
     private GameObject target;
 
-    public void Seek(Transform _target)
+    public void Seek(Transform _target, float waitUntilGo)
     {
+        Invoke("Go", waitUntilGo);
         target = _target.gameObject;
         targetPosition = _target.position;
         float targetSpeed = _target.GetComponent<Movement>().correctedSpeed;
         float zCorrection = ((this.transform.position - targetPosition).magnitude / (speed+targetSpeed)) * targetSpeed;
         targetPosition = new Vector3(targetPosition.x, targetPosition.y, targetPosition.z +zCorrection);
+        
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (targetPosition == null)
+        if (go && !targetHitted)
         {
-            Destroy(gameObject);
-            return;
+            if (targetPosition == null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Vector3 dir = targetPosition - transform.position;
+            float distanceThisFrame = speed * Time.deltaTime;
+
+            if (dir.magnitude <= distanceThisFrame)
+            {
+                HitTarget();
+                return;
+            }
+
+            transform.Translate(dir.normalized * distanceThisFrame, Space.World);
         }
-
-        Vector3 dir = targetPosition - transform.position;
-        float distanceThisFrame = speed * Time.deltaTime;
-
-        if (dir.magnitude <= distanceThisFrame && !TargetHitted)
-        {
-            HitTarget();
-            TargetHitted = !TargetHitted;
-            return;
-        }
-
-        transform.Translate(dir.normalized * distanceThisFrame, Space.World);
 
     }
 
     void HitTarget()
     {
+        targetHitted = true;
         GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
         Destroy(effectIns, 5f);
         Explode();
@@ -72,6 +78,20 @@ public class Bullet : MonoBehaviour {
         {
             target.GetComponent<Movement>().health = target.GetComponent<Movement>().health - damage;
         }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (!collision.gameObject.CompareTag("Ground"))
+        {
+            HitTarget();
+        }
+    }
+
+
+    void Go()
+    {
+        go = true;
     }
 
     void Dead()
