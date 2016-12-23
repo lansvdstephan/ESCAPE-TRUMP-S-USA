@@ -70,7 +70,6 @@ public class Random_Searching : MonoBehaviour
     void PauseMovements()
     {
         time = time - Time.deltaTime;
-        Debug.Log("YOl");
         if(time <0)
         {
             pauze = false;
