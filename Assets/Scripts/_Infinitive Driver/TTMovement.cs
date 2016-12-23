@@ -15,6 +15,7 @@ public class TTMovement : MonoBehaviour {
     private float[] hArr;
     private float hBorder = 0.65f;
     private float speed;
+    private float waitUntilGo = 0.5f;
 
     void Awake()
     {
@@ -85,8 +86,12 @@ public class TTMovement : MonoBehaviour {
     {
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
+        if (waitUntilGo != 0)
+        {
+            waitUntilGo = waitUntilGo - 0.05f;
+        }
 
         if (bullet != null)
-            bullet.Seek(player.transform);
+            bullet.Seek(player.transform, waitUntilGo);
     }
 }
