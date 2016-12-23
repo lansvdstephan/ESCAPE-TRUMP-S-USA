@@ -181,7 +181,7 @@ public class PhilMovement : MonoBehaviour {
         if (other.CompareTag("Health"))
         {
             health = Min(health + 10, 100);
-            other.gameObject.SetActive(false);
+            Destroy(other.gameObject);//.SetActive(false);
         }
 
         if (other.CompareTag("Bullet"))
