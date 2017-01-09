@@ -11,6 +11,7 @@ public class PhilMovement : MonoBehaviour {
     public float speed;
     public int health;
     public Text healthText;
+    public bool animOn;
 
     private Rigidbody rb;
 	private Animator anim;
@@ -51,7 +52,7 @@ public class PhilMovement : MonoBehaviour {
         if (!PhilDialogue.Instance.dialoguePanel.activeSelf) {
             Move();
         }
-        if (hand.transform.childCount != 0)
+        if (hand.transform.childCount != 0 && !animOn)
         {
             if (pickedUp)
             {
