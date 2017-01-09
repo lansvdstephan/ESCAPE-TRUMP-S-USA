@@ -7,7 +7,14 @@ public class PlayerDataForServer : MonoBehaviour {
 	
 	private static int counter;
 	private static float timer;
+	private bool secondLevelGameOver;
+	private bool thirdLevelGameOver;
 
+
+	public int spaces;
+	public float timeSpent;
+
+	public bool startGame = false;
 	public bool firstLevelComplete = false;
 	public bool secondLevelComplete = false;
 	public bool thirdLevelComplete = false;
@@ -17,10 +24,22 @@ public class PlayerDataForServer : MonoBehaviour {
 	// Use this for initialization
 	void awake () {
 		DontDestroyOnLoad (this.gameObject);
+		secondLevelGameOver = false;
+		thirdLevelGameOver = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		spaces = counter;
+		timeSpent = timer;
+
+		if (Application.loadedLevel == 1) {
+			if (!startGame) {
+				startGame = true;
+			}
+		}
+
+		if (startGame){
 		//Increment timer
 		timer += Time.deltaTime;
 		//When not having a dialogue
@@ -61,32 +80,39 @@ public class PlayerDataForServer : MonoBehaviour {
 			}
 		}
 		if (GameObject.FindWithTag ("Player") != null) {
-			if (GameObject.FindWithTag ("Player").GetComponent<PhilMovement> () != null) {
-				if (GameObject.FindWithTag ("Player").GetComponent<PhilMovement> ().health <= 0) {
-					print ("Second level Game-Over, Spaces: " + counter + ", Time: " + timer);
-					Analytics.CustomEvent("Second Level Game-Over", new Dictionary<string, object>
-						{
-							{ "spaces", counter },
-							{ "time",  timer    }
-						});
-					timer = 0f;
-					counter = 0;
+				
+				if (GameObject.FindWithTag ("Player").GetComponent<PhilMovement> () != null) {
+					if (GameObject.FindWithTag ("Player").GetComponent<PhilMovement> ().health <= 0) {
+						if (!secondLevelGameOver) {
+							secondLevelGameOver = true;
+							print ("Second level Game-Over, Spaces: " + counter + ", Time: " + timer);
+							Analytics.CustomEvent ("Second Level Game-Over", new Dictionary<string, object> {
+								{ "spaces", counter },
+								{ "time",  timer    }
+							});
+							timer = 0f;
+							counter = 0;
+						}  
+					} else {
+						secondLevelGameOver = false;
+					}
+				} else if (GameObject.FindWithTag ("Player").GetComponent<Movement> () != null) {
+					if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().health <= 0 || GameObject.FindWithTag ("Player").GetComponent<Movement> ().fuel == 0) {
+						if (!thirdLevelGameOver) {
+							thirdLevelGameOver = true;
+							float points = GameObject.FindWithTag ("Player").GetComponent<Movement> ().points;
+							print ("Third level Game-Over, Distance: " + points + ", Time: " + timer);
+							Analytics.CustomEvent ("Third Level Game-Over", new Dictionary<string, object> {
+								{ "distance", points },
+								{ "time",  timer     }
+							});
+							timer = 0f;
+						}
+					} else {
+						thirdLevelGameOver = false;
+					}
 				}
-			} else if (GameObject.FindWithTag ("Player").GetComponent<Movement> () != null) {
-				if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().health <= 0 || GameObject.FindWithTag("Player").GetComponent<Movement>().fuel==0) {
-					float points = GameObject.FindWithTag ("Player").GetComponent<Movement> ().points;
-					print ("Third level Game-Over, Distance: " + points + ", Time: " + timer);
-					Analytics.CustomEvent("Third Level Game-Over", new Dictionary<string, object>
-						{
-							{ "distance", points },
-							{ "time",  timer    }
-						});
-					timer = 0f;
-				}
-			}
-		}	
+			}	
+		}
 	}
 }
-
-
-				
