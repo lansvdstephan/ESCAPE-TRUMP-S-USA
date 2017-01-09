@@ -16,6 +16,7 @@ public class LookAtObject : PhilInteractable {
 			print("hint");
 			anim.SetTrigger (Animator.StringToHash(trigger));
 			ready = true;
+			PhilMovement.player.GetComponent<PhilMovement> ().animOn = true;
 			PhilDialogue.Instance.AddNewDialogue(dialogue);
 
 		}
@@ -23,6 +24,7 @@ public class LookAtObject : PhilInteractable {
 		{
 			PhilDialogue.Instance.ContinueDialogue();
 			anim.SetTrigger (Animator.StringToHash(trigger));
+			PhilMovement.player.GetComponent<PhilMovement> ().animOn = false;
 		}
 
 	}
