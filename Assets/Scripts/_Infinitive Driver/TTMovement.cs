@@ -32,6 +32,19 @@ public class TTMovement : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+
+        Movement();
+
+        if (player != null && fireCountdown <= 0f)
+        {
+            Shoot();
+            fireCountdown = 1f / fireRate;
+        }
+        fireCountdown -= Time.deltaTime;
+    }
+
+    private void Movement()
+    {
         float h = GetHorizontalMovement();
         Vector3 movement = new Vector3(h, 0, 2);
         movement = movement * speed * Time.deltaTime;
@@ -51,17 +64,10 @@ public class TTMovement : MonoBehaviour {
         {
             this.transform.position = new Vector3(-14f, this.transform.position.y, this.transform.position.z);
         }
-        else if (this.transform.position.x  > 4f)
+        else if (this.transform.position.x > 4f)
         {
-            this.transform.position = new Vector3( 4f, this.transform.position.y, this.transform.position.z);
+            this.transform.position = new Vector3(4f, this.transform.position.y, this.transform.position.z);
         }
-
-        if (player != null && fireCountdown <= 0f)
-        {
-            Shoot();
-            fireCountdown = 1f / fireRate;
-        }
-        fireCountdown -= Time.deltaTime;
     }
 
     private float GetHorizontalMovement()
