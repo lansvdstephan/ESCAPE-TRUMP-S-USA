@@ -39,11 +39,11 @@ public class PickUpAble : PhilInteractable {
     //Doing an action with a pickup item
     public virtual bool GetAction()
     {
-        if (PhilDialogue.Instance.dialoguePanel.activeSelf)
+        /*if (PhilDialogue.Instance.dialoguePanel.activeSelf)
         { 
             PhilDialogue.Instance.ContinueDialogue();
             return true;
-        }
+        }*/
         return false;
     }
 
