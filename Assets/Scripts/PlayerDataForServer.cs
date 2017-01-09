@@ -40,6 +40,8 @@ public class PlayerDataForServer : MonoBehaviour {
 					{ "spaces", counter },
 					{ "time",  timer    }
 				});
+				timer = 0f;
+				counter = 0;
 			}
 		}
 		//Send after level two is complete
@@ -54,9 +56,34 @@ public class PlayerDataForServer : MonoBehaviour {
 					{ "spaces", counter },
 					{ "time",  timer    }
 				});
+				timer = 0f;
+				counter = 0;
 			}
 		}
-			
+		if (GameObject.FindWithTag ("Player") != null) {
+			if (GameObject.FindWithTag ("Player").GetComponent<PhilMovement> () != null) {
+				if (GameObject.FindWithTag ("Player").GetComponent<PhilMovement> ().health <= 0) {
+					Analytics.CustomEvent("Second Level Game-Over", new Dictionary<string, object>
+						{
+							{ "spaces", counter },
+							{ "time",  timer    }
+						});
+					timer = 0f;
+					counter = 0;
+				}
+			} else if (GameObject.FindWithTag ("Player").GetComponent<Movement> () != null) {
+				if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().health <= 0 || GameObject.FindWithTag("Player").GetComponent<Movement>().fuel==0) {
+					float points = GameObject.FindWithTag ("Player").GetComponent<Movement> ().points;
+					Analytics.CustomEvent("Third Level Game-Over", new Dictionary<string, object>
+						{
+							{ "distance", points },
+							{ "time",  timer    }
+						});
+					timer = 0f;
+					counter = 0;
+				}
+			}
+		}	
 	}
 }
 
