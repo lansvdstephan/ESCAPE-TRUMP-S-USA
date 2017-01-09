@@ -34,7 +34,7 @@ public class PlayerDataForServer : MonoBehaviour {
 			if (!firstLevelComplete) {
 				firstLevelComplete = true;
 
-				print ("spaces " + counter + " time " + timer);
+				print ("First level Conmplete, Spaces: "+ counter + ", Time: "+ timer);
 
 				Analytics.CustomEvent ("First Level complete", new Dictionary<string, object> {
 					{ "spaces", counter },
@@ -49,7 +49,7 @@ public class PlayerDataForServer : MonoBehaviour {
 			if (!secondLevelComplete) {
 				secondLevelComplete = true;
 
-			print ("spaces "+ counter + " time "+ timer);
+			print ("Second level Conmplete, Spaces: "+ counter + ", Time: "+ timer);
 
 			Analytics.CustomEvent("Second Level complete", new Dictionary<string, object>
 				{
@@ -63,6 +63,7 @@ public class PlayerDataForServer : MonoBehaviour {
 		if (GameObject.FindWithTag ("Player") != null) {
 			if (GameObject.FindWithTag ("Player").GetComponent<PhilMovement> () != null) {
 				if (GameObject.FindWithTag ("Player").GetComponent<PhilMovement> ().health <= 0) {
+					print ("Second level Game-Over, Spaces: " + counter + ", Time: " + timer);
 					Analytics.CustomEvent("Second Level Game-Over", new Dictionary<string, object>
 						{
 							{ "spaces", counter },
@@ -74,13 +75,13 @@ public class PlayerDataForServer : MonoBehaviour {
 			} else if (GameObject.FindWithTag ("Player").GetComponent<Movement> () != null) {
 				if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().health <= 0 || GameObject.FindWithTag("Player").GetComponent<Movement>().fuel==0) {
 					float points = GameObject.FindWithTag ("Player").GetComponent<Movement> ().points;
+					print ("Third level Game-Over, Distance: " + points + ", Time: " + timer);
 					Analytics.CustomEvent("Third Level Game-Over", new Dictionary<string, object>
 						{
 							{ "distance", points },
 							{ "time",  timer    }
 						});
 					timer = 0f;
-					counter = 0;
 				}
 			}
 		}	
