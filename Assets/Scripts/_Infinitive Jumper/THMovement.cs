@@ -12,7 +12,6 @@ public class THMovement : MonoBehaviour {
     public float throwAngle = 30f;
 
     private float fireCountdown = 1f;
-    private float waitUntilGo = 0.5f;
     private float speed = 10f;
     
 
@@ -38,10 +37,6 @@ public class THMovement : MonoBehaviour {
     {
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
-        if (waitUntilGo != 0)
-        {
-            waitUntilGo = waitUntilGo - 0.05f;
-        }
 
         if (bullet != null)
         {
@@ -51,10 +46,11 @@ public class THMovement : MonoBehaviour {
             plainDir = plainDir.normalized;
             float yf = Mathf.Tan((throwAngle/180)*Mathf.PI);
             Vector3 forceDir = new Vector3(plainDir.x, yf, plainDir.z);
+            forceDir = forceDir.normalized;
 
             float g = Mathf.Abs(Physics.gravity.y);
-            float R = Mathf.Sqrt(xf * xf + zf * zf)/(2.5f);
-            speed = Mathf.Sqrt(R * g / Mathf.Sin((throwAngle / 180) * Mathf.PI));
+            float R = Mathf.Sqrt(xf * xf + zf * zf);
+            speed = Mathf.Sqrt(R * g / Mathf.Sin((2*throwAngle / 180) * Mathf.PI));
 
             Rigidbody bulletRB = bullet.GetComponent<Rigidbody>();
             if (bulletRB != null)

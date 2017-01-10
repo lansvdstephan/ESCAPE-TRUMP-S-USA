@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DestroyerTest : MonoBehaviour {
 	
-	void OnTriggerEnter(Collider other)
+	void OnTriggerExit(Collider other)
     {
         if (other.gameObject.transform.parent != null)
         {
