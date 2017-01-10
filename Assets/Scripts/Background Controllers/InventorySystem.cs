@@ -36,16 +36,11 @@ public class InventorySystem : MonoBehaviour {
 
     public void SwitchHandImage()
     {
-        if (hand.transform.childCount != 0)
-        {
-            handImage.sprite = hand.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite;
-        }
-        else
-        {
-            handImage.sprite = null;
-        }
-            print("image switched");
-
+		if (hand.transform.childCount != 0) {
+			handImage.sprite = hand.transform.GetChild (0).GetChild (0).GetComponent<SpriteRenderer> ().sprite;
+		} else {
+			handImage.sprite = null;
+		}
     }
 
     public void SwitchInventoryImange()

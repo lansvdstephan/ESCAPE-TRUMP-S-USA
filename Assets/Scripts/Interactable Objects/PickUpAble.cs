@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PickUpAble : PhilInteractable {
+	public string objectName;
 	public string[] foundDialog;
 
     private Quaternion originalRotation;
@@ -14,12 +15,13 @@ public class PickUpAble : PhilInteractable {
         originalScale = this.transform.lossyScale;
     }
 
+
     public override void Interact(GameObject player)
     {
         if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
             if ( this.foundDialog != null) PhilDialogue.Instance.AddNewDialogue(this.foundDialog);
-            print("Interacted with object");
+			PlayerDataForServer.FoundItem (objectName);
             if (PhilMovement.hand.transform.childCount == 0)
             {
                 PlaceItemInHand(player);
@@ -78,7 +80,6 @@ public class PickUpAble : PhilInteractable {
 		this.gameObject.SetActive (false);
         this.transform.position = Inventory.transform.position;
         int children = Inventory.transform.childCount;
-        print(children);
         List<Transform> Items = new List<Transform>(children);
         for (int i = 0; i < children; i++)
         {

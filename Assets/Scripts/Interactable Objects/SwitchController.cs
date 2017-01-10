@@ -4,6 +4,7 @@ using System.Collections;
 public class SwitchController : PhilInteractable {
 
     public GameObject switched;
+	public string name;
     public bool unlocked = true;
     public int keyCode = 00; 
     public bool switchFlipped = false;
@@ -53,6 +54,7 @@ public class SwitchController : PhilInteractable {
                 if (PhilMovement.hand.transform.GetChild(0).GetComponent<Key>().keyCode == this.keyCode)
                 {
                     unlocked = true;
+					PlayerDataForServer.Unlocked (name);
                     switched.GetComponent<Switchable>().SwitchOn();
                     PhilDialogue.Instance.AddNewDialogue(unLockedDialogue);
                 }

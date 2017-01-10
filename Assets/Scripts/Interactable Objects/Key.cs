@@ -11,7 +11,6 @@ public class Key : PickUpAble {
         {
             return true;
         }
-        print("you a ass");
         return false;
     }
 }

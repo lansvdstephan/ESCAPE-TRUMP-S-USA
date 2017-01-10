@@ -117,7 +117,7 @@ public class PlayerDataForServer : MonoBehaviour {
 		}
 
 		//Print to check if working
-		print (levelString + " , Spaces: "+ counter + ", Time: "+ timer);
+		print (levelString + ", Spaces: "+ counter + ", Time: "+ timer);
 
 		//Post to unity analytics
 		Analytics.CustomEvent(levelString, new Dictionary<string, object>
@@ -152,4 +152,19 @@ public class PlayerDataForServer : MonoBehaviour {
 			ResetTimerAndCounter ();
 		}
 	}
+
+	public static void FoundItem (string name) {
+		print ("Found Item: " + name + ", Time: " + timer);
+		Analytics.CustomEvent ("Found Item: " + name, new Dictionary<string, object> {
+			{"time", timer}
+		});
+	}
+
+	public static void Unlocked (string name) {
+		print ("Unlocked: " + name + ", Time: " + timer);
+		Analytics.CustomEvent ("Unlocked: " + name, new Dictionary<string, object> {
+			{"time", timer}
+		});
+	}
+		
 }
