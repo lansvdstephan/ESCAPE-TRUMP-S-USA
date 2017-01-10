@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PickUpAble : PhilInteractable {
-	public string objectName;
+	public string name;
 	public string[] foundDialog;
 
     private Quaternion originalRotation;
@@ -21,7 +21,7 @@ public class PickUpAble : PhilInteractable {
         if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
             if ( this.foundDialog != null) PhilDialogue.Instance.AddNewDialogue(this.foundDialog);
-			PlayerDataForServer.FoundItem (objectName);
+			PlayerDataForServer.FoundItem (name);
             if (PhilMovement.hand.transform.childCount == 0)
             {
                 PlaceItemInHand(player);

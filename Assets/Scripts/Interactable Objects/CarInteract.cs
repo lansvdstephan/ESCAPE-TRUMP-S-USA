@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class CarInteract : PhilInteractable {
+	public string name;
     public bool unlocked = true;
     public int keyCode = 0;
 
@@ -60,6 +61,7 @@ public class CarInteract : PhilInteractable {
                 if (PhilMovement.hand.transform.GetChild(0).GetComponent<Key>().keyCode == this.keyCode)
                 {
                     unlocked = true;
+					PlayerDataForServer.Unlocked (name);
                     PhilDialogue.Instance.AddNewDialogue(unLockedDialogue);
                 }
                 else PhilDialogue.Instance.AddNewDialogue(wrongKey);
