@@ -136,7 +136,9 @@ public class PlayerDataForServer : MonoBehaviour {
 			print ("Second level Game-Over, Spaces: " + counter + ", Time: " + timer);
 			Analytics.CustomEvent ("Second Level Game-Over", new Dictionary<string, object> {
 				{ "spaces", counter },
-				{ "time",  timer    }
+				{ "time",  timer    },
+				{ "location x", Mathf.Round(PhilMovement.player.transform.position.x)},
+				{ "location z", Mathf.Round(PhilMovement.player.transform.position.z)}
 			});
 			ResetTimerAndCounter ();
 		}  
@@ -147,7 +149,9 @@ public class PlayerDataForServer : MonoBehaviour {
 			print ("Third level Game-Over, Distance: " + points + ", Time: " + timer);
 			Analytics.CustomEvent ("Third Level Game-Over", new Dictionary<string, object> {
 				{ "distance", points },
-				{ "time",  timer     }
+				{ "time",  timer     },
+				{ "location x", Mathf.Round(PhilMovement.player.transform.position.x)},
+				{ "location z", Mathf.Round(PhilMovement.player.transform.position.z)}
 			});
 			ResetTimerAndCounter ();
 		}

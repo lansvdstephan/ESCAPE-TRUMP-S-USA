@@ -32,6 +32,7 @@ public class CodeDoorController : SwitchController {
         if (getCode.text.Equals(code))
         {
             switched.GetComponent<Switchable>().SwitchOn();
+			PlayerDataForServer.Unlocked (name);
             InputSystem.Instance.inputPanel.SetActive(false);
         }
         else
