@@ -26,6 +26,11 @@ public class JumpMovement : MonoBehaviour {
 
     }
 
+    void FixedUpdate()
+    {
+        rb.AddForce(Physics.gravity * -0.5f, ForceMode.Acceleration);
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         print("Enter");

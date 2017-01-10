@@ -17,7 +17,7 @@ public class THMovement : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-	
+        Physics.gravity = Physics.gravity * 9f;
 	}
 	
 	// Update is called once per frame
@@ -40,8 +40,14 @@ public class THMovement : MonoBehaviour {
 
         if (bullet != null)
         {
-            float xf = player.transform.position.x - this.transform.position.x;
-            float zf = player.transform.position.z - this.transform.position.z;
+            Vector3 pos = this.transform.position;
+            Vector3 targetPosition = player.transform.position;
+            /*float targetSpeed = player.GetComponent<Movement>().correctedSpeed;
+            float zCorrection = ((this.transform.position - targetPosition).x / (targetSpeed)) * targetSpeed;
+            targetPosition = new Vector3(targetPosition.x + zCorrection, targetPosition.y, targetPosition.z);*/
+
+            float xf = targetPosition.x - pos.x;
+            float zf = targetPosition.z - pos.z;
             Vector3 plainDir = new Vector3(xf, 0, zf);
             plainDir = plainDir.normalized;
             float yf = Mathf.Tan((throwAngle/180)*Mathf.PI);
