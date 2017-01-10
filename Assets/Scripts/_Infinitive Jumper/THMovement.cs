@@ -22,9 +22,9 @@ public class THMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Vector3 pos = this.transform.position;
+       /* Vector3 pos = this.transform.position;
         this.transform.position = new Vector3(pos.x, player.transform.position.y, pos.z);
-
+        */
         if (player != null && fireCountdown <= 0f)
         {
             Shoot();
