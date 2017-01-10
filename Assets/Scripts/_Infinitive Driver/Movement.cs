@@ -16,7 +16,11 @@ public class Movement : MonoBehaviour {
     public Text healthText;
 
     public float points;
-	
+
+	void Start () {
+		Physics.gravity = Physics.gravity * 9f;
+	}
+
 	// Update is called once per frame
 	void Update () {
         SetFuelText();
