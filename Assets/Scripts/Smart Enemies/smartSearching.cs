@@ -44,13 +44,13 @@ public class smartSearching : MonoBehaviour
         times_visited[0] = 1;
         firstPoint = false;
         pause = false;
-        testje = onePoint(35);
+        testje = onePoint(27);
     }
 
     // Update is called once per frame
     public void Update()
     {
-        pointDistances()     ;
+        pointDistances();
     }
 
 
@@ -75,14 +75,19 @@ public class smartSearching : MonoBehaviour
     private int chanceList()
     {
         List<int> currVisitable = visitable[current];
-        Debug.Log(visitable[current].Count);
-        Debug.Log(visitable[current]);
-        testje = visitable[previous];
+        Debug.Log("prev: " + previous + ";Current: " + current);
+        //Debug.Log(visitable[current].Count);
+        var temps = "";
+        for(int k =0; k < visitable[16].Count; k++)
+        {
+            temps = temps + visitable[16][k] + "; "; 
+        }
+        Debug.Log(temps);
+        testje = visitable[current];
         if(visitable[current].Count != 1)
         {
             currVisitable.Remove(previous);
         }
-
         
         List<float> chance = new List<float>();
         List<float> ratio = new List<float>();
