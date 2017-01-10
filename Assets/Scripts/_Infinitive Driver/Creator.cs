@@ -4,6 +4,7 @@ using System.Collections;
 [System.Serializable]
 public class Creator : MonoBehaviour {
 
+    public bool driverLevel = true;
     public GameObject player;
     public MultiDimensionGameObjectArray[] obj;
     public int maxPerStage;
@@ -23,7 +24,10 @@ public class Creator : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, player.transform.position.z + offset.z);
+        if (driverLevel)
+        {
+            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, player.transform.position.z + offset.z);
+        }
     }
 
 

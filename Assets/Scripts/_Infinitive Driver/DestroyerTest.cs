@@ -7,7 +7,7 @@ public class DestroyerTest : MonoBehaviour {
     {
         if (other.gameObject.transform.parent != null)
         {
-            Destroy(other.gameObject.transform.parent);
+            Destroy(other.gameObject.transform.parent.gameObject);
         }
         else
         {
@@ -20,7 +20,7 @@ public class DestroyerTest : MonoBehaviour {
     {
         if (collision.gameObject.transform.parent != null)
         {
-            Destroy(collision.gameObject.transform.parent);
+            Destroy(collision.gameObject.transform.parent.gameObject);
         }
         else
         {
