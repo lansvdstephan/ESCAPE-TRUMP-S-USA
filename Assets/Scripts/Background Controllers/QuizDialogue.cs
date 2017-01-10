@@ -14,7 +14,6 @@ public class QuizDialogue : MonoBehaviour
     public GameObject buttonFalse;
     public bool endDialogue;
 
-
     private List<string> questionLines;
     private List<bool> questionAnswers;
     private List<int> answeredQuestions;
@@ -49,10 +48,20 @@ public class QuizDialogue : MonoBehaviour
         Time.timeScale = 0.0f;
         questionAmount = 0;
         trueFalseText.text = "\n " + ">>Access denied";
-        quizText.text = ">>Answer Security Questions \n" + ">>5 questions should be answered correctly";
+        quizText.text = ">>Answer Security Questions \n" + ">>5 questions should be answered correctly \n";  
        
     }
 
+    public void StartQuizAfterWrongAnswer()
+    {
+       buttonTrue.SetActive(false);
+       buttonFalse.SetActive(false);
+       quizPanel.SetActive(true);
+       Time.timeScale = 0.0f;
+       trueFalseText.text = "\n " + ">>Access denied";
+       quizText.text = ">>Answer Security Questions \n" + ">>5 questions should be answered correctly \n" + "\n" + ">>Correct answers: " + questionAmount;
+
+    }
     public void ContinueQuiz()
     { 
         buttonTrue.SetActive(true);
@@ -69,11 +78,11 @@ public class QuizDialogue : MonoBehaviour
         quizText.text = questionLines[quizIndex];
 
     }
-     
 
-    public void CheckAnswer(bool ans) 
+
+    public void CheckAnswer(bool ans)
     {
-        if (questionAnswers[quizIndex] == ans) 
+        if (questionAnswers[quizIndex] == ans)
         {
             questionAmount++;
             if (questionAmount == 5)
@@ -87,13 +96,15 @@ public class QuizDialogue : MonoBehaviour
             else
             {
                 NextQuestion();
-            } 
-            
-        } else {
-            quizPanel.SetActive(false);
-            Time.timeScale = 1.0f;
-       }
+            }
+        }
+        else
+        {
+            StartQuizAfterWrongAnswer();
+          
+        }
     }
+    
 
     public void ShutDown()
     {

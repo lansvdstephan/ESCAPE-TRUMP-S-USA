@@ -31,7 +31,7 @@ public class ObstackleCreator : MonoBehaviour {
         {
             i = mother.GetI();
         }
-        Instantiate(obj[i].gameObjectArr[Random.Range(0, obj[i].gameObjectArr.Length)], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 0.01f, this.gameObject.transform.position.z), Quaternion.identity);
+		Instantiate(obj[i].gameObjectArr[Random.Range(0, obj[i].gameObjectArr.Length)], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 0.01f, this.gameObject.transform.position.z), this.transform.rotation);
         float spawnMin = spawnDistMin / player.GetComponent<Movement>().correctedSpeed;
         float spawnMax = spawnDistMax / player.GetComponent<Movement>().correctedSpeed;
         Invoke("Spawn", Random.Range(spawnMin, spawnMax));
