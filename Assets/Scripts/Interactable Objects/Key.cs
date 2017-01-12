@@ -4,6 +4,7 @@ using System.Collections;
 public class Key : PickUpAble {
 
     public int keyCode = 00;
+
     private Vector3 pos1 = new Vector3(-28.85f, 0.81544f, 22.7f);
     private Vector3 pos2 = new Vector3(-32.36f, 0.81544f, 8.63f);
     private Vector3 pos3 = new Vector3(-5.2f, 0.81544f, 25.9f);
@@ -12,7 +13,9 @@ public class Key : PickUpAble {
     private Vector3 pos6 = new Vector3(-5.35f, 0.81544f, 39.03f);
     public void Start()
     {
-        placeCarKeys();
+		if (this.name == "Car Keys") {
+			placeCarKeys ();
+		}
     }
     public override bool GetAction()
     {
