@@ -18,13 +18,16 @@ public class DestroyerTest : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.transform.parent != null)
+        if (!collision.gameObject.CompareTag("Don't Destroy"))
         {
-            Destroy(collision.gameObject.transform.parent.gameObject);
-        }
-        else
-        {
-            Destroy(collision.gameObject);
+            if (collision.gameObject.transform.parent != null)
+            {
+                Destroy(collision.gameObject.transform.parent.gameObject);
+            }
+            else
+            {
+                Destroy(collision.gameObject);
+            }
         }
     }
 }
