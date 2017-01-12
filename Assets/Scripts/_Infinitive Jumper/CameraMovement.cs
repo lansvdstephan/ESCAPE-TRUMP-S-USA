@@ -6,26 +6,27 @@ public class CameraMovement : MonoBehaviour {
     public GameObject player;
     public float speed = 0.1f;
 
-    private Vector3 offset;
-    private Vector3 previousPosition;
+    private float maxSpeed = 2f;
+    private float lastUpdated = 3f;
 
     void Start()
     {
-        offset = this.transform.position - player.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + speed*Time.deltaTime, this.transform.position.z);
-
-        /*
-        previousPosition = this.transform.position;
-        this.transform.position = new Vector3(this.transform.position.x, player.transform.position.y + offset.y, this.transform.position.z );
-        if (this.transform.position.y <= previousPosition.y)
+        float y = this.transform.position.y;
+        this.transform.position = new Vector3(this.transform.position.x, y + speed*Time.deltaTime, this.transform.position.z);
+        if (speed < maxSpeed)
         {
-            this.transform.position = previousPosition;
+            speed += 0.05f * Time.deltaTime;
         }
-        */
+        if (Mathf.RoundToInt(y) % 100 == 0 && Mathf.RoundToInt(y) > Mathf.RoundToInt(lastUpdated))
+        {
+            maxSpeed += 0.5f;
+            maxSpeed = Mathf.Min(3.5f, maxSpeed);
+            lastUpdated = y;
+        }
     }
 }

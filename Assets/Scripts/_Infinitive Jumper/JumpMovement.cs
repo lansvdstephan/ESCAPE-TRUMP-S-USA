@@ -10,6 +10,7 @@ public class JumpMovement : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Physics.gravity = Physics.gravity * 9f;
         rb = this.GetComponent<Rigidbody>();
 	}
 	
@@ -23,7 +24,6 @@ public class JumpMovement : MonoBehaviour {
         {
             rb.AddForce(Vector3.up * jumpForce);
         }
-
     }
 
     void FixedUpdate()
@@ -33,13 +33,11 @@ public class JumpMovement : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-        print("Enter");
         if (collision.gameObject.CompareTag("Ground")) onGround = true;
     }
 
     void OnCollisionExit(Collision collision)
     {
-        print("Exit");
         if (collision.gameObject.CompareTag("Ground")) onGround = false;
     }
 }

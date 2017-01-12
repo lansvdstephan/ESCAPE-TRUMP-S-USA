@@ -76,7 +76,10 @@ public class Bullet : MonoBehaviour {
     {
         if (target != null)
         {
-            target.GetComponent<Movement>().health = target.GetComponent<Movement>().health - damage;
+            if (target.GetComponent<Movement>() != null)
+            {
+                target.GetComponent<Movement>().health = target.GetComponent<Movement>().health - damage;
+            }
         }
         else
         {

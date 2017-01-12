@@ -8,31 +8,42 @@ public class THMovement : MonoBehaviour {
 
     [Header("Shooting")]
     public GameObject bulletPrefab;
-    public float fireRate = 1f;
+    public float fireRate = 0.10f;
     public float throwAngle = 30f;
 
     private float fireCountdown = 1f;
+    private float maxFireRate = 0.25f;
+    private float lastUpdated = 10f;
     public float speed = 10f;
     public float test;
     
 
     // Use this for initialization
     void Start () {
-        Physics.gravity = Physics.gravity * 9f;
         throwAngle = (throwAngle / 180) * Mathf.PI;
     }
 	
 	// Update is called once per frame
 	void Update () {
-       /* Vector3 pos = this.transform.position;
-        this.transform.position = new Vector3(pos.x, player.transform.position.y, pos.z);
-        */
+        float y = this.transform.position.y;
         if (player != null && fireCountdown <= 0f)
         {
             Shoot();
             fireCountdown = 1f / fireRate;
         }
         fireCountdown -= Time.deltaTime;
+        if (fireRate < maxFireRate)
+        {
+            fireRate += 0.05f * Time.deltaTime;
+            print(fireRate);
+        }
+        if (Mathf.RoundToInt(y) % 100 == 0 && Mathf.RoundToInt(y) > Mathf.RoundToInt(lastUpdated))
+        {
+            maxFireRate += 0.25f;
+            maxFireRate = Mathf.Min(1f, maxFireRate);
+            lastUpdated = y;
+            print(lastUpdated);
+        }
     }
 
     void Shoot()
