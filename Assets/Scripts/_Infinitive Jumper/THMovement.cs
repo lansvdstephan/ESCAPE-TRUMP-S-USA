@@ -12,13 +12,15 @@ public class THMovement : MonoBehaviour {
     public float throwAngle = 30f;
 
     private float fireCountdown = 1f;
-    private float speed = 10f;
+    public float speed = 10f;
+    public float test;
     
 
     // Use this for initialization
     void Start () {
         Physics.gravity = Physics.gravity * 9f;
-	}
+        throwAngle = (throwAngle / 180) * Mathf.PI;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -48,20 +50,26 @@ public class THMovement : MonoBehaviour {
 
             float xf = targetPosition.x - pos.x;
             float zf = targetPosition.z - pos.z;
+            float hf = targetPosition.y - pos.y;
+
             Vector3 plainDir = new Vector3(xf, 0, zf);
             plainDir = plainDir.normalized;
-            float yf = Mathf.Tan((throwAngle/180)*Mathf.PI);
+            float yf = Mathf.Tan(throwAngle);
             Vector3 forceDir = new Vector3(plainDir.x, yf, plainDir.z);
             forceDir = forceDir.normalized;
 
+            float cost = Mathf.Cos(throwAngle);
             float g = Mathf.Abs(Physics.gravity.y);
             float R = Mathf.Sqrt(xf * xf + zf * zf);
-            speed = Mathf.Sqrt(R * g / Mathf.Sin((2*throwAngle / 180) * Mathf.PI));
+
+            test = R * R * g / (R * Mathf.Sin(2 * throwAngle) - 2 * hf * cost * cost);
+
+            speed = Mathf.Sqrt(R * R * g / Mathf.Abs(R * Mathf.Sin(2 * throwAngle) - 2 * hf * cost * cost));
 
             Rigidbody bulletRB = bullet.GetComponent<Rigidbody>();
             if (bulletRB != null)
             {
-                bulletRB.AddForce(forceDir*speed, ForceMode.VelocityChange);
+                bulletRB.AddForce(forceDir * speed, ForceMode.VelocityChange);
             }
         }
 

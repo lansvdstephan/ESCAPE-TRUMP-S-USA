@@ -39,6 +39,7 @@ public class Movement : MonoBehaviour {
         {
             winText.text = "You are Crashed";
             this.enabled = false;
+            correctedSpeed = 0;
         }
         points = this.transform.position.z;
         winText.text = points.ToString();

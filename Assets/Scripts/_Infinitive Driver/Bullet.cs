@@ -72,20 +72,21 @@ public class Bullet : MonoBehaviour {
         Invoke("Dead", 3);
     }
 
-    void Damage(Transform enemy)
+    void Damage(Transform target)
     {
         if (target != null)
         {
             target.GetComponent<Movement>().health = target.GetComponent<Movement>().health - damage;
         }
+        else
+        {
+            
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (!collision.gameObject.CompareTag("Ground"))
-        {
-            HitTarget();
-        }
+        HitTarget();
     }
 
 
