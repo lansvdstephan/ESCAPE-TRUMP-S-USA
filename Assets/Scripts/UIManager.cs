@@ -39,11 +39,18 @@ public class UIManager : MonoBehaviour {
 				if (GameObject.FindWithTag ("Player").GetComponent<PhilMovement> ().health <= 0/*||GameObject.FindWithTag("Player").GetComponent<Movement>().health==0|| GameObject.FindWithTag("Player").GetComponent<Movement>().fuel==0*/) {
 					GameOver (true);
 				}
-			} else if (GameObject.FindWithTag ("Player").GetComponent<Movement> () != null) {
+			}
+            else if (GameObject.FindWithTag ("Player").GetComponent<Movement> () != null)
+            {
 				if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().health <= 0|| GameObject.FindWithTag("Player").GetComponent<Movement>().fuel==0) {
 					GameOver (true);
 				}
 			}
+            else if (GameObject.FindWithTag("Count Down").GetComponent<CountDown>() != null)
+            {
+               if(GameObject.FindWithTag("Count Down").GetComponent<CountDown>().tijd == 0f)
+                GameOver(true);
+            }
 		}
 	}
 

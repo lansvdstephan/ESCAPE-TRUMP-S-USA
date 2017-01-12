@@ -25,7 +25,7 @@ public class PhilMovement : MonoBehaviour {
 
 
     void Awake()
-    {
+    {   
 		Rotation = this.transform.rotation;
         player = this.gameObject;
         hand = this.transform.FindChild("Armature").FindChild("Bone").FindChild("handik.R").FindChild("handik.R_end").FindChild("Hand").gameObject;
