@@ -28,7 +28,7 @@ public class UIManager : MonoBehaviour {
 
 // Update is called once per frame
 	void Update () {
-//        PauseGame(isPaused);
+        // PauseGame(isPaused);
 		if (Input.GetButtonDown("Cancel") && activePanel.panelName == "pause")
         {
             SwitchPause();
@@ -46,13 +46,17 @@ public class UIManager : MonoBehaviour {
 					GameOver (true);
 				}
 			}
-            else if (GameObject.FindWithTag("Count Down").GetComponent<CountDown>() != null)
+            if (GameObject.FindWithTag("Count Down").GetComponent<CountDown>() != null)
             {
-               if(GameObject.FindWithTag("Count Down").GetComponent<CountDown>().tijd == 0f)
-                GameOver(true);
+                if (GameObject.FindWithTag("Count Down").GetComponent<CountDown>().tijd == 0f)
+                {
+                    GameOver(true);
+                    GameObject.FindWithTag("Count Down").GetComponent<CountDown>().tijd = 120f;
+                }
             }
-		}
-	}
+        }
+       
+    }
 
 	public void SetActivePanel(MenuPanel panel) {
 		activePanel = panel;
