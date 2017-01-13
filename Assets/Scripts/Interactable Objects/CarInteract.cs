@@ -48,11 +48,12 @@ public class CarInteract : PhilInteractable {
 
                 //player.GetComponent<PhilMovement> ().enabled = false;
                 //player.GetComponent<MeshRenderer> ().enabled = false;
-                player.transform.parent = this.transform.FindChild("Seat").transform;
+                player.transform.parent = this.transform;
                 //player.transform.position = this.transform.FindChild ("Seat").transform.position;
                 //player.GetComponent<BoxCollider> ().enabled = false;
                 //player.GetComponent<Rigidbody> ().useGravity = false;
                 this.GetComponent<Animator>().SetTrigger("Drive Away");
+				transform.FindChild ("Lights and smoke").gameObject.SetActive(true);
                 StartCoroutine(NextLevel());
 
             }
