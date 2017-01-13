@@ -75,14 +75,6 @@ public class smartSearching : MonoBehaviour
     private int chanceList()
     {
         List<int> currVisitable = visitable[current];
-        Debug.Log("prev: " + previous + ";Current: " + current);
-        //Debug.Log(visitable[current].Count);
-        var temps = "";
-        for(int k =0; k < visitable[16].Count; k++)
-        {
-            temps = temps + visitable[16][k] + "; "; 
-        }
-        Debug.Log(temps);
         testje = visitable[current];
         if(visitable[current].Count != 1)
         {
