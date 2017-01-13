@@ -33,6 +33,15 @@ public class Movement : MonoBehaviour {
             correctedSpeed = speed * (2 + v);
             movement = movement * speed * Time.deltaTime;
             this.transform.position = this.transform.position + movement;
+            // prefenting the tank to leave the road
+            if (this.transform.position.x < -14f)
+            {
+                this.transform.position = new Vector3(-14f, this.transform.position.y, this.transform.position.z);
+            }
+            else if (this.transform.position.x > 4f)
+            {
+                this.transform.position = new Vector3(4f, this.transform.position.y, this.transform.position.z);
+            }
             fuel -= Time.deltaTime * 2;
         }
         else
