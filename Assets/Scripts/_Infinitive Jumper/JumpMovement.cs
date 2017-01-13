@@ -4,6 +4,10 @@ using System.Collections;
 public class JumpMovement : MonoBehaviour {
     public int speed;
     public float jumpForce;
+    private Animator anim;
+    private int animWalkingHash = Animator.StringToHash("Walking");
+    private int animTakeOffHash = Animator.StringToHash("Take Off");
+    private int animLandingHash = Animator.StringToHash("On Ground");
 
     private Rigidbody rb;
     private bool onGround = true;
@@ -20,9 +24,18 @@ public class JumpMovement : MonoBehaviour {
         Vector3 movement = new Vector3(h, 0, 0);
         movement = movement * speed * Time.deltaTime;
         this.transform.position = this.transform.position + movement;
+        if (h != 0)
+        {
+            anim.SetBool(animWalkingHash, true);
+        }
         if (Input.GetKeyDown("up")&& onGround)
         {
+            anim.SetTrigger(animTakeOffHash);
             rb.AddForce(Vector3.up * jumpForce);
+        }
+        if (onGround)
+        {
+            anim.SetBool(animLandingHash, true);
         }
     }
 
