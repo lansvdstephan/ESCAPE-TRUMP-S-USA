@@ -149,6 +149,7 @@ public class MoveonPath : MonoBehaviour
             damageTaken = true;
             hitPlayer = true;
             player.health = Max(player.health - 20,0);
+            player.damageImage.color = player.flashColor;
         }
     }
 

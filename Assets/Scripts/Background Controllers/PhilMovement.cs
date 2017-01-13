@@ -23,10 +23,16 @@ public class PhilMovement : MonoBehaviour {
 
     private bool pickedUp;
 
+    public float flashspeed = 1f;
+    public Color flashColor = new Color(1f,0f,0f,0.1f);
+    public bool damaged;
+    public Image damageImage;
+
 
     void Awake()
-    {   
-		Rotation = this.transform.rotation;
+    {
+        damageImage.color = Color.clear;
+        Rotation = this.transform.rotation;
         player = this.gameObject;
         hand = this.transform.FindChild("Armature").FindChild("Bone").FindChild("handik.R").FindChild("handik.R_end").FindChild("Hand").gameObject;
 
@@ -36,6 +42,7 @@ public class PhilMovement : MonoBehaviour {
     void Start()
     {
         health = 100;
+        damaged = false;
         player = this.gameObject;
         rb = GetComponent<Rigidbody> ();
 		anim = GetComponent<Animator> ();
@@ -43,7 +50,9 @@ public class PhilMovement : MonoBehaviour {
 
     void Update()
     {
+        damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashspeed * Time.deltaTime);
         setHealthText();
+      
     }
 
     void LateUpdate()
@@ -70,6 +79,7 @@ public class PhilMovement : MonoBehaviour {
         }
         SwitchingItems();
 		MovementAnimations ();
+   
     }
 
     void Move()
@@ -187,6 +197,7 @@ public class PhilMovement : MonoBehaviour {
 
         if (other.CompareTag("Bullet"))
         {
+            damaged = true;
             health = Max(health - 5, 0);
         }
 
