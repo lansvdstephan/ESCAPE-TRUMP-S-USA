@@ -21,8 +21,12 @@ public class QuizDialogue : MonoBehaviour
     private int quizIndex;
     private int questionAmount;
     private Text trueFalseText;
-   
-   
+
+    public bool isTyping = false;
+    private bool cancelTyping = false;
+    public float typeSpeed;
+
+
 
     void Awake()
     {
@@ -48,7 +52,8 @@ public class QuizDialogue : MonoBehaviour
         Time.timeScale = 0.0f;
         questionAmount = 0;
         trueFalseText.text = "\n " + ">>Access denied";
-        quizText.text = ">>Answer Security Questions \n" + ">>5 questions should be answered correctly \n";  
+        StartCoroutine(TextScroll(">>Answer Security Questions \n" + ">>5 questions should be answered correctly \n"));
+        //quizText.text = ">>Answer Security Questions \n" + ">>5 questions should be answered correctly \n";  
        
     }
 
@@ -59,52 +64,81 @@ public class QuizDialogue : MonoBehaviour
        quizPanel.SetActive(true);
        Time.timeScale = 0.0f;
        trueFalseText.text = "\n " + ">>Access denied";
-       quizText.text = ">>Answer Security Questions \n" + ">>5 questions should be answered correctly \n" + "\n" + ">>Correct answers: " + questionAmount;
+        StartCoroutine(TextScroll(">>Answer Security Questions \n" + ">>5 questions should be answered correctly \n" + "\n" + ">>Correct answers: " + questionAmount));
 
     }
     public void ContinueQuiz()
-    { 
-        buttonTrue.SetActive(true);
-        buttonFalse.SetActive(true);
+    {
+        if (!isTyping)
+        {
+            buttonTrue.SetActive(true);
+            buttonFalse.SetActive(true);
 
-        questionLines = new List<string>(questions.Length);
-        questionLines.AddRange(questions);
-        questionAnswers = new List<bool>(answers.Length);
-        questionAnswers.AddRange(answers);
-        answeredQuestions = new List<int>(questions.Length);
-        quizIndex = Random.Range(0, questions.Length);
-        answeredQuestions.Add(quizIndex);
-        trueFalseText.text = "True or False: ";
-        quizText.text = questionLines[quizIndex];
-
+            questionLines = new List<string>(questions.Length);
+            questionLines.AddRange(questions);
+            questionAnswers = new List<bool>(answers.Length);
+            questionAnswers.AddRange(answers);
+            answeredQuestions = new List<int>(questions.Length);
+            quizIndex = Random.Range(0, questions.Length);
+            answeredQuestions.Add(quizIndex);
+            trueFalseText.text = "True or False: ";
+            StartCoroutine(TextScroll(questionLines[quizIndex]));
+        }
     }
 
 
     public void CheckAnswer(bool ans)
     {
-        if (questionAnswers[quizIndex] == ans)
+        if (!isTyping)
         {
-            questionAmount++;
-            if (questionAmount == 5)
+            if (questionAnswers[quizIndex] == ans)
             {
-                quizText.text = "Code: Secret Area == 1946";
-                trueFalseText.text = " ";
-                buttonTrue.SetActive(false);
-                buttonFalse.SetActive(false);
-                endDialogue = true;
+                questionAmount++;
+                if (questionAmount == 5)
+                {
+                    StartCoroutine(TextScroll("Code: Secret Area == 1946"));
+                    trueFalseText.text = " ";
+                    buttonTrue.SetActive(false);
+                    buttonFalse.SetActive(false);
+                    endDialogue = true;
+                }
+                else
+                {
+                    NextQuestion();
+                }
             }
             else
             {
-                NextQuestion();
+                StartQuizAfterWrongAnswer();
+
             }
         }
-        else
+        else if (isTyping && !cancelTyping)
         {
-            StartQuizAfterWrongAnswer();
-          
+            //cancelTyping = true;
         }
     }
-    
+
+    private IEnumerator TextScroll(string lineOfText)
+    {
+        int letter = 0;
+        quizText.text = "";
+        isTyping = true;
+        cancelTyping = false;
+        while (isTyping && !cancelTyping && (letter < lineOfText.Length - 1))
+        {
+            quizText.text += lineOfText[letter];
+            letter += 1;
+            yield return new WaitForSeconds(typeSpeed);
+        }
+        if (lineOfText == "Code: Secret Area == 1946")
+        {
+            endDialogue = true;
+        }
+        quizText.text = lineOfText;
+        isTyping = false;
+        cancelTyping = false;
+    }
 
     public void ShutDown()
     {
@@ -120,8 +154,6 @@ public class QuizDialogue : MonoBehaviour
           quizIndex = Random.Range(0, questions.Length);
         }
         answeredQuestions.Add(quizIndex);
-        quizText.text = questionLines[quizIndex];
-       
     }
 }
 
