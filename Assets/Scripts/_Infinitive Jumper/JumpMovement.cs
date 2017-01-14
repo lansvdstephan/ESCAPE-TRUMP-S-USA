@@ -24,6 +24,7 @@ public class JumpMovement : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        anim.SetBool(animLandingHash, onGround);
         float h = Input.GetAxis("Horizontal");
         Vector3 movement = new Vector3(h, 0, 0);
         movement = movement * speed * Time.deltaTime;
@@ -41,12 +42,21 @@ public class JumpMovement : MonoBehaviour {
         {
             anim.SetBool(animWalkingHash, true);
         }
+        if (h == 0)
+        {
+            anim.SetBool(animWalkingHash, false);
+        }
         if (Input.GetKeyDown("up") && onGround)
         {
             anim.SetTrigger(animTakeOffHash);
-            rb.AddForce(Vector3.up * jumpForce);
+            StartCoroutine(Jump());
         }
-        anim.SetBool(animLandingHash, onGround);
+    }
+
+    public IEnumerator Jump()
+    {
+        yield return new WaitForSeconds(0.25f);
+        rb.AddForce(Vector3.up * jumpForce);
 
     }
 
