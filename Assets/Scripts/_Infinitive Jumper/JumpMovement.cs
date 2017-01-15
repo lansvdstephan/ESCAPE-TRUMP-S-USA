@@ -38,14 +38,7 @@ public class JumpMovement : MonoBehaviour {
             Rotation = Quaternion.LookRotation(movement.normalized);
             rb.MoveRotation(Rotation);
         }
-        if (h != 0)
-        {
-            anim.SetBool(animWalkingHash, true);
-        }
-        if (h == 0)
-        {
-            anim.SetBool(animWalkingHash, false);
-        }
+        anim.SetBool(animWalkingHash, h != 0);
         if (Input.GetKeyDown("up") && onGround)
         {
             anim.SetTrigger(animTakeOffHash);
