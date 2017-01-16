@@ -15,6 +15,9 @@ public class MoveonPath : MonoBehaviour
     public float speed = 2.0f;
     public float maxSpeed = 3.0f;
     public float rotationSpeed = 5.0f;
+    private Animator anim;
+    private int animWalkingHash = Animator.StringToHash("GuardWalking");
+    private int animRunningHash = Animator.StringToHash("GuardRunning");
 
     private float reachDistance = 1.0f; //difference between the centre of the enemy and the point created by the EditorPath
     public bool check;
@@ -29,6 +32,7 @@ public class MoveonPath : MonoBehaviour
         prevPoint = Vector3.zero;
         agent = GetComponent<NavMeshAgent>();
         //pathToFolow = GameObject.Find(pathName).GetComponent<EditorPath>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -45,7 +49,6 @@ public class MoveonPath : MonoBehaviour
 
         else if (fow.playerSeen)
         {
-            speed = Min(maxSpeed, speed + 0.005f);
             followPlayer();
             if (!check)
                 this.gameObject.GetComponent<AudioSource>().Play();
@@ -74,17 +77,21 @@ public class MoveonPath : MonoBehaviour
 
     void pauseMovement()
     {
+        anim.SetBool(animRunningHash, false);
+        anim.SetBool(animWalkingHash, false);
         timeLeft -= Time.deltaTime;
         if (timeLeft < 0)
         {
             damageTaken = false;
             hitPlayer = false;
             timeLeft = 1f;
+            anim.SetBool(animWalkingHash, true);
         }
     }
 
     void followPath()
     {
+        anim.SetBool(animRunningHash, false);
         float distance = Vector3.Distance(pathToFolow.path_objects[currentWayPointID].position, transform.position);
         transform.position = Vector3.MoveTowards(transform.position, pathToFolow.path_objects[currentWayPointID].position, Time.deltaTime * speed); //Move from current position to next position
 
@@ -103,7 +110,9 @@ public class MoveonPath : MonoBehaviour
 
     void followPlayer()
     {
+        anim.SetBool(animRunningHash, true);
         agent.Resume();
+        agent.speed = Min(agent.speed + 0.05f, 4.2f);
         agent.SetDestination(fow.playerLastSeen);
         Quaternion rotation = Quaternion.LookRotation(fow.playerLastSeen - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
@@ -111,11 +120,14 @@ public class MoveonPath : MonoBehaviour
 
     void walkShortestRoute()
     {
+        
         agent.Resume();
+        anim.SetBool(animRunningHash, false);
+        agent.speed = Maxf(agent.speed - 0.2f, 3.0f);
         agent.SetDestination(pathToFolow.path_objects[currentWayPointID].position);
         Quaternion rotation = Quaternion.LookRotation(curPoint - prevPoint); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
-        float eps = 0.5f;
+        float eps = 1f;
         if (Mathf.Abs(pathToFolow.path_objects[currentWayPointID].position.x - transform.position.x) < eps && Mathf.Abs(pathToFolow.path_objects[currentWayPointID].position.z - transform.position.z) < eps)
         {
             agent.Stop();
@@ -125,7 +137,9 @@ public class MoveonPath : MonoBehaviour
 
     void walkToOther()
     {
+        anim.SetBool(animRunningHash, true);
         agent.Resume();
+        agent.speed = Min(agent.speed + 0.05f, 3f);
         agent.SetDestination(fow.toGo);
         Quaternion rotation = Quaternion.LookRotation(curPoint - prevPoint); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
@@ -161,6 +175,13 @@ public class MoveonPath : MonoBehaviour
             return f2;
     }
     public int Max(int f1, int f2)
+    {
+        if (f1 < f2)
+            return f2;
+        else
+            return f1;
+    }
+    public float Maxf(float f1, float f2)
     {
         if (f1 < f2)
             return f2;

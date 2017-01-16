@@ -8,7 +8,7 @@ public class MoveOnPathRandom : MonoBehaviour
     public NavMeshAgent agent;
 
 
-    public float speed = 2.0f;
+    public float speed;
     public float maxSpeed = 3.0f;
     public float rotationSpeed = 5.0f;
     private float reachDistance = 1.0f; //difference between the centre of the enemy and the point created by the EditorPath
@@ -20,6 +20,11 @@ public class MoveOnPathRandom : MonoBehaviour
     private float time = 0.2f;
     public Vector3 random;
     public bool check;
+
+    private Animator anim;
+    private int animWalkingHash = Animator.StringToHash("GuardWalking");
+    private int animRunningHash = Animator.StringToHash("GuardRunning");
+
     // Use this for initialization
     void Start()
     {
@@ -27,31 +32,34 @@ public class MoveOnPathRandom : MonoBehaviour
         random = pickRandomPoint();
         agent.SetDestination(random);
         check = false;
+        anim = GetComponent<Animator>();
         //pathToFolow = GameObject.Find(pathName).GetComponent<EditorPath>();
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
+        Debug.Log(agent.speed);
         if (!fow.playerSeen)
         {
+            agent.speed = 2f;
             if (pauze)
                 PauseMovements();
-            speed = 2.0f;
             if (Mathf.Abs(transform.position.x - random.x) < 0.3f && Mathf.Abs(transform.position.z - random.z) < 0.3f || check)
             {
                 check = false;
                 Debug.Log(random);
                 random = pickRandomPoint();
                 agent.Resume();
+                anim.SetBool(animRunningHash, false);
                 agent.SetDestination(random);
             }
 
         }
         else if (fow.playerSeen)
         {
+            anim.SetBool(animRunningHash, true);
             agent.Stop();
-            speed = Min(maxSpeed, speed + 0.005f);
             followPlayer();
             check = true;
         }
@@ -60,6 +68,8 @@ public class MoveOnPathRandom : MonoBehaviour
             check = false;
             random = pickRandomPoint();
             agent.Resume();
+            anim.SetBool(animRunningHash, false);
+            agent.speed = 3.5f;
             agent.SetDestination(random);
         }
         
@@ -67,7 +77,10 @@ public class MoveOnPathRandom : MonoBehaviour
 
     void followPlayer()
     {
-        transform.position = Vector3.MoveTowards(transform.position, fow.playerLastSeen, Time.deltaTime * speed); //Move from current position to next position
+        Debug.Log(speed);
+        agent.Resume();
+        agent.speed = 3.5f;
+        agent.SetDestination(random);//Move from current position to next position
         Quaternion rotation = Quaternion.LookRotation(fow.playerLastSeen - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
     }
