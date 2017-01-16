@@ -35,7 +35,6 @@ public class THMovement : MonoBehaviour {
         if (fireRate < maxFireRate)
         {
             fireRate += 0.05f * Time.deltaTime;
-            print(fireRate);
         }
         if (Mathf.RoundToInt(y) % 100 == 0 && Mathf.RoundToInt(y) > Mathf.RoundToInt(lastUpdated))
         {

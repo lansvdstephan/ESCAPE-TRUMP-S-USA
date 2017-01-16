@@ -25,7 +25,7 @@ public class PlatformDropper : MonoBehaviour
     void Update()
     {
         float y = this.transform.position.y;
-        if (Mathf.RoundToInt(y % 4) == 0 && Mathf.RoundToInt(y) > Mathf.RoundToInt(lastDropped.y))
+        if (Mathf.RoundToInt(y % 5) == 0 && Mathf.RoundToInt(y) > Mathf.RoundToInt(lastDropped.y))
         {
             Spawn();
         }
@@ -33,6 +33,7 @@ public class PlatformDropper : MonoBehaviour
         {
             if (maxDistance < 5) maxDistance += 0.5f;
             if (minDistance > 2.5) minDistance -= 0.5f;
+            maxDistance = Mathf.Min(4.75f, maxDistance);
             lastUpdated = y;
             print("updated");
         }
