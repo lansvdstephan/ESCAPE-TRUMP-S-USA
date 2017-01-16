@@ -17,9 +17,13 @@ public class TTMovement : MonoBehaviour {
     private float hBorder = 0.65f;
     private float speed;
     private float waitUntilGo = 0.5f;
+    private int animThrowingHash = Animator.StringToHash("Throw");
+
+    private Animator anim;
 
     void Awake()
     {
+        anim = this.transform.FindChild("trump").GetComponent<Animator>();
         hArr = new float[3];
         for (int i = 0; i < 3; i++)
         {
@@ -39,7 +43,7 @@ public class TTMovement : MonoBehaviour {
 
         if (player != null && fireCountdown <= 0f)
         {
-            Shoot();
+            StartCoroutine(Shoot());
             fireCountdown = 1f / fireRate;
         }
         fireCountdown -= Time.deltaTime;
@@ -90,8 +94,10 @@ public class TTMovement : MonoBehaviour {
 
     }
 
-    void Shoot()
+    IEnumerator Shoot()
     {
+        anim.SetTrigger(animThrowingHash);
+        yield return new WaitForSeconds(1.2f);
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 
