@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour {
 
 // Update is called once per frame
 	void Update () {
+		
         // PauseGame(isPaused);
 		if (Input.GetButtonDown("Cancel") && activePanel.panelName == "pause")
         {
@@ -46,7 +47,7 @@ public class UIManager : MonoBehaviour {
 					GameOver (true);
 				}
 			}
-            if (GameObject.FindWithTag("Count Down").GetComponent<CountDown>() != null)
+            if (GameObject.FindWithTag("Count Down") != null)
             {
                 if (GameObject.FindWithTag("Count Down").GetComponent<CountDown>().tijd == 0f)
                 {

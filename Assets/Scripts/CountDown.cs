@@ -7,6 +7,9 @@ public class CountDown : MonoBehaviour
     public float tijd;
     public Text timeText;
     public Text timeLeft;
+
+	public bool startcounting = false;
+
     private float minutes;
     private float seconds;
     private float mseconds;
@@ -24,14 +27,15 @@ public class CountDown : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update ()
-    {
-        if (tijd >= 0.012)
-            tijd = tijd - Time.deltaTime;
-
-        else
-            tijd = 0;
-        setTijdText();
-        setColor();
+	{
+		setTijdText ();
+		setColor ();
+		if (startcounting) {
+			if (tijd >= 0.012)
+				tijd = tijd - Time.deltaTime;
+			else
+				tijd = 0;
+		}
 	}
 
     private void setTijdText()
