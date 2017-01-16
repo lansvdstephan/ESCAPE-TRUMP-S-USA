@@ -66,7 +66,6 @@ public class PhilMovement : MonoBehaviour {
             if (pickedUp)
             {
                 GetPickUpInteraction();
-                PickupAnimations();
             }
             else
             {
@@ -183,6 +182,7 @@ public class PhilMovement : MonoBehaviour {
             print("Picked up item.");
             other.GetComponent<PhilInteractable>().Interact(player);
             pickedUp = false;
+			anim.SetTrigger (animPickupHash);
         }
     }
 
@@ -239,10 +239,4 @@ public class PhilMovement : MonoBehaviour {
 			anim.SetBool (animWalkingHash, false);
 		}
 	}
-
-    void PickupAnimations()
-    {
-        anim.SetBool(animPickupHash, true);
-        anim.SetBool(animPickupHash, false);
-    }
 }

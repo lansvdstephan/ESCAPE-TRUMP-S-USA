@@ -10,7 +10,7 @@ public class PlayerDataForServer : MonoBehaviour {
 	private bool secondLevelGameOver;
 	private bool thirdLevelGameOver;
 
-
+	public static int doorCode;
 	public int spaces;
 	public float timeSpent;
 
@@ -26,6 +26,10 @@ public class PlayerDataForServer : MonoBehaviour {
 		DontDestroyOnLoad (this.gameObject);
 		secondLevelGameOver = false;
 		thirdLevelGameOver = false;
+
+		//set doorcode for second level.
+		doorCode = Random.Range(1000, 9999);
+		print ("DoorCode = " + doorCode);
 	}
 	
 	// Update is called once per frame

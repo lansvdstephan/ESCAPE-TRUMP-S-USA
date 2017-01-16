@@ -16,6 +16,8 @@ public class QuizDialogue : MonoBehaviour
     public bool initiated=false;
 
     public List<string> questionLines;
+
+	private static int doorCode;
     private List<bool> questionAnswers;
     private List<int> answeredQuestions;
     private Text quizText; 
@@ -34,6 +36,9 @@ public class QuizDialogue : MonoBehaviour
         quizText = quizPanel.transform.FindChild("Quiz Text").GetComponent<Text>();
         trueFalseText = quizPanel.transform.FindChild("TrueFalse Text").GetComponent<Text>();
         quizPanel.SetActive(false);
+
+		//doorcode is set on start game
+		doorCode = PlayerDataForServer.doorCode;
 
         if (Instance != null && Instance != this)
         {
@@ -99,7 +104,7 @@ public class QuizDialogue : MonoBehaviour
                 questionAmount++;
                 if (questionAmount == 5)
                 {
-                    StartCoroutine(TextScroll("Code: Secret Area == 1946"));
+                    StartCoroutine(TextScroll("Code: Secret Area == " + doorCode));
                     trueFalseText.text = " ";
                     buttonTrue.SetActive(false);
                     buttonFalse.SetActive(false);
@@ -135,7 +140,7 @@ public class QuizDialogue : MonoBehaviour
             letter += 1;
             yield return new WaitForSeconds(typeSpeed);
         }
-        if (lineOfText == "Code: Secret Area == 1946")
+        if (lineOfText == "Code: Secret Area == " + doorCode)
         {
             endDialogue = true;
         }
@@ -159,5 +164,9 @@ public class QuizDialogue : MonoBehaviour
         }
         answeredQuestions.Add(quizIndex);
     }
+
+	public void SetDoorCode(int code){
+		doorCode = code;
+	}
 }
 
