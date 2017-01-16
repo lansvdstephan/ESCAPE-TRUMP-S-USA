@@ -13,8 +13,9 @@ public class QuizDialogue : MonoBehaviour
     public GameObject buttonTrue;
     public GameObject buttonFalse;
     public bool endDialogue;
+    public bool initiated=false;
 
-    private List<string> questionLines;
+    public List<string> questionLines;
     private List<bool> questionAnswers;
     private List<int> answeredQuestions;
     private Text quizText; 
@@ -59,14 +60,15 @@ public class QuizDialogue : MonoBehaviour
 
     public void StartQuizAfterWrongAnswer()
     {
-       buttonTrue.SetActive(false);
-       buttonFalse.SetActive(false);
-       quizPanel.SetActive(true);
-       Time.timeScale = 0.0f;
-       trueFalseText.text = "\n " + ">>Access denied";
+        buttonTrue.SetActive(false);
+        buttonFalse.SetActive(false);
+        quizPanel.SetActive(true);
+        Time.timeScale = 0.0f;
+        trueFalseText.text = "\n " + ">>Access denied";
         StartCoroutine(TextScroll(">>Answer Security Questions \n" + ">>5 questions should be answered correctly \n" + "\n" + ">>Correct answers: " + questionAmount));
-
+        initiated = false;
     }
+    
     public void ContinueQuiz()
     {
         if (!isTyping)
@@ -83,6 +85,7 @@ public class QuizDialogue : MonoBehaviour
             answeredQuestions.Add(quizIndex);
             trueFalseText.text = "True or False: ";
             StartCoroutine(TextScroll(questionLines[quizIndex]));
+            initiated = true;
         }
     }
 
@@ -105,6 +108,7 @@ public class QuizDialogue : MonoBehaviour
                 else
                 {
                     NextQuestion();
+                    StartCoroutine(TextScroll(questionLines[quizIndex]));
                 }
             }
             else

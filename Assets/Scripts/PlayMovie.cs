@@ -6,6 +6,8 @@ public class PlayMovie : MonoBehaviour {
 	public MovieTexture movTexture;
 	public Animator alarm;
 
+	public bool playing = true;
+
 	private bool updateOn = true;
 
 	// Use this for initialization
@@ -16,15 +18,17 @@ public class PlayMovie : MonoBehaviour {
 	// Update is called once per frame
 	void Update(){
 		if (updateOn) {
-			if (!movTexture.isPlaying){
-					TimerEnded ();
-				}
+			if (!movTexture.isPlaying) {
+				playing = false;
+				MovieEnded ();
 			}
+		} else
+			Destroy (this);
 		}
 
-		void TimerEnded () {
-			alarm.SetTrigger ("Alarm");
-			updateOn = false;
+	void MovieEnded () {
+		alarm.SetTrigger ("Alarm");
+		updateOn = false;
 		}
 	
 }
