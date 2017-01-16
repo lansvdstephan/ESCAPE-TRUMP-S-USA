@@ -35,6 +35,9 @@ public class smartMoveOnPath : MonoBehaviour
     public float fireCountDown = 0f;
     private bool richten = false;
 
+    private Animator anim;
+    private int animWalkingHash = Animator.StringToHash("GuardWalking");
+    private int animRunningHash = Animator.StringToHash("GuardRunning");
 
     // Use this for initialization
     void Start()
@@ -46,6 +49,7 @@ public class smartMoveOnPath : MonoBehaviour
 
         curPoint = transform.position;
         prevPoint = Vector3.zero;
+        anim = GetComponent<Animator>();
         //pathToFolow = GameObject.Find(pathName).GetComponent<EditorPath>();
     }
 
@@ -60,7 +64,6 @@ public class smartMoveOnPath : MonoBehaviour
         else if (fow.playerSeen)
         {
             check = true;
-            speed = Min(maxSpeed, speed + 0.005f);
             followPlayer();
             firstTime = false;
             firstpoint = false;
@@ -150,7 +153,9 @@ public class smartMoveOnPath : MonoBehaviour
 
     void followPlayer()
     {
+        anim.SetBool(animRunningHash, true);
         agent.Resume();
+        agent.speed = Min(agent.speed + 0.05f, 4.2f);
         agent.SetDestination(fow.playerLastSeen);
         Quaternion rotation = Quaternion.LookRotation(fow.playerLastSeen - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
@@ -158,7 +163,9 @@ public class smartMoveOnPath : MonoBehaviour
 
     void walkShortestRoute()
     {
+        anim.SetBool(animRunningHash, false);
         agent.SetDestination(ss.pointToGO);
+        agent.speed = Maxf(agent.speed - 0.03f, 3f);
         Quaternion rotation = Quaternion.LookRotation(curPoint - prevPoint); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
         float eps = 0.5f;
@@ -170,7 +177,9 @@ public class smartMoveOnPath : MonoBehaviour
 
     void walkToOther()
     {
+        anim.SetBool(animRunningHash, true);
         agent.Resume();
+        agent.speed = Min(agent.speed + 0.05f, 4f);
         agent.SetDestination(fow.toGo);
         Quaternion rotation = Quaternion.LookRotation(curPoint - prevPoint); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
@@ -193,9 +202,12 @@ public class smartMoveOnPath : MonoBehaviour
 
     void nextPoint()
     {
+        anim.SetBool(animRunningHash, false);
         agent.Resume();
         int nextpoint = ss.getClosestPoint();
         agent.SetDestination(ss.grid[nextpoint].transform.position);
+        agent.speed = 3f;
+
         Quaternion rotation = Quaternion.LookRotation(ss.grid[nextpoint].transform.position - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10f);
         float eps = 0.001f;
@@ -256,12 +268,19 @@ public class smartMoveOnPath : MonoBehaviour
         else
             return f2;
     }
-    private int Max(int f1, int f2)
+    public int Max(int f1, int f2)
     {
-        if (f1 > f2)
-            return f1;
-        else
+        if (f1 < f2)
             return f2;
+        else
+            return f1;
+    }
+    public float Maxf(float f1, float f2)
+    {
+        if (f1 < f2)
+            return f2;
+        else
+            return f1;
     }
 
     private void Shoot()
