@@ -73,7 +73,7 @@ public class JumpMovement : MonoBehaviour {
     public IEnumerator Jump()
     {
         yield return new WaitForSeconds(0.25f);
-        rb.velocity = Vector3.up * jumpForce;
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Acceleration);
 
     }
 
