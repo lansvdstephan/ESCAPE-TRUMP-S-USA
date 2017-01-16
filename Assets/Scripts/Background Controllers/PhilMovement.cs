@@ -24,7 +24,7 @@ public class PhilMovement : MonoBehaviour {
     private bool pickedUp;
 
     public float flashspeed = 1f;
-    public Color flashColor = new Color(1f,0f,0f,50f);
+    public Color flashColor = new Color(1f,0f,0f,0.1f);
     public bool damaged;
     public Image damageImage;
 
@@ -66,7 +66,6 @@ public class PhilMovement : MonoBehaviour {
             if (pickedUp)
             {
                 GetPickUpInteraction();
-                PickupAnimations();
             }
             else
             {
@@ -183,6 +182,7 @@ public class PhilMovement : MonoBehaviour {
             print("Picked up item.");
             other.GetComponent<PhilInteractable>().Interact(player);
             pickedUp = false;
+			anim.SetTrigger (animPickupHash);
         }
     }
 
@@ -239,10 +239,4 @@ public class PhilMovement : MonoBehaviour {
 			anim.SetBool (animWalkingHash, false);
 		}
 	}
-
-    void PickupAnimations()
-    {
-        anim.SetBool(animPickupHash, true);
-        anim.SetBool(animPickupHash, false);
-    }
 }

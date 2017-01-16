@@ -14,7 +14,7 @@ public class QuizController : PhilInteractable
         {
             QuizDialogue.Instance.ShutDown();
         }
-        else
+        else if(!QuizDialogue.Instance.initiated)
         {
             QuizDialogue.Instance.ContinueQuiz();
         }

@@ -7,6 +7,8 @@ public class CarInteract : PhilInteractable {
     public bool unlocked = true;
     public int keyCode = 0;
 
+
+
     public string[] lockedDialogue;
     public string[] unLockedDialogue;
     public string[] wrongKey;
@@ -31,11 +33,11 @@ public class CarInteract : PhilInteractable {
         }
     }
 
-    public IEnumerator NextLevel()
-    {
-        yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene("Driving level");
-    }
+
+		
+	public void NextLevel () {
+		SceneManager.LoadScene("Driving level");
+	}
 
     public override void Interact(GameObject player)
     {
@@ -45,16 +47,9 @@ public class CarInteract : PhilInteractable {
             if (unlocked)
             {
 				player.transform.localScale = new Vector3 (0.1f, 0.1f, 0.1f);
-
-                //player.GetComponent<PhilMovement> ().enabled = false;
-                //player.GetComponent<MeshRenderer> ().enabled = false;
-                player.transform.parent = this.transform.FindChild("Seat").transform;
-                //player.transform.position = this.transform.FindChild ("Seat").transform.position;
-                //player.GetComponent<BoxCollider> ().enabled = false;
-                //player.GetComponent<Rigidbody> ().useGravity = false;
+				player.transform.parent = this.transform;
                 this.GetComponent<Animator>().SetTrigger("Drive Away");
-                StartCoroutine(NextLevel());
-
+				transform.FindChild ("Lights and smoke").gameObject.SetActive (true);
             }
             else if (PhilMovement.hand.transform.childCount != 0 && PhilMovement.hand.transform.GetChild(0).GetComponent<Key>() != null)
             {

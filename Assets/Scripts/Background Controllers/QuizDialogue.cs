@@ -13,8 +13,11 @@ public class QuizDialogue : MonoBehaviour
     public GameObject buttonTrue;
     public GameObject buttonFalse;
     public bool endDialogue;
+    public bool initiated=false;
 
-    private List<string> questionLines;
+    public List<string> questionLines;
+
+	private static int doorCode;
     private List<bool> questionAnswers;
     private List<int> answeredQuestions;
     private Text quizText; 
@@ -33,6 +36,9 @@ public class QuizDialogue : MonoBehaviour
         quizText = quizPanel.transform.FindChild("Quiz Text").GetComponent<Text>();
         trueFalseText = quizPanel.transform.FindChild("TrueFalse Text").GetComponent<Text>();
         quizPanel.SetActive(false);
+
+		//doorcode is set on start game
+		doorCode = PlayerDataForServer.doorCode;
 
         if (Instance != null && Instance != this)
         {
@@ -59,14 +65,15 @@ public class QuizDialogue : MonoBehaviour
 
     public void StartQuizAfterWrongAnswer()
     {
-       buttonTrue.SetActive(false);
-       buttonFalse.SetActive(false);
-       quizPanel.SetActive(true);
-       Time.timeScale = 0.0f;
-       trueFalseText.text = "\n " + ">>Access denied";
+        buttonTrue.SetActive(false);
+        buttonFalse.SetActive(false);
+        quizPanel.SetActive(true);
+        Time.timeScale = 0.0f;
+        trueFalseText.text = "\n " + ">>Access denied";
         StartCoroutine(TextScroll(">>Answer Security Questions \n" + ">>5 questions should be answered correctly \n" + "\n" + ">>Correct answers: " + questionAmount));
-
+        initiated = false;
     }
+    
     public void ContinueQuiz()
     {
         if (!isTyping)
@@ -83,6 +90,7 @@ public class QuizDialogue : MonoBehaviour
             answeredQuestions.Add(quizIndex);
             trueFalseText.text = "True or False: ";
             StartCoroutine(TextScroll(questionLines[quizIndex]));
+            initiated = true;
         }
     }
 
@@ -96,7 +104,7 @@ public class QuizDialogue : MonoBehaviour
                 questionAmount++;
                 if (questionAmount == 5)
                 {
-                    StartCoroutine(TextScroll("Code: Secret Area == 1946"));
+                    StartCoroutine(TextScroll("Code: Secret Area == " + doorCode));
                     trueFalseText.text = " ";
                     buttonTrue.SetActive(false);
                     buttonFalse.SetActive(false);
@@ -105,6 +113,7 @@ public class QuizDialogue : MonoBehaviour
                 else
                 {
                     NextQuestion();
+                    StartCoroutine(TextScroll(questionLines[quizIndex]));
                 }
             }
             else
@@ -131,7 +140,7 @@ public class QuizDialogue : MonoBehaviour
             letter += 1;
             yield return new WaitForSeconds(typeSpeed);
         }
-        if (lineOfText == "Code: Secret Area == 1946")
+        if (lineOfText == "Code: Secret Area == " + doorCode)
         {
             endDialogue = true;
         }
@@ -155,5 +164,9 @@ public class QuizDialogue : MonoBehaviour
         }
         answeredQuestions.Add(quizIndex);
     }
+
+	public void SetDoorCode(int code){
+		doorCode = code;
+	}
 }
 

@@ -16,13 +16,26 @@ public class Movement : MonoBehaviour {
     public Text healthText;
 
     public float points;
+    private bool activated;
 
-	void Start () {
-		Physics.gravity = Physics.gravity * 9f;
+    public float flashspeed;
+    public Color flashColor = new Color(1f, 0f, 0f, 0.1f);
+    public Image damageImage;
+    public bool damaged;
+
+
+    void Start () {
+        Physics.gravity = Physics.gravity * 9f;
 	}
 
 	// Update is called once per frame
 	void Update () {
+        if(damaged)
+        {
+            damageImage.color = flashColor;
+            damaged = false;
+        }
+        damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashspeed * Time.deltaTime);
         SetFuelText();
         SetHealthText();
         if (fuel > 0 && health > 0)
@@ -52,7 +65,12 @@ public class Movement : MonoBehaviour {
         }
         points = this.transform.position.z;
         winText.text = points.ToString();
-        
+
+        if (damageImage.color.Equals(Color.clear))
+        {
+            damageImage.color = flashColor;
+        }
+
     }
 
     private void SetFuelText()
@@ -81,6 +99,8 @@ public class Movement : MonoBehaviour {
         {
             //winText.text = "You are Crashed";
             this.health = this.health - damageDoneByCollision;
+            damaged = true;
+            
         }
     }
 
@@ -88,9 +108,11 @@ public class Movement : MonoBehaviour {
     {
         if (collision.gameObject.CompareTag("Obstackle"))
         {
-            winText.text= "You are Crashed";
+            winText.text = "You are Crashed";
             this.health = this.health - damageDoneByCollision;
+            damaged = true;
         }
+
     }
 
 }

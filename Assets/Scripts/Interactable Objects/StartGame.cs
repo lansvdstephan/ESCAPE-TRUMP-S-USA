@@ -8,6 +8,8 @@ public class StartGame : MonoBehaviour{
 	public Animator trump;
 	public Animator camera;
 
+	public CountDown cd;
+
 	private bool stop = true;
 	private int counter;
 
@@ -28,6 +30,7 @@ public class StartGame : MonoBehaviour{
 			}
 		} else if (!dialoguePanel.activeSelf) {
 			camera.SetTrigger ("TV");
+			cd.startcounting = true;
 			Destroy (this);
 		}
 		if (counter == 8) {

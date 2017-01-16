@@ -16,24 +16,22 @@ public class Call_Elevator : Switchable{
 		anim = GetComponent<Animator> ();
 	}
 
-	// Use this for initialization
 	public override void SwitchOn() {
 		controller.tag = "Untagged";
 		anim.SetTrigger (goUpHash);
 	}
-
-	public IEnumerator NextLevel(){
-		float sec = 1.4f;
-		yield return new WaitForSeconds (sec);
-		PhilMovement.player.SetActive(false);
-		yield return new WaitForSeconds (sec);
-		SceneManager.LoadScene(nextLevelName);
-	}
-
+		
 	public override void SwitchOff() {
 		player.GetComponent<PhilMovement>().enabled = false;
 		player.GetComponent<Animator> ().SetBool ("Walking", false);
 		anim.SetTrigger (goDownHash);
-		StartCoroutine(NextLevel());
+	}
+
+	public void HidePlayer () {
+		PhilMovement.player.SetActive (false);
+	}
+
+	public void NextLevel () {
+		SceneManager.LoadScene("Tunnel Oval Office");
 	}
 }

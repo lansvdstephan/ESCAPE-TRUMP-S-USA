@@ -15,6 +15,7 @@ public class PlayerSight : MonoBehaviour
     public float distance;
     public GameObject player;
 
+	public bool walkingGuard;
     public bool playerSeen;
     public Vector3 playerPosition;
     public Vector3 playerLastSeen;
@@ -35,6 +36,7 @@ public class PlayerSight : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+		this.GetComponent<Animator>().SetBool("GuardWalking", walkingGuard);
         playerSeen = false;
         sees = false;
         hear = false;
