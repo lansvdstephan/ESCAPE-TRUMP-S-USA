@@ -82,6 +82,7 @@ public class GiveItem : PhilInteractable {
         Item.transform.position = itemPlace.position;
         Item.transform.localRotation = Item.GetComponent<PickUpAble>().GetRotation();
         Item.transform.localScale = Item.GetComponent<PickUpAble>().GetScale();
+        Item.GetComponent<CapsuleCollider>().enabled = false;
         ItemInteract();
     }
 
