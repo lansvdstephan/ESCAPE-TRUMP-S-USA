@@ -20,12 +20,18 @@ public class Movement : MonoBehaviour {
 
     public float flashspeed;
     public Color flashColor = new Color(1f, 0f, 0f, 0.1f);
+    public Color healthColor = new Color(0f, 249f, 249f, 0.1f);
+    public Color fuelColor = new Color(0f, 255f, 8f, 0.1f);
+    private Color invisable = new Color(255f, 255f, 255f, 0f);
     public Image damageImage;
     public bool damaged;
+    private bool fuels;
+    private bool healthje;
 
 
     void Start () {
         Physics.gravity = Physics.gravity * 9f;
+        damageImage.color = invisable;
 	}
 
 	// Update is called once per frame
@@ -35,7 +41,17 @@ public class Movement : MonoBehaviour {
             damageImage.color = flashColor;
             damaged = false;
         }
-        damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashspeed * Time.deltaTime);
+        if(fuels)
+        {
+            damageImage.color =fuelColor;
+            fuels = false;
+        }
+        if(healthje)
+        {
+            damageImage.color = healthColor;
+            healthje = false;
+        }
+        damageImage.color = Color.Lerp(damageImage.color, invisable, flashspeed * Time.deltaTime);
         SetFuelText();
         SetHealthText();
         if (fuel > 0 && health > 0)
@@ -89,18 +105,20 @@ public class Movement : MonoBehaviour {
         {
             this.fuel += 10;
             Destroy(other.gameObject);
+            fuels = true;
+            
         }
         if (other.CompareTag("Health"))
         {
             this.health += 20;
             Destroy(other.gameObject);
+            healthje = true;
         }
         if (other.gameObject.CompareTag("Obstackle"))
         {
             //winText.text = "You are Crashed";
             this.health = this.health - damageDoneByCollision;
             damaged = true;
-            
         }
     }
 
@@ -111,6 +129,7 @@ public class Movement : MonoBehaviour {
             winText.text = "You are Crashed";
             this.health = this.health - damageDoneByCollision;
             damaged = true;
+            Debug.Log("On");
         }
 
     }
