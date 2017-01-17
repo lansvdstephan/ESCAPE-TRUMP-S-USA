@@ -38,7 +38,8 @@ public class QuizDialogue : MonoBehaviour
         quizPanel.SetActive(false);
 
 		//doorcode is set on start game
-		doorCode = PlayerDataForServer.doorCode;
+		doorCode = Random.Range(1000, 10000);
+		print (doorCode);
 
         if (Instance != null && Instance != this)
         {
@@ -164,9 +165,5 @@ public class QuizDialogue : MonoBehaviour
         }
         answeredQuestions.Add(quizIndex);
     }
-
-	public void SetDoorCode(int code){
-		doorCode = code;
-	}
 }
 
