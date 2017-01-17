@@ -55,12 +55,18 @@ public class PhilMovement : MonoBehaviour {
       
     }
 
+    void FixedUpdate()
+    {
+        if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
+        {
+            Move();
+        }
+    }
+
     void LateUpdate()
     {
         // Prefend moving if Dialogue window opend
-        if (!PhilDialogue.Instance.dialoguePanel.activeSelf) {
-            Move();
-        }
+       
         if (hand.transform.childCount != 0 && !animOn)
         {
             if (pickedUp)
@@ -91,7 +97,7 @@ public class PhilMovement : MonoBehaviour {
 
         Vector3 movement = new Vector3(h, 0f, v);
 
-		movement = movement.normalized * speed * Time.deltaTime;
+		movement = movement.normalized * speed * Time.fixedDeltaTime;
         rb.MovePosition(transform.position + movement);
 
         // turning
