@@ -13,7 +13,7 @@ public class TumbleWeedDropper : MonoBehaviour {
 
 	void Spawn()
 	{
-		Instantiate(tumbleWeed, new Vector3(this.gameObject.transform.position.x + Random.Range(-8,8), this.gameObject.transform.position.y, this.gameObject.transform.position.z), Quaternion.identity);
+		Instantiate(tumbleWeed, new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z + Random.Range(-33,33)), Quaternion.identity);
 		Invoke("Spawn", Random.Range(spawnMin, spawnMax));
 	}
 }
