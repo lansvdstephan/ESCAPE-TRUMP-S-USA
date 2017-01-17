@@ -16,8 +16,9 @@ public class GiveItem : PhilInteractable {
     private GameObject playerHand;
     private bool givedItem = false;
 
-    void Awake ()
-    {
+    void Start () {
+        playerHand = PhilMovement.hand;
+
         if (searchDialog.Length == 0)
         {
             searchDialog = new string[1];
@@ -39,11 +40,6 @@ public class GiveItem : PhilInteractable {
             rightItem[0] = "That's the way you do it.";
         }
     }
-
-    void Start () {
-        playerHand = PhilMovement.hand;
-        
-	}
 
     public override void Interact(GameObject player) { 
 	    if (!PhilDialogue.Instance.dialoguePanel.activeSelf)

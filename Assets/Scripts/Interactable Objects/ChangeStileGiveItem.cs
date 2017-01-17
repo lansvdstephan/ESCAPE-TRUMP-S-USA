@@ -11,8 +11,8 @@ public class ChangeStileGiveItem : GiveItem {
 
     void Awake()
     {
-        originalRotation = this.transform.rotation;
-        originalScale = this.transform.lossyScale;
+        originalRotation = sunGlasses.transform.rotation;
+        originalScale = sunGlasses.transform.lossyScale;
     }
 
     public override void ItemInteract()
