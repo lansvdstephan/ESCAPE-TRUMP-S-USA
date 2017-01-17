@@ -93,4 +93,14 @@ public class PickUpAble : PhilInteractable {
         }
         
     }
+
+    public Quaternion GetRotation()
+    {
+        return originalRotation;
+    }
+
+    public Vector3 GetScale()
+    {
+        return originalScale;
+    }
 }

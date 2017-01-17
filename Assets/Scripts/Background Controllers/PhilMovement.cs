@@ -4,6 +4,7 @@ using System.Collections;
 using System;
 
 public class PhilMovement : MonoBehaviour {
+
     public static GameObject player;
     public static GameObject hand;
     public MoveonPath mop;
@@ -18,11 +19,12 @@ public class PhilMovement : MonoBehaviour {
     private Quaternion Rotation;
     private float viewRange = 1;
 
-	private int animWalkingHash = Animator.StringToHash("Walking");
+    private int animWalkingHash = Animator.StringToHash("Walking");
     private int animPickupHash = Animator.StringToHash("Pickup");
 
     private bool pickedUp;
 
+    [Header("Damage")]
     public float flashspeed = 1f;
     public Color flashColor = new Color(1f,0f,0f,0.1f);
     public bool damaged;
@@ -148,11 +150,7 @@ public class PhilMovement : MonoBehaviour {
         // Dropping item if left shift is pressed else doing action if space is pressed
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-           hand.transform.GetChild(0).GetComponent<CapsuleCollider>().enabled = true;
-           hand.transform.DetachChildren();
-            InventorySystem.Instance.SwitchInventoryImange();
-            InventorySystem.Instance.SwitchHandImage();
-
+            DropItem();
         }
         else if (Input.GetKeyUp("space"))
         {
@@ -162,6 +160,14 @@ public class PhilMovement : MonoBehaviour {
             }
             GetInteraction();
         }
+    }
+
+    public static void DropItem()
+    {
+        hand.transform.GetChild(0).GetComponent<CapsuleCollider>().enabled = true;
+        hand.transform.DetachChildren();
+        InventorySystem.Instance.SwitchInventoryImange();
+        InventorySystem.Instance.SwitchHandImage();
     }
 
     private void SwitchingItems()
