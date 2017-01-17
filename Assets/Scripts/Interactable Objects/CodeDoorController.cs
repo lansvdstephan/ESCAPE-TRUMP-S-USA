@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class CodeDoorController : SwitchController {
     public GameObject inputPanel;
-    public string code = "0000";
+    private string code = "0000";
 
     private InputField getCode;
 
@@ -13,6 +13,16 @@ public class CodeDoorController : SwitchController {
     {
         getCode = inputPanel.transform.FindChild("Door Code entry").GetComponent<InputField>();
     }
+
+	void Start()
+	{
+		code = PlayerDataForServer.doorCodeLevelTwo;
+
+		if (code == null) {
+			code = "1946";
+		}
+		print ("Door: " + code);
+	}
 
     public override void Interact(GameObject Player)
     {

@@ -4,7 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerDataForServer : MonoBehaviour {
-	
+
+	public static string doorCodeLevelTwo;
 	private static int counter;
 	private static float timer;
 	private bool secondLevelGameOver;
@@ -21,15 +22,16 @@ public class PlayerDataForServer : MonoBehaviour {
 
 
 	// Use this for initialization
-	void awake () {
+	void Awake () {
 		DontDestroyOnLoad (this.gameObject);
 		secondLevelGameOver = false;
 		thirdLevelGameOver = false;
+		PlayerDataForServer.doorCodeLevelTwo = Random.Range(1000, 10000).ToString();
+		print ("Player data for server: " + PlayerDataForServer.doorCodeLevelTwo);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
 		spaces = counter;
 		timeSpent = timer;
 
