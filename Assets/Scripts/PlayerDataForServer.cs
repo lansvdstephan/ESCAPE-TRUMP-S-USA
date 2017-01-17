@@ -4,13 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerDataForServer : MonoBehaviour {
-	
+
+	public static string doorCodeLevelTwo;
 	private static int counter;
 	private static float timer;
 	private bool secondLevelGameOver;
 	private bool thirdLevelGameOver;
 
-	public static int doorCode;
 	public int spaces;
 	public float timeSpent;
 
@@ -22,19 +22,16 @@ public class PlayerDataForServer : MonoBehaviour {
 
 
 	// Use this for initialization
-	void awake () {
+	void Awake () {
 		DontDestroyOnLoad (this.gameObject);
 		secondLevelGameOver = false;
 		thirdLevelGameOver = false;
-
-		//set doorcode for second level.
-		doorCode = Random.Range(1000, 9999);
-		print ("DoorCode = " + doorCode);
+		PlayerDataForServer.doorCodeLevelTwo = Random.Range(1000, 10000).ToString();
+		print ("Player data for server: " + PlayerDataForServer.doorCodeLevelTwo);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
 		spaces = counter;
 		timeSpent = timer;
 
@@ -83,6 +80,7 @@ public class PlayerDataForServer : MonoBehaviour {
 		if (Application.loadedLevel == 1) {
 			if (!startGame) {
 				startGame = true;
+
 			}
 		}
 		if (startGame){
@@ -174,5 +172,4 @@ public class PlayerDataForServer : MonoBehaviour {
 			{"time", timer}
 		});
 	}
-		
 }

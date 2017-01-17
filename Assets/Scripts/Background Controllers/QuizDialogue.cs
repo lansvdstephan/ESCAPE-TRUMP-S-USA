@@ -17,7 +17,7 @@ public class QuizDialogue : MonoBehaviour
 
     public List<string> questionLines;
 
-	private static int doorCode;
+	private string doorCode;
     private List<bool> questionAnswers;
     private List<int> answeredQuestions;
     private Text quizText; 
@@ -37,9 +37,6 @@ public class QuizDialogue : MonoBehaviour
         trueFalseText = quizPanel.transform.FindChild("TrueFalse Text").GetComponent<Text>();
         quizPanel.SetActive(false);
 
-		//doorcode is set on start game
-		doorCode = PlayerDataForServer.doorCode;
-
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -49,6 +46,17 @@ public class QuizDialogue : MonoBehaviour
             Instance = this;
         }
     }
+
+	void Start()
+	{
+		//doorcode is set on start game
+		doorCode = PlayerDataForServer.doorCodeLevelTwo;
+
+		if (doorCode == null) {
+			doorCode = "1946";
+		}
+		print ("Dialog: " + doorCode);
+	}
 
     public void StartQuiz()
     {
@@ -164,9 +172,5 @@ public class QuizDialogue : MonoBehaviour
         }
         answeredQuestions.Add(quizIndex);
     }
-
-	public void SetDoorCode(int code){
-		doorCode = code;
-	}
 }
 
