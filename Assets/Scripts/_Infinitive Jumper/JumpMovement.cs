@@ -72,7 +72,7 @@ public class JumpMovement : MonoBehaviour {
 
     public IEnumerator Jump()
     {
-        yield return new WaitForSeconds(0.084f);
+        yield return new WaitForSeconds(0.10f);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Acceleration);
 
     }

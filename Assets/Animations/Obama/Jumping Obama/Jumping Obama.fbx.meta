@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: be38e1a7a6c6c5d4faaf26435dae522c
-timeCreated: 1484307380
+guid: 93ee950519e71ab4ead43639a41b31fe
+timeCreated: 1484655680
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -216,10 +216,11 @@ ModelImporter:
     4300000: eye.L
     4300002: eye.R
     4300004: Cylinder
-    7400000: Landing
-    7400002: Take off
-    7400004: Idle
-    7400006: Walking
+    7400000: Walking
+    7400002: Idle
+    7400004: TakeOff
+    7400006: Flying
+    7400008: Landing
     9500000: //RootNode
     13700000: Cylinder
   materials:
@@ -244,250 +245,18 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take off
+      name: Walking
       takeName: Armature|ArmatureAction
-      firstFrame: 340
-      lastFrame: 350
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 1
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Armature
-        weight: 1
-      - path: Armature/Bone
-        weight: 1
-      - path: Armature/Bone/elbow.L
-        weight: 1
-      - path: Armature/Bone/elbow.L/elbow.L_end
-        weight: 1
-      - path: Armature/Bone/elbow.R
-        weight: 1
-      - path: Armature/Bone/elbow.R/elbow.R_end
-        weight: 1
-      - path: Armature/Bone/footcontroller.L
-        weight: 1
-      - path: Armature/Bone/footcontroller.L/foot.L
-        weight: 1
-      - path: Armature/Bone/footcontroller.L/foot.L/legik.L
-        weight: 1
-      - path: Armature/Bone/footcontroller.L/foot.L/legik.L/legik.L_end
-        weight: 1
-      - path: Armature/Bone/footcontroller.L/foot.L/toe.L
-        weight: 1
-      - path: Armature/Bone/footcontroller.L/foot.L/toe.L/toe.L_end
-        weight: 1
-      - path: Armature/Bone/footcontroller.R
-        weight: 1
-      - path: Armature/Bone/footcontroller.R/foot.R
-        weight: 1
-      - path: Armature/Bone/footcontroller.R/foot.R/legik.R
-        weight: 1
-      - path: Armature/Bone/footcontroller.R/foot.R/legik.R/legik.R_end
-        weight: 1
-      - path: Armature/Bone/footcontroller.R/foot.R/toe.R
-        weight: 1
-      - path: Armature/Bone/footcontroller.R/foot.R/toe.R/toe.R_end
-        weight: 1
-      - path: Armature/Bone/handik.L
-        weight: 1
-      - path: Armature/Bone/handik.L/handik.L_end
-        weight: 1
-      - path: Armature/Bone/handik.R
-        weight: 1
-      - path: Armature/Bone/handik.R/handik.R_end
-        weight: 1
-      - path: Armature/Bone/knee.L
-        weight: 1
-      - path: Armature/Bone/knee.L/knee.L_end
-        weight: 1
-      - path: Armature/Bone/knee.R
-        weight: 1
-      - path: Armature/Bone/knee.R/knee.R_end
-        weight: 1
-      - path: Armature/Bone/pelwas.001
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head/eye.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head/eye.L/eye.L 1
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head/eye.L/eye.L_end
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head/eye.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head/eye.R/eye.R 1
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head/eye.R/eye.R_end
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/if1.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/if1.L/if2.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/if1.L/if2.L/if3.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/if1.L/if2.L/if3.L/if3.L_end
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/mf1.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/mf1.L/mf2.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/mf1.L/mf2.L/mf3.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/mf1.L/mf2.L/mf3.L/mf3.L_end
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/rf1.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/rf1.L/rf2.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/rf1.L/rf2.L/rf3.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/rf1.L/rf2.L/rf3.L/rf3.L_end
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/sf1.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/sf1.L/sf2.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/sf1.L/sf2.L/sf3.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/sf1.L/sf2.L/sf3.L/sf3.L_end
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/t1.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/t1.L/t2.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/t1.L/t2.L/t3.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/t1.L/t2.L/t3.L/t3.L_end
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/if1.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/if1.R/if2.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/if1.R/if2.R/if3.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/if1.R/if2.R/if3.R/if3.R_end
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/mf1.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/mf1.R/mf2.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/mf1.R/mf2.R/mf3.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/mf1.R/mf2.R/mf3.R/mf3.R_end
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/rf1.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/rf1.R/rf2.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/rf1.R/rf2.R/rf3.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/rf1.R/rf2.R/rf3.R/rf3.R_end
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/sf1.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/sf1.R/sf2.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/sf1.R/sf2.R/sf3.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/sf1.R/sf2.R/sf3.R/sf3.R_end
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/t1.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/t1.R/t2.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/t1.R/t2.R/t3.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/t1.R/t2.R/t3.R/t3.R_end
-        weight: 1
-      - path: Armature/Bone/pelwas.001/upperleg.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/upperleg.L/lowerleg.L
-        weight: 1
-      - path: Armature/Bone/pelwas.001/upperleg.L/lowerleg.L/lowerleg.L_end
-        weight: 1
-      - path: Armature/Bone/pelwas.001/upperleg.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/upperleg.R/lowerleg.R
-        weight: 1
-      - path: Armature/Bone/pelwas.001/upperleg.R/lowerleg.R/lowerleg.R_end
-        weight: 1
-      - path: Armature/Bone/ribs.001
-        weight: 1
-      - path: Armature/Bone/ribs.001/ribs.001_end
-        weight: 1
-      - path: Armature/eyecontroller
-        weight: 1
-      - path: Armature/eyecontroller/eyeik.L
-        weight: 1
-      - path: Armature/eyecontroller/eyeik.L/eyeik.L_end
-        weight: 1
-      - path: Armature/eyecontroller/eyeik.R
-        weight: 1
-      - path: Armature/eyecontroller/eyeik.R/eyeik.R_end
-        weight: 1
-      - path: Camera
-        weight: 1
-      - path: Cylinder
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 350
-    - serializedVersion: 16
-      name: Landing
-      takeName: Armature|ArmatureAction
-      firstFrame: 360
-      lastFrame: 368
+      firstFrame: 0
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -940,18 +709,482 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Walking
+      name: TakeOff
       takeName: Armature|ArmatureAction
-      firstFrame: 0
-      lastFrame: 40
+      firstFrame: 340
+      lastFrame: 373
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Bone
+        weight: 1
+      - path: Armature/Bone/elbow.L
+        weight: 1
+      - path: Armature/Bone/elbow.L/elbow.L_end
+        weight: 1
+      - path: Armature/Bone/elbow.R
+        weight: 1
+      - path: Armature/Bone/elbow.R/elbow.R_end
+        weight: 1
+      - path: Armature/Bone/footcontroller.L
+        weight: 1
+      - path: Armature/Bone/footcontroller.L/foot.L
+        weight: 1
+      - path: Armature/Bone/footcontroller.L/foot.L/legik.L
+        weight: 1
+      - path: Armature/Bone/footcontroller.L/foot.L/legik.L/legik.L_end
+        weight: 1
+      - path: Armature/Bone/footcontroller.L/foot.L/toe.L
+        weight: 1
+      - path: Armature/Bone/footcontroller.L/foot.L/toe.L/toe.L_end
+        weight: 1
+      - path: Armature/Bone/footcontroller.R
+        weight: 1
+      - path: Armature/Bone/footcontroller.R/foot.R
+        weight: 1
+      - path: Armature/Bone/footcontroller.R/foot.R/legik.R
+        weight: 1
+      - path: Armature/Bone/footcontroller.R/foot.R/legik.R/legik.R_end
+        weight: 1
+      - path: Armature/Bone/footcontroller.R/foot.R/toe.R
+        weight: 1
+      - path: Armature/Bone/footcontroller.R/foot.R/toe.R/toe.R_end
+        weight: 1
+      - path: Armature/Bone/handik.L
+        weight: 1
+      - path: Armature/Bone/handik.L/handik.L_end
+        weight: 1
+      - path: Armature/Bone/handik.R
+        weight: 1
+      - path: Armature/Bone/handik.R/handik.R_end
+        weight: 1
+      - path: Armature/Bone/knee.L
+        weight: 1
+      - path: Armature/Bone/knee.L/knee.L_end
+        weight: 1
+      - path: Armature/Bone/knee.R
+        weight: 1
+      - path: Armature/Bone/knee.R/knee.R_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head/eye.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head/eye.L/eye.L 1
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head/eye.L/eye.L_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head/eye.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head/eye.R/eye.R 1
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head/eye.R/eye.R_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/if1.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/if1.L/if2.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/if1.L/if2.L/if3.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/if1.L/if2.L/if3.L/if3.L_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/mf1.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/mf1.L/mf2.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/mf1.L/mf2.L/mf3.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/mf1.L/mf2.L/mf3.L/mf3.L_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/rf1.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/rf1.L/rf2.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/rf1.L/rf2.L/rf3.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/rf1.L/rf2.L/rf3.L/rf3.L_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/sf1.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/sf1.L/sf2.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/sf1.L/sf2.L/sf3.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/sf1.L/sf2.L/sf3.L/sf3.L_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/t1.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/t1.L/t2.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/t1.L/t2.L/t3.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/t1.L/t2.L/t3.L/t3.L_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/if1.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/if1.R/if2.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/if1.R/if2.R/if3.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/if1.R/if2.R/if3.R/if3.R_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/mf1.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/mf1.R/mf2.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/mf1.R/mf2.R/mf3.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/mf1.R/mf2.R/mf3.R/mf3.R_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/rf1.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/rf1.R/rf2.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/rf1.R/rf2.R/rf3.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/rf1.R/rf2.R/rf3.R/rf3.R_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/sf1.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/sf1.R/sf2.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/sf1.R/sf2.R/sf3.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/sf1.R/sf2.R/sf3.R/sf3.R_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/t1.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/t1.R/t2.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/t1.R/t2.R/t3.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/t1.R/t2.R/t3.R/t3.R_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/upperleg.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/upperleg.L/lowerleg.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/upperleg.L/lowerleg.L/lowerleg.L_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/upperleg.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/upperleg.R/lowerleg.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/upperleg.R/lowerleg.R/lowerleg.R_end
+        weight: 1
+      - path: Armature/Bone/ribs.001
+        weight: 1
+      - path: Armature/Bone/ribs.001/ribs.001_end
+        weight: 1
+      - path: Armature/eyecontroller
+        weight: 1
+      - path: Armature/eyecontroller/eyeik.L
+        weight: 1
+      - path: Armature/eyecontroller/eyeik.L/eyeik.L_end
+        weight: 1
+      - path: Armature/eyecontroller/eyeik.R
+        weight: 1
+      - path: Armature/eyecontroller/eyeik.R/eyeik.R_end
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Cylinder
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Flying
+      takeName: Armature|ArmatureAction
+      firstFrame: 406
+      lastFrame: 425
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Bone
+        weight: 1
+      - path: Armature/Bone/elbow.L
+        weight: 1
+      - path: Armature/Bone/elbow.L/elbow.L_end
+        weight: 1
+      - path: Armature/Bone/elbow.R
+        weight: 1
+      - path: Armature/Bone/elbow.R/elbow.R_end
+        weight: 1
+      - path: Armature/Bone/footcontroller.L
+        weight: 1
+      - path: Armature/Bone/footcontroller.L/foot.L
+        weight: 1
+      - path: Armature/Bone/footcontroller.L/foot.L/legik.L
+        weight: 1
+      - path: Armature/Bone/footcontroller.L/foot.L/legik.L/legik.L_end
+        weight: 1
+      - path: Armature/Bone/footcontroller.L/foot.L/toe.L
+        weight: 1
+      - path: Armature/Bone/footcontroller.L/foot.L/toe.L/toe.L_end
+        weight: 1
+      - path: Armature/Bone/footcontroller.R
+        weight: 1
+      - path: Armature/Bone/footcontroller.R/foot.R
+        weight: 1
+      - path: Armature/Bone/footcontroller.R/foot.R/legik.R
+        weight: 1
+      - path: Armature/Bone/footcontroller.R/foot.R/legik.R/legik.R_end
+        weight: 1
+      - path: Armature/Bone/footcontroller.R/foot.R/toe.R
+        weight: 1
+      - path: Armature/Bone/footcontroller.R/foot.R/toe.R/toe.R_end
+        weight: 1
+      - path: Armature/Bone/handik.L
+        weight: 1
+      - path: Armature/Bone/handik.L/handik.L_end
+        weight: 1
+      - path: Armature/Bone/handik.R
+        weight: 1
+      - path: Armature/Bone/handik.R/handik.R_end
+        weight: 1
+      - path: Armature/Bone/knee.L
+        weight: 1
+      - path: Armature/Bone/knee.L/knee.L_end
+        weight: 1
+      - path: Armature/Bone/knee.R
+        weight: 1
+      - path: Armature/Bone/knee.R/knee.R_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head/eye.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head/eye.L/eye.L 1
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head/eye.L/eye.L_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head/eye.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head/eye.R/eye.R 1
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/neck/head/eye.R/eye.R_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/if1.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/if1.L/if2.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/if1.L/if2.L/if3.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/if1.L/if2.L/if3.L/if3.L_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/mf1.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/mf1.L/mf2.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/mf1.L/mf2.L/mf3.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/mf1.L/mf2.L/mf3.L/mf3.L_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/rf1.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/rf1.L/rf2.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/rf1.L/rf2.L/rf3.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/rf1.L/rf2.L/rf3.L/rf3.L_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/sf1.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/sf1.L/sf2.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/sf1.L/sf2.L/sf3.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/sf1.L/sf2.L/sf3.L/sf3.L_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/t1.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/t1.L/t2.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/t1.L/t2.L/t3.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.L/upperarm.L/lowerarm.L/hand.L/t1.L/t2.L/t3.L/t3.L_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/if1.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/if1.R/if2.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/if1.R/if2.R/if3.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/if1.R/if2.R/if3.R/if3.R_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/mf1.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/mf1.R/mf2.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/mf1.R/mf2.R/mf3.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/mf1.R/mf2.R/mf3.R/mf3.R_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/rf1.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/rf1.R/rf2.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/rf1.R/rf2.R/rf3.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/rf1.R/rf2.R/rf3.R/rf3.R_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/sf1.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/sf1.R/sf2.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/sf1.R/sf2.R/sf3.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/sf1.R/sf2.R/sf3.R/sf3.R_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/t1.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/t1.R/t2.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/t1.R/t2.R/t3.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/pelwas/spine/ribs/shoulder.R/upperarm.R/lowerarm.R/hand.R/t1.R/t2.R/t3.R/t3.R_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/upperleg.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/upperleg.L/lowerleg.L
+        weight: 1
+      - path: Armature/Bone/pelwas.001/upperleg.L/lowerleg.L/lowerleg.L_end
+        weight: 1
+      - path: Armature/Bone/pelwas.001/upperleg.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/upperleg.R/lowerleg.R
+        weight: 1
+      - path: Armature/Bone/pelwas.001/upperleg.R/lowerleg.R/lowerleg.R_end
+        weight: 1
+      - path: Armature/Bone/ribs.001
+        weight: 1
+      - path: Armature/Bone/ribs.001/ribs.001_end
+        weight: 1
+      - path: Armature/eyecontroller
+        weight: 1
+      - path: Armature/eyecontroller/eyeik.L
+        weight: 1
+      - path: Armature/eyecontroller/eyeik.L/eyeik.L_end
+        weight: 1
+      - path: Armature/eyecontroller/eyeik.R
+        weight: 1
+      - path: Armature/eyecontroller/eyeik.R/eyeik.R_end
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Cylinder
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Landing
+      takeName: Armature|ArmatureAction
+      firstFrame: 385
+      lastFrame: 394
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
