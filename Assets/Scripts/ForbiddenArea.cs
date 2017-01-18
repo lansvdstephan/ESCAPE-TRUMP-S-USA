@@ -24,13 +24,13 @@ public class ForbiddenArea : MonoBehaviour {
 
         headPlayer = PhilMovement.head;
     }
-	
+
     void OnTriggerEnter(Collider other)
     {
         print(other.tag);
         if (other.gameObject.CompareTag("Player"))
         {
-            if(headPlayer.transform.childCount > 0)
+            if (headPlayer.transform.childCount > 0)
             {
                 PhilDialogue.Instance.AddNewDialogue(this.mayEnter);
                 GetComponent<CapsuleCollider>().enabled = false;
