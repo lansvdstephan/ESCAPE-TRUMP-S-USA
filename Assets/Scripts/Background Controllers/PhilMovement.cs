@@ -201,6 +201,10 @@ public class PhilMovement : MonoBehaviour {
             pickedUp = false;
 			anim.SetTrigger (animPickupHash);
         }
+        if (other.CompareTag("Continue Dialogue") && Input.GetKeyUp("space"))
+        {
+            PhilDialogue.Instance.ContinueDialogue();
+        }
     }
 
     void OnTriggerEnter(Collider other)
