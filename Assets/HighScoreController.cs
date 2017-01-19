@@ -1,43 +1,91 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class HighScoreController : MonoBehaviour {
 
-    public string addScoreURL = "https://insyprojects.ewi.tudelft.nl/ewi3620tu6/addScore.js";
-    public string getScoresURL = "https://insyprojects.ewi.tudelft.nl/ewi3620tu6/getScores.js";
-    private string secretKey = "secretKey";
-	// Use this for initialization
-	void Start () {
-        StartCoroutine(getScores());
+    private string addScoreURL = "https://insyprojects.ewi.tudelft.nl/ewi3620tu6/addscore.php?";
+    private string getScoresURL = "https://insyprojects.ewi.tudelft.nl/ewi3620tu6/display.php";
+    private string secretKey = "1dLc9f170GIfi0cdgm5QW267J91tMqM7";
+    private string text;
+    private string[] highscoreArray;
+    private string playerName;
+    public GameObject Name_field;
+    public GameObject LoadingTextObject;
+    public GameObject HighscoreNames1;
+    public GameObject HighscoreScores1;
+    public GameObject HighscoreNames2;
+    public GameObject HighscoreScores2;
+    public GameObject Highscores;
+    public int score;
+    
+
+    void Start()
+    {
+        StartCoroutine(loadingScores());
+        playerName = Name_field.GetComponent<Text>().text;
+        if (true)
+        {
+            StartCoroutine(addScores(name, score));
+        }
+        else
+        {
+            StartCoroutine(getScores());
+        }
 	}
 
     public IEnumerator addScores(string name, int score)
     {
-        string hash = Md5Sum(name + score + secretKey);
-        string post_url = addScoreURL + "name" + WWW.EscapeURL(name) + "&score=" + score + "&hash=" + hash;
-        WWW hs_post = new WWW(post_url);
-        yield return hs_post;
-        if (hs_post.error != null)
+        string hash = Md5Sum(playerName + score + secretKey);
+        string postURL = addScoreURL + "name=" + WWW.EscapeURL(playerName) + "&score=" + score + "&hash="+ hash;
+        WWW post = new WWW(postURL);
+        yield return post;
+        if (post.error != null)
         {
-            print("Error posting highscore:"+hs_post.error);
+            print("Error posting highscore:"+post.error);
         }
+        StartCoroutine(getScores());
     }
 	
     IEnumerator getScores()
     {
-        gameObject.GetComponent<GUIText>().text = "Loading Scores";
-        WWW hs_get = new WWW(getScoresURL);
-        yield return hs_get;
-        if(hs_get.error != null)
+        WWW get = new WWW(getScoresURL);
+        yield return get;
+        text = get.text;
+        highscoreArray = text.Split('&');
+        print(text);
+        StopCoroutine(loadingScores());
+        if (get.error != null)
         {
-            print("Error loading highscores:" + hs_get.error);
+            print(get.error);
+            LoadingTextObject.GetComponent<Text>().text = "Unable To Load Highscores, Check Internet Connection.";
         }
         else
-        {
-            gameObject.GetComponent<GUIText>().text = hs_get.text;
+        {            
+            LoadingTextObject.SetActive(false);
+            HighscoreNames1.GetComponent<Text>().text = highscoreArray[0]+"\n" + highscoreArray[2]+"\n" + highscoreArray[4] + "\n" + highscoreArray[6] + "\n" + highscoreArray[8];
+            HighscoreScores1.GetComponent<Text>().text = highscoreArray[1] + "\n" + highscoreArray[3] + "\n" + highscoreArray[5] + "\n" + highscoreArray[7] + "\n" + highscoreArray[9];
+            HighscoreNames2.GetComponent<Text>().text = highscoreArray[10] + "\n" + highscoreArray[12] + "\n" + highscoreArray[14] + "\n" + highscoreArray[16] + "\n" + highscoreArray[18];
+            HighscoreScores2.GetComponent<Text>().text = highscoreArray[11] + "\n" + highscoreArray[13] + "\n" + highscoreArray[15] + "\n" + highscoreArray[17] + "\n" + highscoreArray[19];
+            Highscores.SetActive(true);
         }
     }
 
+    IEnumerator loadingScores()
+    {
+        string loadingText = "Loading Highscores";
+        while (LoadingTextObject.active == true)
+        {
+            LoadingTextObject.GetComponent<Text>().text = loadingText;
+            yield return new WaitForSeconds(0.5f);
+            LoadingTextObject.GetComponent<Text>().text = loadingText + ".";
+            yield return new WaitForSeconds(0.5f);
+            LoadingTextObject.GetComponent<Text>().text = loadingText + "..";
+            yield return new WaitForSeconds(0.5f);
+            LoadingTextObject.GetComponent<Text>().text = loadingText + "...";
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
     public string Md5Sum(string strToEncrypt)
     {
         System.Text.UTF8Encoding ue = new System.Text.UTF8Encoding();
