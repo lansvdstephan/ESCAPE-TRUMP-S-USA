@@ -6,7 +6,7 @@ public class MoveonPath : MonoBehaviour
 {
     public EditorPath pathToFolow;
     public PlayerSight fow;
-    public NavMeshAgent agent;
+    public UnityEngine.AI.NavMeshAgent agent;
     public PhilMovement player;
     public bool damageTaken = false;
 
@@ -30,7 +30,7 @@ public class MoveonPath : MonoBehaviour
     {
         curPoint = transform.position;
         prevPoint = Vector3.zero;
-        agent = GetComponent<NavMeshAgent>();
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         //pathToFolow = GameObject.Find(pathName).GetComponent<EditorPath>();
         anim = GetComponent<Animator>();
     }
