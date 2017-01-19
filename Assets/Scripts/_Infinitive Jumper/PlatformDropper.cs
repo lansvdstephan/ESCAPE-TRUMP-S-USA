@@ -6,6 +6,10 @@ public class PlatformDropper : MonoBehaviour
     public GameObject player;
     public GameObject[] Platform;
 
+    [Header("Powerups")]
+    public GameObject[] powerUpItems;
+    public int spawnrate = 1;
+
     private Vector3 offset;
     private Vector3 lastDropped;
     private float lastXScale;
@@ -14,12 +18,14 @@ public class PlatformDropper : MonoBehaviour
     private float spawnRange = 8f;
     private float maxDistance = 3.5f;
     private float minDistance = 3f;
+    private int counter;
     
 
     void Start()
     {
         offset = this.transform.position - player.transform.position;
         lastDropped = this.transform.position;
+        counter = 0;
     }
 
     void Update()
@@ -41,6 +47,7 @@ public class PlatformDropper : MonoBehaviour
 
     void Spawn()
     {
+        counter++;
         // Create the spot where the platfomr should be dropped and the platform to drop
         Vector3 dropSpot = new Vector3(this.gameObject.transform.position.x + Random.Range(-spawnRange, spawnRange), this.gameObject.transform.position.y, this.gameObject.transform.position.z);
         GameObject dropPlatform = Platform[Random.Range(0, Platform.Length)];
@@ -64,6 +71,10 @@ public class PlatformDropper : MonoBehaviour
         dropSpot.Set(x, dropSpot.y, dropSpot.z);
         // Drop the platform
         Instantiate(dropPlatform, dropSpot, Quaternion.identity);
+        if (counter%spawnrate == 0)
+        {
+            Instantiate(powerUpItems[Random.Range(0, powerUpItems.Length)], new Vector3(x,dropSpot.y + 1f,dropSpot.z), Quaternion.identity);
+        }
         // Update the last dropped position
         lastDropped = dropSpot;
         lastXScale = currentXScale;
