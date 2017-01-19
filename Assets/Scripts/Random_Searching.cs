@@ -10,13 +10,13 @@ public class Random_Searching : MonoBehaviour
     private bool pauze;
     public Vector3 random;
     private float time = 0.2f;
-    public UnityEngine.AI.NavMeshAgent agent;
+    public NavMeshAgent agent;
 
     void Start()
     {
         pauze = false;
         Debug.Log(transform.position);
-        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
         random = transform.position;
         agent.SetDestination(random);
     }

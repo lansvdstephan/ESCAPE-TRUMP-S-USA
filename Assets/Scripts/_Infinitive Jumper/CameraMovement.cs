@@ -18,7 +18,7 @@ public class CameraMovement : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        float y = this.transform.position.y;
+        /*float y = this.transform.position.y;
         this.transform.position = new Vector3(this.transform.position.x, y + speed*Time.deltaTime, this.transform.position.z);
         if (speed < maxSpeed)
         {
@@ -29,7 +29,7 @@ public class CameraMovement : MonoBehaviour {
             maxSpeed += 0.5f;
             maxSpeed = Mathf.Min(3.5f, maxSpeed);
             lastUpdated = y;
-        }
-        //this.transform.position = new Vector3(this.transform.position.x, player.transform.position.y + offset.y, this.transform.position.z);
+        }*/
+        this.transform.position = new Vector3(this.transform.position.x, player.transform.position.y + offset.y, this.transform.position.z);
     }
 }

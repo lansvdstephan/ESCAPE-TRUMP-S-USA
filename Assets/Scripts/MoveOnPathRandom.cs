@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class MoveOnPathRandom : MonoBehaviour
 {
     public PlayerSight fow;
-    public UnityEngine.AI.NavMeshAgent agent;
+    public NavMeshAgent agent;
 
 
     public float speed;
@@ -27,7 +27,7 @@ public class MoveOnPathRandom : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
         random = pickRandomPoint();
         agent.SetDestination(random);
         check = false;
