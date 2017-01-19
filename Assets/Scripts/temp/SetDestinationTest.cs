@@ -3,10 +3,10 @@ using System.Collections;
 
 public class SetDestinationTest : MonoBehaviour {
 
-    public NavMeshAgent agent;
+    public UnityEngine.AI.NavMeshAgent agent;
     // Use this for initialization
     void Start () {
-        agent = GetComponent<NavMeshAgent>();
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         agent.SetDestination(Vector3.zero);
     }
 	
