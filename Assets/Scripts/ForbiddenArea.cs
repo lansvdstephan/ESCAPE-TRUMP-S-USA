@@ -30,7 +30,7 @@ public class ForbiddenArea : MonoBehaviour {
         print(other.tag);
         if (other.gameObject.CompareTag("Player"))
         {
-            if (headPlayer.transform.childCount > 0)
+            if (headPlayer.transform.childCount > 1)
             {
                 PhilDialogue.Instance.AddNewDialogue(this.mayEnter);
                 GetComponent<CapsuleCollider>().enabled = false;

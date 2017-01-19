@@ -10,6 +10,8 @@ public class SwitchController : PhilInteractable {
     public bool switchFlipped = false;
 	public string[] lockedDialogue;
    	public string[] unLockedDialogue;
+    public string[] pushedOnDialogue;
+    public string[] pushedOffDialogue;
     public string[] wrongKey;
 
 
@@ -42,10 +44,18 @@ public class SwitchController : PhilInteractable {
                 switchFlipped = !switchFlipped;
                 if (switchFlipped)
                 {
+                    if (pushedOnDialogue.Length != 0)
+                    {
+                        PhilDialogue.Instance.AddNewDialogue(pushedOnDialogue);
+                    }
                     switched.GetComponent<Switchable>().SwitchOn();
                 }
                 else
                 {
+                    if (pushedOnDialogue.Length != 0)
+                    {
+                        PhilDialogue.Instance.AddNewDialogue(pushedOffDialogue);
+                    }
                     switched.GetComponent<Switchable>().SwitchOff();
                 }
             }
