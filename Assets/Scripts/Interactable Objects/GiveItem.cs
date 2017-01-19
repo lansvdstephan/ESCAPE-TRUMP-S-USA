@@ -13,11 +13,13 @@ public class GiveItem : PhilInteractable {
     public string[] rightItem;
     public string[] foundDialog;
 
-    private GameObject playerHand;
+    protected GameObject playerHand;
+    protected GameObject player;
     private bool givedItem = false;
 
     void Start () {
         playerHand = PhilMovement.hand;
+        player = PhilMovement.player;
 
         if (searchDialog.Length == 0)
         {
@@ -39,6 +41,7 @@ public class GiveItem : PhilInteractable {
             rightItem = new string[1];
             rightItem[0] = "That's the way you do it.";
         }
+
     }
 
     public override void Interact(GameObject player) { 
@@ -61,6 +64,12 @@ public class GiveItem : PhilInteractable {
                     PhilDialogue.Instance.AddNewDialogue(this.wrongItem);
                 }
             }
+            else if (searchItem.Equals("None"))
+            {
+                PhilDialogue.Instance.AddNewDialogue(this.rightItem);
+                givedItem = true;
+                PlaceItem(null);
+            }
             else
             {
                 PhilDialogue.Instance.AddNewDialogue(this.searchDialog);
@@ -74,11 +83,14 @@ public class GiveItem : PhilInteractable {
 
     private void PlaceItem(GameObject Item)
     {
-        PhilMovement.DropItem();
-        Item.transform.position = itemPlace.position;
-        Item.transform.localRotation = Item.GetComponent<PickUpAble>().GetRotation();
-        Item.transform.localScale = Item.GetComponent<PickUpAble>().GetScale();
-        Item.GetComponent<CapsuleCollider>().enabled = false;
+        if (Item != null)
+        {
+            PhilMovement.DropItem();
+            Item.transform.position = itemPlace.position;
+            Item.transform.localRotation = Item.GetComponent<PickUpAble>().GetRotation();
+            Item.transform.localScale = Item.GetComponent<PickUpAble>().GetScale();
+            Item.GetComponent<CapsuleCollider>().enabled = false;
+        }
         ItemInteract();
     }
 
