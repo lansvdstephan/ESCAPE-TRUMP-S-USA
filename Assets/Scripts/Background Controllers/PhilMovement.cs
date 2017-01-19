@@ -38,9 +38,9 @@ public class PhilMovement : MonoBehaviour {
     {
         damageImage.color = Color.clear;
         Rotation = this.transform.rotation;
-        player = this.gameObject;
-        hand = this.transform.FindChild("Armature").FindChild("Bone").FindChild("handik.R").FindChild("handik.R_end").FindChild("Hand").gameObject;
-        head = this.transform.FindChild("Armature").FindChild("Bone").FindChild("pelwas.001").FindChild("pelwas").FindChild("spine").FindChild("ribs").FindChild("neck").FindChild("head").FindChild("Glasses").gameObject;
+        PhilMovement.player = this.gameObject;
+        PhilMovement.hand = this.transform.FindChild("Armature").FindChild("Bone").FindChild("handik.R").FindChild("handik.R_end").FindChild("Hand").gameObject;
+        PhilMovement.head = this.transform.FindChild("Armature").FindChild("Bone").FindChild("pelwas.001").FindChild("pelwas").FindChild("spine").FindChild("ribs").FindChild("neck").FindChild("head").FindChild("Glasses").gameObject;
 
         hand.transform.localScale = new Vector3(hand.transform.localScale.x / hand.transform.lossyScale.x, hand.transform.localScale.y / hand.transform.lossyScale.y, hand.transform.localScale.z / hand.transform.lossyScale.z);
         head.transform.localScale = new Vector3(head.transform.localScale.x / head.transform.lossyScale.x, head.transform.localScale.y / head.transform.lossyScale.y, head.transform.localScale.z / head.transform.lossyScale.z);

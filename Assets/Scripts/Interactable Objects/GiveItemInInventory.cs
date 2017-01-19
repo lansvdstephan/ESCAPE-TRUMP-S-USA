@@ -8,6 +8,9 @@ public class GiveItemInInventory : GiveItem {
 
     public override void ItemInteract()
     {
-        returnItem.GetComponent<PickUpAble>().PlaceItemInBackOfInventory(PhilMovement.player);
+        print("foo");
+        if (playerHand.transform.childCount != 0) playerHand.transform.GetChild(0).GetComponent<PickUpAble>().PlaceItemInBackOfInventory(player);
+        if (returnItem != null ) returnItem.GetComponent<PickUpAble>().PlaceItemInHand(player);
+        InventorySystem.Instance.SwitchInventoryImange();
     }
 }
