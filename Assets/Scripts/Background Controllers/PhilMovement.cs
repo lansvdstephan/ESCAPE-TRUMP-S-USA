@@ -4,8 +4,12 @@ using System.Collections;
 using System;
 
 public class PhilMovement : MonoBehaviour {
+
+    [Header("Body")]
     public static GameObject player;
     public static GameObject hand;
+    public static GameObject head;
+
     public MoveonPath mop;
     public smartMoveOnPath smop;
     public float speed;
@@ -18,11 +22,12 @@ public class PhilMovement : MonoBehaviour {
     private Quaternion Rotation;
     private float viewRange = 1;
 
-	private int animWalkingHash = Animator.StringToHash("Walking");
+    private int animWalkingHash = Animator.StringToHash("Walking");
     private int animPickupHash = Animator.StringToHash("Pickup");
 
     private bool pickedUp;
 
+    [Header("Damage")]
     public float flashspeed = 1f;
     public Color flashColor = new Color(1f,0f,0f,0.1f);
     public bool damaged;
@@ -33,10 +38,12 @@ public class PhilMovement : MonoBehaviour {
     {
         damageImage.color = Color.clear;
         Rotation = this.transform.rotation;
-        player = this.gameObject;
-        hand = this.transform.FindChild("Armature").FindChild("Bone").FindChild("handik.R").FindChild("handik.R_end").FindChild("Hand").gameObject;
+        PhilMovement.player = this.gameObject;
+        PhilMovement.hand = this.transform.FindChild("Armature").FindChild("Bone").FindChild("handik.R").FindChild("handik.R_end").FindChild("Hand").gameObject;
+        PhilMovement.head = this.transform.FindChild("Armature").FindChild("Bone").FindChild("pelwas.001").FindChild("pelwas").FindChild("spine").FindChild("ribs").FindChild("neck").FindChild("head").FindChild("Glasses").gameObject;
 
         hand.transform.localScale = new Vector3(hand.transform.localScale.x / hand.transform.lossyScale.x, hand.transform.localScale.y / hand.transform.lossyScale.y, hand.transform.localScale.z / hand.transform.lossyScale.z);
+        head.transform.localScale = new Vector3(head.transform.localScale.x / head.transform.lossyScale.x, head.transform.localScale.y / head.transform.lossyScale.y, head.transform.localScale.z / head.transform.lossyScale.z);
     }
 
     void Start()
@@ -55,12 +62,18 @@ public class PhilMovement : MonoBehaviour {
       
     }
 
+    void FixedUpdate()
+    {
+        if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
+        {
+            Move();
+        }
+    }
+
     void LateUpdate()
     {
         // Prefend moving if Dialogue window opend
-        if (!PhilDialogue.Instance.dialoguePanel.activeSelf) {
-            Move();
-        }
+       
         if (hand.transform.childCount != 0 && !animOn)
         {
             if (pickedUp)
@@ -91,7 +104,7 @@ public class PhilMovement : MonoBehaviour {
 
         Vector3 movement = new Vector3(h, 0f, v);
 
-		movement = movement.normalized * speed * Time.deltaTime;
+		movement = movement.normalized * speed * Time.fixedDeltaTime;
         rb.MovePosition(transform.position + movement);
 
         // turning
@@ -142,11 +155,7 @@ public class PhilMovement : MonoBehaviour {
         // Dropping item if left shift is pressed else doing action if space is pressed
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-           hand.transform.GetChild(0).GetComponent<CapsuleCollider>().enabled = true;
-           hand.transform.DetachChildren();
-            InventorySystem.Instance.SwitchInventoryImange();
-            InventorySystem.Instance.SwitchHandImage();
-
+            DropItem();
         }
         else if (Input.GetKeyUp("space"))
         {
@@ -156,6 +165,14 @@ public class PhilMovement : MonoBehaviour {
             }
             GetInteraction();
         }
+    }
+
+    public static void DropItem()
+    {
+        hand.transform.GetChild(0).GetComponent<CapsuleCollider>().enabled = true;
+        hand.transform.DetachChildren();
+        InventorySystem.Instance.SwitchInventoryImange();
+        InventorySystem.Instance.SwitchHandImage();
     }
 
     private void SwitchingItems()
@@ -183,6 +200,10 @@ public class PhilMovement : MonoBehaviour {
             other.GetComponent<PhilInteractable>().Interact(player);
             pickedUp = false;
 			anim.SetTrigger (animPickupHash);
+        }
+        if (other.CompareTag("Continue Dialogue") && Input.GetKeyUp("space"))
+        {
+            PhilDialogue.Instance.ContinueDialogue();
         }
     }
 

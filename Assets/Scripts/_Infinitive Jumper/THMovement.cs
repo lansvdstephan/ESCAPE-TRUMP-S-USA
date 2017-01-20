@@ -5,6 +5,7 @@ public class THMovement : MonoBehaviour {
     
     public GameObject player;
     public Transform firePoint;
+	public Animator trumpAnim;
 
     [Header("Shooting")]
     public GameObject bulletPrefab;
@@ -14,8 +15,9 @@ public class THMovement : MonoBehaviour {
     private float fireCountdown = 1f;
     private float maxFireRate = 0.25f;
     private float lastUpdated = 10f;
+	private int animThrowingHash = Animator.StringToHash("Throw");
+
     public float speed = 10f;
-    public float test;
     
 
     // Use this for initialization
@@ -28,7 +30,8 @@ public class THMovement : MonoBehaviour {
         float y = this.transform.position.y;
         if (player != null && fireCountdown <= 0f)
         {
-            Shoot();
+			
+			StartCoroutine(Shoot());
             fireCountdown = 1f / fireRate;
         }
         fireCountdown -= Time.deltaTime;
@@ -45,8 +48,10 @@ public class THMovement : MonoBehaviour {
         }
     }
 
-    void Shoot()
+	IEnumerator Shoot()
     {
+		trumpAnim.SetTrigger (animThrowingHash);
+		yield return new WaitForSeconds(1.2f);
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 
@@ -71,8 +76,6 @@ public class THMovement : MonoBehaviour {
             float cost = Mathf.Cos(throwAngle);
             float g = Mathf.Abs(Physics.gravity.y);
             float R = Mathf.Sqrt(xf * xf + zf * zf);
-
-            test = R * R * g / (R * Mathf.Sin(2 * throwAngle) - 2 * hf * cost * cost);
 
             speed = Mathf.Sqrt(R * R * g / Mathf.Abs(R * Mathf.Sin(2 * throwAngle) - 2 * hf * cost * cost));
 

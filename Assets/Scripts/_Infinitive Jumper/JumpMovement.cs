@@ -2,20 +2,30 @@
 using System.Collections;
 
 public class JumpMovement : MonoBehaviour {
+    public static GameObject player;
     public int speed;
     public float jumpForce;
+    public bool rocketOn;
+    public float rocketTime = 5f;
+
     private Animator anim;
     private int animWalkingHash = Animator.StringToHash("Walking");
     private int animTakeOffHash = Animator.StringToHash("Take Off");
     private int animLandingHash = Animator.StringToHash("On Ground");
     private int animFallingHash = Animator.StringToHash("Falling");
     private Quaternion Rotation;
-    private GameObject landingCube; 
+    private GameObject landingCube;
+    private float verticalVelocity;
+    private float pos;
 
     private Rigidbody rb;
     public bool onGround = true;
-    private float verticalVelocity;
-    private float pos;
+    private float rocketTimer = -1f;
+
+    void Awake()
+    {
+        player = this.gameObject;
+    }
 
     // Use this for initialization
     void Start()
@@ -68,11 +78,31 @@ public class JumpMovement : MonoBehaviour {
             anim.SetTrigger(animTakeOffHash);
             StartCoroutine(Jump());
         }
+        else if (rocketOn && rocketTimer > 0)
+        {
+            rb.velocity=25f*Vector3.up;
+            if (rocketTimer == 5f)
+            {
+                this.gameObject.layer = 13;
+                this.transform.FindChild("Cylinder").gameObject.layer = 13;
+            }
+            rocketTimer = rocketTimer - 1 * Time.deltaTime;
+            
+            
+        }
+        if (rocketTimer < 0)
+        {
+            rocketTimer = rocketTime;
+            rocketOn = false;
+            this.gameObject.layer = 1;
+            this.transform.FindChild("Cylinder").gameObject.layer = 1;
+        }
+        print(rocketTimer);
     }
 
     public IEnumerator Jump()
     {
-        yield return new WaitForSeconds(0.084f);
+        yield return new WaitForSeconds(0.10f);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Acceleration);
 
     }
@@ -80,6 +110,15 @@ public class JumpMovement : MonoBehaviour {
     void FixedUpdate()
     {
         rb.AddForce(Physics.gravity * -0.5f, ForceMode.Acceleration);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Pickup Item"))
+        {
+            other.GetComponent<Powerup>().Action();
+            Destroy(other.gameObject);
+        }
     }
 
 

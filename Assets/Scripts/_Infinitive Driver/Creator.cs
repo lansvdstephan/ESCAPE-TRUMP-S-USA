@@ -41,19 +41,18 @@ public class Creator : MonoBehaviour {
                 {
                     Instantiate(obj[i].gameObjectArr[Random.Range(0, obj[i].gameObjectArr.Length)], 
                         new Vector3(0, this.gameObject.transform.position.y, this.gameObject.transform.position.z), Quaternion.identity);
-                    counter++;
                 }
                 else
                 {
                     Instantiate(obj[i].gameObjectArr[Random.Range(0, obj[i].gameObjectArr.Length)], 
                         new Vector3(0, this.gameObject.transform.position.y + 0.01f, this.gameObject.transform.position.z), Quaternion.identity);
-                    counter++;
                 }
+                counter++;
             }
         }
         else
         {
-            if (i < obj.Length-1)
+            if (i < obj.Length)
             {
                 i++;
                 counter = 0;

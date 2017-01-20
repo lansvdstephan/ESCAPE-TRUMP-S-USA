@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class smartMoveOnPath : MonoBehaviour
 {
     public PlayerSight fow;
-    public NavMeshAgent agent;
+    public UnityEngine.AI.NavMeshAgent agent;
     public smartSearching ss;
     public PhilMovement player;
     public int step = 0;
@@ -45,7 +45,7 @@ public class smartMoveOnPath : MonoBehaviour
         firstpoint = false;
         pause = false;
         firstTime = false;
-        agent = GetComponent<NavMeshAgent>();
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
 
         curPoint = transform.position;
         prevPoint = Vector3.zero;

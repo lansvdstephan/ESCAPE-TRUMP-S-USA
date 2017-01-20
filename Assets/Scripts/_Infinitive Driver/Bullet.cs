@@ -90,7 +90,11 @@ public class Bullet : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-        HitTarget();
+        if (!collision.gameObject.CompareTag("Shield"))
+        {
+            HitTarget();
+        }
+        
     }
 
 

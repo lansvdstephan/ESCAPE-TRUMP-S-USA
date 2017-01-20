@@ -5,11 +5,10 @@ using System.Collections.Generic;
 public class MoveOnPathRandom : MonoBehaviour
 {
     public PlayerSight fow;
-    public NavMeshAgent agent;
+    public UnityEngine.AI.NavMeshAgent agent;
 
 
     public float speed;
-    public float maxSpeed = 3.0f;
     public float rotationSpeed = 5.0f;
     private float reachDistance = 1.0f; //difference between the centre of the enemy and the point created by the EditorPath
 
@@ -28,7 +27,7 @@ public class MoveOnPathRandom : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         random = pickRandomPoint();
         agent.SetDestination(random);
         check = false;
@@ -50,7 +49,6 @@ public class MoveOnPathRandom : MonoBehaviour
                 check = false;
                 Debug.Log(random);
                 random = pickRandomPoint();
-                agent.Resume();
                 anim.SetBool(animRunningHash, false);
                 agent.SetDestination(random);
             }
@@ -59,7 +57,6 @@ public class MoveOnPathRandom : MonoBehaviour
         else if (fow.playerSeen)
         {
             anim.SetBool(animRunningHash, true);
-            agent.Stop();
             followPlayer();
             check = true;
         }
@@ -67,9 +64,7 @@ public class MoveOnPathRandom : MonoBehaviour
         {
             check = false;
             random = pickRandomPoint();
-            agent.Resume();
             anim.SetBool(animRunningHash, false);
-            agent.speed = 3.5f;
             agent.SetDestination(random);
         }
         
@@ -77,10 +72,8 @@ public class MoveOnPathRandom : MonoBehaviour
 
     void followPlayer()
     {
-        Debug.Log(speed);
-        agent.Resume();
-        agent.speed = 3.5f;
-        agent.SetDestination(random);//Move from current position to next position
+        Debug.Log(agent.speed);   
+        agent.SetDestination(fow.playerLastSeen);//Move from current position to next position
         Quaternion rotation = Quaternion.LookRotation(fow.playerLastSeen - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
     }
