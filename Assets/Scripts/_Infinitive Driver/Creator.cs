@@ -52,7 +52,7 @@ public class Creator : MonoBehaviour {
         }
         else
         {
-            if (i < obj.Length)
+            if (i < obj.Length + 1)
             {
                 i++;
                 counter = 0;
