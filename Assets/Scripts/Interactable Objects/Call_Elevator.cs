@@ -12,6 +12,9 @@ public class Call_Elevator : Switchable{
 	int goDownHash = Animator.StringToHash("Go down");
     public GameObject levelCompletedPanel;
 
+    public int items;
+
+
 
 	void Awake() {
         levelCompletedPanel = GameObject.Find("MainMenuCanvas").gameObject.transform.FindChild("Level Completed Panel").gameObject;
@@ -32,18 +35,19 @@ public class Call_Elevator : Switchable{
 	}
 
 	public void HidePlayer () {
-		//PhilMovement.player.SetActive (false);
-	}
+        items = GameObject.Find("Obama").transform.FindChild("Inventory").childCount + 1;
+        PhilMovement.player.SetActive (false);
+    }
 
 	public void NextLevel () {
         Time.timeScale = 0.0f;
         string timeLeftString = GameObject.Find("CountdownText").gameObject.transform.FindChild("TimeText").GetComponent<Text>().text;
         float timeLeft = GameObject.Find("CountdownKeeper").GetComponent<CountDown>().tijd;
-        int items = GameObject.Find("Obama").transform.FindChild("Inventory").childCount+1;
-        levelCompletedPanel.transform.FindChild("Text1").GetComponent<Text>().text = "Time Left:\n\n Items Collected";
-        levelCompletedPanel.transform.FindChild("Text2").GetComponent<Text>().text = timeLeftString + "\n\n" + items;
-        levelCompletedPanel.SetActive(true);
 
-        //SceneManager.LoadScene("Tunnel Oval Office");
+        levelCompletedPanel.GetComponent<CalculateScore>().timeBool = true;
+        levelCompletedPanel.GetComponent<CalculateScore>().itemBool = true;
+        levelCompletedPanel.GetComponent<CalculateScore>().timeLeft = (int) timeLeft;
+        levelCompletedPanel.GetComponent<CalculateScore>().items = items;
+        levelCompletedPanel.SetActive(true);
     }
 }
