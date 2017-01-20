@@ -35,9 +35,11 @@ public class CalculateScore : MonoBehaviour {
     public int totalScore;
     public GameObject ContinueButton;
     public GameObject GameCompletedPanel;
+    public int currentScene;
     // Use this for initialization
     void Awake()
     {
+        currentScene = 1;
         Text1 = this.transform.FindChild("Text1").GetComponent<Text>();
         Text2 = this.transform.FindChild("Text2").GetComponent<Text>();
         Text3 = this.transform.FindChild("Text3").GetComponent<Text>();
@@ -207,9 +209,10 @@ public class CalculateScore : MonoBehaviour {
         fuelScore = 0;
         ContinueButton.SetActive(false);
         Time.timeScale = 1.0f;
-        if (SceneManager.sceneCount != 6)
+        if (currentScene != 6)
         {
-            SceneManager.LoadScene(SceneManager.sceneCount + 1);
+            currentScene += 1;
+            SceneManager.LoadScene(currentScene);
         }
         else
         {
