@@ -70,6 +70,10 @@ public class MoveOnPathRandom : MonoBehaviour
         {
             anim.SetBool(animRunningHash, true);
             followPlayer();
+            if(!check)
+            {
+                this.gameObject.GetComponent<AudioSource>().Play();
+            }
             check = true;
         }
         else if (check)

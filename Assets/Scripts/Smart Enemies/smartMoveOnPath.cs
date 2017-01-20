@@ -63,6 +63,10 @@ public class smartMoveOnPath : MonoBehaviour
 
         else if (fow.playerSeen)
         {
+            if(!check)
+            {
+                this.gameObject.GetComponent<AudioSource>().Play();
+            }
             check = true;
             followPlayer();
             firstTime = false;
@@ -89,6 +93,7 @@ public class smartMoveOnPath : MonoBehaviour
             {
                 fireCountDown = fireCountDown - Time.deltaTime;
             }
+            
 
 
         }
