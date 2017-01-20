@@ -34,6 +34,7 @@ public class CalculateScore : MonoBehaviour {
     private Text Text5;
     public int totalScore;
     public GameObject ContinueButton;
+    public GameObject GameCompletedPanel;
     // Use this for initialization
     void Awake()
     {
@@ -206,6 +207,16 @@ public class CalculateScore : MonoBehaviour {
         fuelScore = 0;
         ContinueButton.SetActive(false);
         Time.timeScale = 1.0f;
-        SceneManager.LoadScene(SceneManager.sceneCount + 1);
+        if (SceneManager.sceneCount != 6)
+        {
+            SceneManager.LoadScene(SceneManager.sceneCount + 1);
+        }
+        else
+        {
+            GameCompletedPanel.transform.FindChild("ScoreText").GetComponent<Text>().text = "Score: " + totalScore;
+            GameObject.Find("High Score Panel").GetComponent<HighScoreController>().score = totalScore;
+            GameObject.Find("High Score Panel").GetComponent<HighScoreController>().gameFinished = true;
+            GameCompletedPanel.SetActive(true);
+        }
     }
 }

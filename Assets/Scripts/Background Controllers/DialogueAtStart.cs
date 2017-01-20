@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class DialogueAtStart : MonoBehaviour {
 
@@ -19,11 +20,13 @@ public class DialogueAtStart : MonoBehaviour {
             {
                 PhilDialogue.Instance.ContinueDialogue();
             }
-            
         }
         else
         {
-            GameObject.Find("CountdownKeeper").GetComponent<CountDown>().startcounting = true;
+            if (SceneManager.sceneCount!=1&&SceneManager.sceneCount != 4 && SceneManager.sceneCount != 6)
+            {
+                GameObject.Find("CountdownKeeper").GetComponent<CountDown>().startcounting = true;
+            }
             Time.timeScale = 1.0f;
             Destroy(this);
         }

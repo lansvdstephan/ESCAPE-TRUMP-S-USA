@@ -18,15 +18,17 @@ public class HighScoreController : MonoBehaviour {
     public GameObject HighscoreScores2;
     public GameObject Highscores;
     public int score;
+    public bool gameFinished=false;
     
 
-    void Start()
+    void OnEnable()
     {
         StartCoroutine(loadingScores());
         playerName = Name_field.GetComponent<Text>().text;
-        if (true)
+        if (gameFinished==true)
         {
             StartCoroutine(addScores(name, score));
+            gameFinished = false;
         }
         else
         {
