@@ -35,7 +35,8 @@ public class Call_Elevator : Switchable{
 	}
 
 	public void HidePlayer () {
-        items = GameObject.Find("Obama").transform.FindChild("Inventory").childCount + 1;
+        items = GameObject.FindWithTag("Player").transform.FindChild("Inventory").childCount + 1;
+        print("hallo");
         PhilMovement.player.SetActive (false);
     }
 
