@@ -8,7 +8,9 @@ public class Creator : MonoBehaviour {
     public GameObject player;
     public MultiDimensionGameObjectArray[] obj;
 	public int maxPerStage;
+	public int driveHorizonDistance;
 
+	private float endDistance;
 	private bool endLevel = false;
     private int counter;
     private int i;
@@ -52,6 +54,11 @@ public class Creator : MonoBehaviour {
 			}
 			counter++;
 		}
+		if (GameObject.FindWithTag ("Player").activeSelf) {
+			if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().points > (endDistance + driveHorizonDistance)) {
+				EndGame ();
+			}
+		}
 
         if (counter == maxPerStage)
         {
@@ -62,24 +69,27 @@ public class Creator : MonoBehaviour {
             }
 
 			else if (endLevel) {
-				StartCoroutine (EndGame ());
+				EndGame ();
 			}
             else
             {
 				endLevel = true;
                 counter = 0;
-				DisableObsCreators ();
+				Destroy (GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<CameraMovement1> ());
+				endDistance = GameObject.FindWithTag ("Player").GetComponent<Movement> ().points;
+				//DisableObsCreators ();
                 print("This is the End.");
             }
         }
     }
 
-	public void DisableObsCreators(){
-		obstackleCreators = GameObject.FindGameObjectsWithTag ("Obstackle Creator");
-		foreach (GameObject j in obstackleCreators){
-			j.SetActive (false);
-		}
-	}
+//	public void DisableObsCreators(){
+//		obstackleCreators = GameObject.FindGameObjectsWithTag ("Obstackle Creator");
+//		foreach (GameObject j in obstackleCreators){
+//			j.SetActive (false);
+//		}
+//		Destroy (GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<CameraMovement1> ());
+//	}
 
 
     public int GetI()
@@ -87,12 +97,10 @@ public class Creator : MonoBehaviour {
         return i;
     }
 
-	IEnumerator EndGame(){
-		Destroy (GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<CameraMovement1> ());
-		yield return new WaitForSeconds (3f);
+	void EndGame(){
         Time.timeScale = 0.0f;
         int healthLeft = (int) GameObject.FindWithTag("Player").GetComponent<Movement>().health;
-        int fuelLeft = (int)GameObject.FindWithTag("Player").GetComponent<Movement>().fuel;
+        int fuelLeft =   (int) GameObject.FindWithTag("Player").GetComponent<Movement>().fuel;
 
         levelCompletedPanel.GetComponent<CalculateScore>().fuelBool = true;
         levelCompletedPanel.GetComponent<CalculateScore>().healthBool = true;
