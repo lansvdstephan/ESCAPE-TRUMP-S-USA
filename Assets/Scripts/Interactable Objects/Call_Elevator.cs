@@ -10,7 +10,7 @@ public class Call_Elevator : Switchable{
 	public GameObject player;
 	int goUpHash = Animator.StringToHash("Go up");
 	int goDownHash = Animator.StringToHash("Go down");
-    public GameObject levelCompletedPanel;
+    private GameObject levelCompletedPanel;
 
     public int items;
 
@@ -35,7 +35,8 @@ public class Call_Elevator : Switchable{
 	}
 
 	public void HidePlayer () {
-        items = GameObject.Find("Obama").transform.FindChild("Inventory").childCount + 1;
+        items = GameObject.FindWithTag("Player").transform.FindChild("Inventory").childCount + 1;
+        print("hallo");
         PhilMovement.player.SetActive (false);
     }
 
@@ -43,6 +44,7 @@ public class Call_Elevator : Switchable{
         Time.timeScale = 0.0f;
         string timeLeftString = GameObject.Find("CountdownText").gameObject.transform.FindChild("TimeText").GetComponent<Text>().text;
         float timeLeft = GameObject.Find("CountdownKeeper").GetComponent<CountDown>().tijd;
+        
 
         levelCompletedPanel.GetComponent<CalculateScore>().timeBool = true;
         levelCompletedPanel.GetComponent<CalculateScore>().itemBool = true;

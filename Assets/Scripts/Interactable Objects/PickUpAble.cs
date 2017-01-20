@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -15,9 +16,10 @@ public class PickUpAble : PhilInteractable {
         originalScale = this.transform.lossyScale;
     }
 
-
+ 
     public override void Interact(GameObject player)
     {
+        Time.timeScale = 0f;
         if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
             if ( this.foundDialog != null) PhilDialogue.Instance.AddNewDialogue(this.foundDialog);
@@ -91,7 +93,6 @@ public class PickUpAble : PhilInteractable {
         {
             Items[i].SetParent(Inventory.transform);
         }
-        
     }
 
     public Quaternion GetRotation()
@@ -103,4 +104,5 @@ public class PickUpAble : PhilInteractable {
     {
         return originalScale;
     }
+
 }

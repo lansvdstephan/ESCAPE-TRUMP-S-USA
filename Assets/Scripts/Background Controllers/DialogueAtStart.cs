@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class DialogueAtStart : MonoBehaviour {
-
     public string[] lines;
 
     void Start () {
@@ -19,12 +19,15 @@ public class DialogueAtStart : MonoBehaviour {
             {
                 PhilDialogue.Instance.ContinueDialogue();
             }
-            
         }
         else
         {
-            Destroy(this);
+            if (SceneManager.GetActiveScene().name!="Driving Level"&& SceneManager.GetActiveScene().name != "Jumper Level")
+            {
+                GameObject.Find("CountdownKeeper").GetComponent<CountDown>().startcounting = true;
+            }
             Time.timeScale = 1.0f;
+            Destroy(this);
         }
 	}
    

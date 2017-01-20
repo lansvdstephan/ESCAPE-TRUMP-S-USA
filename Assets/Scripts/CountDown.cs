@@ -18,10 +18,6 @@ public class CountDown : MonoBehaviour
     private Color orange;
     private Color green;
    
-    void Awake()
-    {
-        tijd = 120f;
-    }
     // Use this for initialization
     void Start ()
     {

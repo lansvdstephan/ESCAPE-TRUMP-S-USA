@@ -26,6 +26,11 @@ public class MoveOnPathRandom : MonoBehaviour
 
     private GameObject playerHead;
 
+    public bool hitPlayer;
+
+    private float timeLeft = 1f;
+    public bool damageTaken = false;
+    public PhilMovement player;
     private Vector3 currPos = new Vector3();
     private Vector3 prevPos = new Vector3();
 
@@ -49,7 +54,11 @@ public class MoveOnPathRandom : MonoBehaviour
         Debug.Log(agent.speed);
         prevPos = currPos;
         currPos = transform.position;
-        if (!fow.playerSeen || playerHead.transform.childCount > 0)
+        if (hitPlayer)
+        {
+            pauseMovement();
+        }
+        else if (!fow.playerSeen || playerHead.transform.childCount > 0)
         {
             agent.speed = 2f;
             if (pauze)
@@ -64,7 +73,7 @@ public class MoveOnPathRandom : MonoBehaviour
                 Quaternion rotation = Quaternion.LookRotation(currPos - prevPos); // position we are going to minus the position we are looking at
                 transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
             }
-
+            
         }
         else if (fow.playerSeen)
         {
@@ -84,7 +93,7 @@ public class MoveOnPathRandom : MonoBehaviour
             anim.SetBool(animRunningHash, false);
             agent.SetDestination(random);
         }
-        
+        TakeDamage();
     }
 
     void followPlayer()
@@ -121,9 +130,9 @@ public class MoveOnPathRandom : MonoBehaviour
                 randomx = Random.Range(point2.x, point1.x);
 
             if (point1.z < point2.z)
-                randomx = Random.Range(point1.z, point2.z);
+                randomz = Random.Range(point1.z, point2.z);
             else
-                randomx = Random.Range(point2.z, point1.z);
+                randomz = Random.Range(point2.z, point1.z);
 
             next = new Vector3(randomx, 0.5f, randomz);
         }
@@ -193,11 +202,45 @@ public class MoveOnPathRandom : MonoBehaviour
         }
         return false;
     }
+
+    private void TakeDamage()
+    {
+        float dist = Vector3.Distance(transform.position, player.transform.position);
+
+        if (!damageTaken && dist < 1.25f)
+        {
+            damageTaken = true;
+            hitPlayer = true;
+            player.health = Max(player.health - 20, 0);
+            player.damageImage.color = player.flashColor;
+        }
+    }
+
     public float Min(float f1, float f2)
     {
         if (f1 < f2)
             return f1;
         else
             return f2;
+    }
+    public int Max(int f1,  int f2)
+    {
+        if (f1 > f2)
+            return f1;
+        else
+            return f2;
+    }
+
+    void pauseMovement()
+    {
+        timeLeft -= Time.deltaTime;
+        agent.Stop();
+        if (timeLeft < 0)
+        {
+            agent.Resume();
+            damageTaken = false;
+            hitPlayer = false;
+            timeLeft = 1f;
+        }
     }
 }

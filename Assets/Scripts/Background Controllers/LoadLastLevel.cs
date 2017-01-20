@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LoadLastLevel : MonoBehaviour
 {
@@ -10,6 +11,12 @@ public class LoadLastLevel : MonoBehaviour
 
     protected GameObject playerHand;
 
+    private GameObject levelCompletedPanel;
+    
+    void Awake()
+    {
+        levelCompletedPanel = GameObject.Find("MainMenuCanvas").gameObject.transform.FindChild("Level Completed Panel").gameObject;
+    }
     void Start()
     {
         playerHand = PhilMovement.hand;
@@ -35,8 +42,17 @@ public class LoadLastLevel : MonoBehaviour
             {
                 if (playerHand.transform.GetChild(0).GetComponent<PickUpAble>().name.Equals("Harddrive"))
                 {
-                    SceneManager.LoadScene("Jumper level");
-                    PhilDialogue.Instance.AddNewDialogue(this.hardDriveDialogue);
+                    int items = GameObject.FindWithTag("Player").transform.FindChild("Inventory").childCount + 1;
+                    Time.timeScale = 0.0f;
+                    string timeLeftString = GameObject.Find("CountdownText").gameObject.transform.FindChild("TimeText").GetComponent<Text>().text;
+                    float timeLeft = GameObject.Find("CountdownKeeper").GetComponent<CountDown>().tijd;
+
+                    levelCompletedPanel.GetComponent<CalculateScore>().timeBool = true;
+                    levelCompletedPanel.GetComponent<CalculateScore>().itemBool = true;
+                    levelCompletedPanel.GetComponent<CalculateScore>().timeLeft = (int)timeLeft;
+                    levelCompletedPanel.GetComponent<CalculateScore>().items = items;
+                    levelCompletedPanel.SetActive(true);
+                    
                 }
                 else
                 {
