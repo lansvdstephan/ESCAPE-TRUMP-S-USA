@@ -12,6 +12,9 @@ public class Random_Searching : MonoBehaviour
     private float time = 0.2f;
     public UnityEngine.AI.NavMeshAgent agent;
 
+    private Vector3 currPos = new Vector3();
+    private Vector3 prevPos = new Vector3();
+
     void Start()
     {
         pauze = false;
@@ -19,6 +22,8 @@ public class Random_Searching : MonoBehaviour
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         random = transform.position;
         agent.SetDestination(random);
+        Quaternion rotation = Quaternion.LookRotation(currPos - prevPos); // position we are going to minus the position we are looking at
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 5f);
     }
 
     void Update()
@@ -31,6 +36,8 @@ public class Random_Searching : MonoBehaviour
             pauze = true;
             random = pickRandomPoint();
             agent.SetDestination(random);
+            Quaternion rotation = Quaternion.LookRotation(currPos - prevPos); // position we are going to minus the position we are looking at
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 5f);
         }
     }
     public Vector3 pickRandomPoint()
