@@ -1,21 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CarInteract : PhilInteractable {
 	public string name;
     public bool unlocked = true;
     public int keyCode = 0;
 
-
-
     public string[] lockedDialogue;
     public string[] unLockedDialogue;
     public string[] wrongKey;
 
+    private GameObject levelCompletedPanel;
+    public int items;
+
+
 
     void Awake()
     {
+        levelCompletedPanel = GameObject.Find("MainMenuCanvas").gameObject.transform.FindChild("Level Completed Panel").gameObject;
         if (lockedDialogue.Length == 0)
         {
             lockedDialogue = new string[1];
@@ -36,7 +40,18 @@ public class CarInteract : PhilInteractable {
 
 		
 	public void NextLevel () {
-		SceneManager.LoadScene("Driving level");
+        items = GameObject.FindWithTag("Player").transform.FindChild("Inventory").childCount + 1;
+        Time.timeScale = 0.0f;
+        string timeLeftString = GameObject.Find("CountdownText").gameObject.transform.FindChild("TimeText").GetComponent<Text>().text;
+        float timeLeft = GameObject.Find("CountdownKeeper").GetComponent<CountDown>().tijd;
+        float healthLeft = GameObject.
+
+        levelCompletedPanel.GetComponent<CalculateScore>().timeBool = true;
+        levelCompletedPanel.GetComponent<CalculateScore>().itemBool = true;
+        levelCompletedPanel.GetComponent<CalculateScore>().timeLeft = (int)timeLeft;
+        levelCompletedPanel.GetComponent<CalculateScore>().items = items;
+        levelCompletedPanel.SetActive(true);
+        SceneManager.LoadScene("Driving level");
 	}
 
     public override void Interact(GameObject player)
