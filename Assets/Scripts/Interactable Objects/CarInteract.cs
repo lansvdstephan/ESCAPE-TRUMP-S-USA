@@ -53,7 +53,6 @@ public class CarInteract : PhilInteractable {
         levelCompletedPanel.GetComponent<CalculateScore>().items = items;
         levelCompletedPanel.GetComponent<CalculateScore>().health = healthLeft;
         levelCompletedPanel.SetActive(true);
-        SceneManager.LoadScene("Driving level");
 	}
 
     public override void Interact(GameObject player)
