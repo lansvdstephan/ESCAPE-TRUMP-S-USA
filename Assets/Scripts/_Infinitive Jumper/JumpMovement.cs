@@ -7,6 +7,7 @@ public class JumpMovement : MonoBehaviour {
     public float jumpForce;
     public bool rocketOn;
     public float rocketTime = 5f;
+    public float shieldTime = 5f;
 
     private Animator anim;
     private int animWalkingHash = Animator.StringToHash("Walking");
@@ -21,6 +22,7 @@ public class JumpMovement : MonoBehaviour {
     private Rigidbody rb;
     public bool onGround = true;
     private float rocketTimer = -1f;
+    private float shieldTimer = -1f;
 
     void Awake()
     {
@@ -86,18 +88,28 @@ public class JumpMovement : MonoBehaviour {
                 this.gameObject.layer = 13;
                 this.transform.FindChild("Cylinder").gameObject.layer = 13;
             }
-            rocketTimer = rocketTimer - 1 * Time.deltaTime;
-            
-            
+            rocketTimer = rocketTimer - 1 * Time.deltaTime;           
         }
         if (rocketTimer < 0)
         {
-            rocketTimer = rocketTime;
             rocketOn = false;
-            this.gameObject.layer = 1;
-            this.transform.FindChild("Cylinder").gameObject.layer = 1;
+            if (rb.velocity.y < 0)
+            {
+                rocketTimer = rocketTime;
+                this.gameObject.layer = 1;
+                this.transform.FindChild("Cylinder").gameObject.layer = 1;
+            }
         }
-        print(rocketTimer);
+
+        if (player.transform.FindChild("ActiveShield").gameObject.activeSelf && shieldTimer > 0)
+        {
+            shieldTimer = shieldTimer - 1 * Time.deltaTime;
+        }
+        if (shieldTimer <= 0)
+        {
+            shieldTimer = shieldTime;
+            player.transform.FindChild("ActiveShield").gameObject.SetActive(false);
+        }
     }
 
     public IEnumerator Jump()

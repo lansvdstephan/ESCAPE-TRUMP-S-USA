@@ -24,6 +24,8 @@ public class MoveOnPathRandom : MonoBehaviour
     private int animWalkingHash = Animator.StringToHash("GuardWalking");
     private int animRunningHash = Animator.StringToHash("GuardRunning");
 
+    private GameObject playerHead;
+
     // Use this for initialization
     void Start()
     {
@@ -33,13 +35,15 @@ public class MoveOnPathRandom : MonoBehaviour
         check = false;
         anim = GetComponent<Animator>();
         //pathToFolow = GameObject.Find(pathName).GetComponent<EditorPath>();
+        playerHead = PhilMovement.head;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
         Debug.Log(agent.speed);
-        if (!fow.playerSeen)
+      
+        if (!fow.playerSeen || playerHead.transform.childCount > 0)
         {
             agent.speed = 2f;
             if (pauze)
