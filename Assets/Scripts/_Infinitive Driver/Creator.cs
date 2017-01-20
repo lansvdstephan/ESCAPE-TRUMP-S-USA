@@ -15,6 +15,12 @@ public class Creator : MonoBehaviour {
     private Vector3 offset;
 	private GameObject[] obstackleCreators;
 
+    public GameObject levelCompletedPanel;
+
+    void Awake()
+    {
+        levelCompletedPanel = GameObject.Find("MainMenuCanvas").gameObject.transform.FindChild("Level Completed Panel").gameObject;
+    }
     void Start()
     {
         counter = 0;
@@ -84,5 +90,14 @@ public class Creator : MonoBehaviour {
 	IEnumerator EndGame(){
 		Destroy (GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<CameraMovement1> ());
 		yield return new WaitForSeconds (3f);
-	}
+        Time.timeScale = 0.0f;
+        int healthLeft = (int) GameObject.FindWithTag("Player").GetComponent<Movement>().health;
+        int fuelLeft = (int)GameObject.FindWithTag("Player").GetComponent<Movement>().fuel;
+
+        levelCompletedPanel.GetComponent<CalculateScore>().fuelBool = true;
+        levelCompletedPanel.GetComponent<CalculateScore>().healthBool = true;
+        levelCompletedPanel.GetComponent<CalculateScore>().fuel = fuelLeft;
+        levelCompletedPanel.GetComponent<CalculateScore>().health = healthLeft;
+        levelCompletedPanel.SetActive(true);
+    }
 }

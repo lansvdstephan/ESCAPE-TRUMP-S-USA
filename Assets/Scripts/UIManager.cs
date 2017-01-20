@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour {
 	void Update () {
 		
         // PauseGame(isPaused);
-		if (Input.GetButtonDown("Cancel") && activePanel.panelName == "pause")
+		if (Input.GetButtonDown("Cancel") && activePanel.panelName == "pause" && !gameOverPanel.enabled)
         {
             SwitchPause();
 
