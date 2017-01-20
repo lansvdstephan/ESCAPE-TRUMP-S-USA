@@ -91,9 +91,9 @@ public class CalculateScore : MonoBehaviour {
             {
                 if(timeLeft < 200)
                 {
-                    speed = 2;
+                    speed = 5;
                 }
-                if(timeLeft < 75)
+                if(timeLeft < 30)
                 {
                     speed = 1;
                 }
@@ -112,14 +112,14 @@ public class CalculateScore : MonoBehaviour {
         
         if (healthBool)
         {
-            int speed = 4;
+            int speed = 10;
             while (health > 0)
             {
                 if (health < 200)
                 {
-                    speed = 2;
+                    speed = 5;
                 }
-                if(health < 75)
+                if(health < 30)
                 {
                     speed = 1;
                 }
@@ -138,14 +138,14 @@ public class CalculateScore : MonoBehaviour {
 
         if (fuelBool)
         {
-            int speed = 4;
+            int speed = 10;
             while (fuel > 0)
             {
                 if (fuel < 200)
                 {
-                    speed = 2;
+                    speed = 5;
                 }
-                if(fuel < 75)
+                if(fuel < 30)
                 {
                     speed = 1;
                 }
@@ -207,6 +207,14 @@ public class CalculateScore : MonoBehaviour {
         itemScore = 0;
         healthScore = 0;
         fuelScore = 0;
+        text21 = "";
+        text22 = "";
+        text23 = "";
+        text24 = "";
+        text31 = "";
+        text32 = "";
+        text33 = "";
+        text34 = "";
         ContinueButton.SetActive(false);
         Time.timeScale = 1.0f;
         if (currentScene != 6)
