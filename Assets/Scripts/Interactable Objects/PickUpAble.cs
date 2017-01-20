@@ -125,6 +125,6 @@ public class PickUpAble : PhilInteractable {
 
     public void pickedUpMessage()
     {
-        image
+        //image;
     }
 }
