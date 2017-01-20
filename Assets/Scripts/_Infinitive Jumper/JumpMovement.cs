@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class JumpMovement : MonoBehaviour {
     public static GameObject player;
     public int speed;
     public float jumpForce;
     public bool rocketOn;
+    public float goal = 500;
     public float rocketTime = 5f;
     public float shieldTime = 5f;
 
@@ -42,6 +44,10 @@ public class JumpMovement : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (this.transform.position.y > goal)
+        {
+            LoadWinningScreen();
+        }
         verticalVelocity = rb.velocity.y;
         if (verticalVelocity < -0.1f)
         {
@@ -133,5 +139,8 @@ public class JumpMovement : MonoBehaviour {
         }
     }
 
-
+    private void LoadWinningScreen()
+    {
+        throw new NotImplementedException();
+    }
 }
