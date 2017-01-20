@@ -54,9 +54,11 @@ public class Creator : MonoBehaviour {
 			}
 			counter++;
 		}
-		if (GameObject.FindWithTag ("Player").activeSelf) {
-			if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().points > (endDistance + driveHorizonDistance)) {
-				EndGame ();
+		if (endLevel) {
+			if (GameObject.FindWithTag ("Player").activeSelf) {
+				if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().points > (endDistance + driveHorizonDistance)) {
+					EndGame ();
+				}
 			}
 		}
 
