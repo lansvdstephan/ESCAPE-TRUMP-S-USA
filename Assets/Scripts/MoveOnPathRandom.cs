@@ -121,9 +121,9 @@ public class MoveOnPathRandom : MonoBehaviour
                 randomx = Random.Range(point2.x, point1.x);
 
             if (point1.z < point2.z)
-                randomx = Random.Range(point1.z, point2.z);
+                randomz = Random.Range(point1.z, point2.z);
             else
-                randomx = Random.Range(point2.z, point1.z);
+                randomz = Random.Range(point2.z, point1.z);
 
             next = new Vector3(randomx, 0.5f, randomz);
         }
