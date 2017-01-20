@@ -12,7 +12,7 @@ public class DialogueAtStart : MonoBehaviour {
 	}
 
 	void Update () {
-
+        print(SceneManager.GetActiveScene().name);
         if (PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
             if (Input.GetKeyUp("space"))
@@ -22,7 +22,7 @@ public class DialogueAtStart : MonoBehaviour {
         }
         else
         {
-            if (SceneManager.GetActiveScene().name!="Driving Level"&& SceneManager.GetActiveScene().name != "Jumper Level")
+            if (SceneManager.GetActiveScene().name!="Driving level"&& SceneManager.GetActiveScene().name != "Jumper level")
             {
                 GameObject.Find("CountdownKeeper").GetComponent<CountDown>().startcounting = true;
             }
