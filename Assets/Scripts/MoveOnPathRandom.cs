@@ -26,6 +26,9 @@ public class MoveOnPathRandom : MonoBehaviour
 
     private GameObject playerHead;
 
+    private Vector3 currPos = new Vector3();
+    private Vector3 prevPos = new Vector3();
+
     // Use this for initialization
     void Start()
     {
@@ -36,13 +39,16 @@ public class MoveOnPathRandom : MonoBehaviour
         anim = GetComponent<Animator>();
         //pathToFolow = GameObject.Find(pathName).GetComponent<EditorPath>();
         playerHead = PhilMovement.head;
+        prevPos = transform.position;
+        currPos = Vector3.zero;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
         Debug.Log(agent.speed);
-      
+        prevPos = currPos;
+        currPos = transform.position;
         if (!fow.playerSeen || playerHead.transform.childCount > 0)
         {
             agent.speed = 2f;
@@ -55,6 +61,8 @@ public class MoveOnPathRandom : MonoBehaviour
                 random = pickRandomPoint();
                 anim.SetBool(animRunningHash, false);
                 agent.SetDestination(random);
+                Quaternion rotation = Quaternion.LookRotation(currPos - prevPos); // position we are going to minus the position we are looking at
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
             }
 
         }
@@ -68,6 +76,7 @@ public class MoveOnPathRandom : MonoBehaviour
         {
             check = false;
             random = pickRandomPoint();
+            agent.speed = 2.5f;
             anim.SetBool(animRunningHash, false);
             agent.SetDestination(random);
         }
@@ -78,6 +87,7 @@ public class MoveOnPathRandom : MonoBehaviour
     {
         Debug.Log(agent.speed);   
         agent.SetDestination(fow.playerLastSeen);//Move from current position to next position
+        agent.speed = 4.2f;
         Quaternion rotation = Quaternion.LookRotation(fow.playerLastSeen - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
     }
