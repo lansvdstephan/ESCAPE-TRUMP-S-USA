@@ -43,7 +43,7 @@ public class CalculateScore : MonoBehaviour {
         Text5 = this.transform.FindChild("Text5").GetComponent<Text>();
     }
 
-    void Start () {
+    void OnEnable () {
         text1 = "";
         text2 = ""; 
         if (timeBool)
@@ -83,13 +83,22 @@ public class CalculateScore : MonoBehaviour {
         yield return new WaitForSecondsRealtime(2f);
         if (timeBool)
         {
+            int speed = 4;
             while (timeLeft > 0)
             {
-                timeLeft -= 1;                
+                if(timeLeft < 200)
+                {
+                    speed = 2;
+                }
+                if(timeLeft < 75)
+                {
+                    speed = 1;
+                }
+                timeLeft -= speed;                
                 text21 = timeLeft + " sec\n\n";
                 text2 = text21 + text22 + text23 + text24;
                 Text2.text = text2;
-                timeScore += 1;
+                timeScore += speed;
                 text31 = timeScore + "\n\n";
                 text3 = text31 + text32 + text33 + text34;
                 Text3.text = text3;
@@ -100,30 +109,48 @@ public class CalculateScore : MonoBehaviour {
         
         if (healthBool)
         {
-            while (health > 1)
+            int speed = 4;
+            while (health > 0)
             {
-                health -= 1;
+                if (health < 200)
+                {
+                    speed = 2;
+                }
+                if(health < 75)
+                {
+                    speed = 1;
+                }
+                health -= speed;
                 text22 = health + "\n\n";
                 text2 = text21 + text22 + text23 + text24;
                 Text2.text = text2;
-                healthScore += 1;
+                healthScore += speed;
                 text32 = healthScore + "\n\n";
                 text3 = text31 + text32 + text33 + text34;
                 Text3.text = text3;
-                yield return new WaitForSecondsRealtime(0.02f);
+                yield return new WaitForSecondsRealtime(0.01f);
             }
             yield return new WaitForSecondsRealtime(1f);
         }
 
         if (fuelBool)
         {
+            int speed = 4;
             while (fuel > 0)
             {
-                fuel -= 1;
+                if (fuel < 200)
+                {
+                    speed = 2;
+                }
+                if(fuel < 75)
+                {
+                    speed = 1;
+                }
+                fuel -= speed;
                 text23 = fuel + "\n\n";
                 text2 = text21 + text22 + text23 + text24;
                 Text2.text = text2;
-                fuelScore += 1;
+                fuelScore += speed;
                 text33 = fuelScore + "\n\n";
                 text3 = text31 + text32 + text33 + text34;
                 Text3.text = text3;
@@ -133,8 +160,17 @@ public class CalculateScore : MonoBehaviour {
         }
         if (itemBool)
         {
+            int speed = 4;
             while (items > 0)
             {
+                if (items < 10)
+                {
+                    speed = 2;
+                }
+                if (items < 3)
+                {
+                    speed = 1;
+                }
                 items -= 1;
                 text24 = items + "\n\n";
                 text2 = text21 + text22 + text23 + text24;
@@ -143,7 +179,7 @@ public class CalculateScore : MonoBehaviour {
                 text34 = itemScore + "\n\n";
                 text3 = text31 + text32 + text33 + text34;
                 Text3.text = text3;
-                yield return new WaitForSecondsRealtime(0.8f);
+                yield return new WaitForSecondsRealtime(0.8f/speed);
             }
         }
         totalScore += timeScore + healthScore + fuelScore + itemScore;
