@@ -86,7 +86,7 @@ public class CalculateScore : MonoBehaviour {
         yield return new WaitForSecondsRealtime(2f);
         if (timeBool)
         {
-            int speed = 4;
+            int speed = 10;
             while (timeLeft > 0)
             {
                 if(timeLeft < 200)
