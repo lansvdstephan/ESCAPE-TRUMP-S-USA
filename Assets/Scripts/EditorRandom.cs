@@ -5,7 +5,7 @@ public class EditorRandom : MonoBehaviour
 {
 
     public Color rayColor = Color.white;
-    public Random_Searching rs;
+    public MoveOnPathRandom rs;
     // Use this for initialization
     void OnDrawGizmos()
     {

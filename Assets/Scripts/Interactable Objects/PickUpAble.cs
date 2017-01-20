@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,15 +10,33 @@ public class PickUpAble : PhilInteractable {
     private Quaternion originalRotation;
     private Vector3 originalScale;
 
+    public GameObject border;
+    public GameObject image;
+    public List<string> tekstje = new List<string>();
+    private bool pickedUp;
+    public Text showText;
+
     void Awake()
     {
         originalRotation = this.transform.rotation;
         originalScale = this.transform.lossyScale;
+        border.SetActive(false);
+        pickedUp = false;
     }
 
-
+    void Update()
+    {
+        if(pickedUp)
+        {
+            pickedUpMessage();
+        }
+    }
     public override void Interact(GameObject player)
     {
+        if (!pickedUp)
+        {
+            pickedUp = true;
+        }
         if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
             if ( this.foundDialog != null) PhilDialogue.Instance.AddNewDialogue(this.foundDialog);
@@ -102,5 +121,10 @@ public class PickUpAble : PhilInteractable {
     public Vector3 GetScale()
     {
         return originalScale;
+    }
+
+    public void pickedUpMessage()
+    {
+        //image;
     }
 }

@@ -23,8 +23,9 @@ public class DialogueAtStart : MonoBehaviour {
         }
         else
         {
-            Destroy(this);
+            GameObject.Find("CountdownKeeper").GetComponent<CountDown>().startcounting = true;
             Time.timeScale = 1.0f;
+            Destroy(this);
         }
 	}
    

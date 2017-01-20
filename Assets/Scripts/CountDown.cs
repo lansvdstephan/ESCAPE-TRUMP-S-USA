@@ -17,6 +17,7 @@ public class CountDown : MonoBehaviour
     private bool changeCol;
     private Color orange;
     private Color green;
+   
     // Use this for initialization
     void Start ()
     {
