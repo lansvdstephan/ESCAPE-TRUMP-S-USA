@@ -207,6 +207,14 @@ public class CalculateScore : MonoBehaviour {
         itemScore = 0;
         healthScore = 0;
         fuelScore = 0;
+        text21 = "";
+        text22 = "";
+        text23 = "";
+        text24 = "";
+        text31 = "";
+        text32 = "";
+        text33 = "";
+        text34 = "";
         ContinueButton.SetActive(false);
         Time.timeScale = 1.0f;
         if (currentScene != 6)
