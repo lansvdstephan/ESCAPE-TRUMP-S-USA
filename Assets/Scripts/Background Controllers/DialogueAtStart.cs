@@ -4,7 +4,6 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class DialogueAtStart : MonoBehaviour {
-
     public string[] lines;
 
     void Start () {
@@ -23,7 +22,7 @@ public class DialogueAtStart : MonoBehaviour {
         }
         else
         {
-            if (SceneManager.sceneCount!=1&&SceneManager.sceneCount != 4 && SceneManager.sceneCount != 6)
+            if (SceneManager.GetActiveScene().name!="Driving Level"&& SceneManager.GetActiveScene().name != "Jumper Level")
             {
                 GameObject.Find("CountdownKeeper").GetComponent<CountDown>().startcounting = true;
             }
