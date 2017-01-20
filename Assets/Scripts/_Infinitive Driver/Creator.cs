@@ -7,10 +7,9 @@ public class Creator : MonoBehaviour {
     public bool driverLevel = true;
     public GameObject player;
     public MultiDimensionGameObjectArray[] obj;
-    public int maxPerStage;
-	public Animator cameraAnimator;
+	public int maxPerStage;
 
-	private bool endLevel;
+	private bool endLevel = false;
     private int counter;
     private int i;
     private Vector3 offset;
@@ -56,33 +55,34 @@ public class Creator : MonoBehaviour {
                 counter = 0;
             }
 
-			if (endLevel) {
-				EndGame ();
+			else if (endLevel) {
+				StartCoroutine (EndGame ());
 			}
             else
             {
 				endLevel = true;
                 counter = 0;
-				obstackleCreators = GameObject.FindGameObjectsWithTag ("Obstackle Creator");
-				foreach (GameObject i in obstackleCreators){
-					i.SetActive (false);
-				}
+				DisableObsCreators ();
                 print("This is the End.");
             }
         }
     }
+
+	public void DisableObsCreators(){
+		obstackleCreators = GameObject.FindGameObjectsWithTag ("Obstackle Creator");
+		foreach (GameObject j in obstackleCreators){
+			j.SetActive (false);
+		}
+	}
+
 
     public int GetI()
     {
         return i;
     }
 
-	public void EndGame(){
-		GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<CameraMovement1>().enabled = false;
-		cameraAnimator.SetBool ("End Game", true);
-	}
-
-	public void NextLevel() {
-		print ("next Level");
+	IEnumerator EndGame(){
+		Destroy (GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<CameraMovement1> ());
+		yield return new WaitForSeconds (3f);
 	}
 }
