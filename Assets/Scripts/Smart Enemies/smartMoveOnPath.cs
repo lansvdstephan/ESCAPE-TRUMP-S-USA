@@ -63,6 +63,10 @@ public class smartMoveOnPath : MonoBehaviour
 
         else if (fow.playerSeen)
         {
+            if(!check)
+            {
+                this.gameObject.GetComponent<AudioSource>().Play();
+            }
             check = true;
             followPlayer();
             firstTime = false;
@@ -89,6 +93,7 @@ public class smartMoveOnPath : MonoBehaviour
             {
                 fireCountDown = fireCountDown - Time.deltaTime;
             }
+            
 
 
         }
@@ -103,7 +108,7 @@ public class smartMoveOnPath : MonoBehaviour
 
         else if (!check)
         {
-            speed = 2.0f;
+            agent.speed = 2.0f;
             searchSmart();
             firstTime = false;
             firstpoint = false;
@@ -155,7 +160,7 @@ public class smartMoveOnPath : MonoBehaviour
     {
         anim.SetBool(animRunningHash, true);
         agent.Resume();
-        agent.speed = Min(agent.speed + 0.05f, 4.2f);
+        agent.speed = 4.5f;
         agent.SetDestination(fow.playerLastSeen);
         Quaternion rotation = Quaternion.LookRotation(fow.playerLastSeen - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
@@ -165,7 +170,7 @@ public class smartMoveOnPath : MonoBehaviour
     {
         anim.SetBool(animRunningHash, false);
         agent.SetDestination(ss.pointToGO);
-        agent.speed = Maxf(agent.speed - 0.03f, 3f);
+        agent.speed = 3f;
         Quaternion rotation = Quaternion.LookRotation(curPoint - prevPoint); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
         float eps = 0.5f;
@@ -179,7 +184,7 @@ public class smartMoveOnPath : MonoBehaviour
     {
         anim.SetBool(animRunningHash, true);
         agent.Resume();
-        agent.speed = Min(agent.speed + 0.05f, 4f);
+        agent.speed = 4f;
         agent.SetDestination(fow.toGo);
         Quaternion rotation = Quaternion.LookRotation(curPoint - prevPoint); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
@@ -245,7 +250,7 @@ public class smartMoveOnPath : MonoBehaviour
             firstpoint = false;
             pause = true;
             agent.Stop();
-            
+
         }
     }
 
