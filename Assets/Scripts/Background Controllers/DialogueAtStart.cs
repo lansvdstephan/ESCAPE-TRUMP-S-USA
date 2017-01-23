@@ -12,7 +12,6 @@ public class DialogueAtStart : MonoBehaviour {
 	}
 
 	void Update () {
-        print(SceneManager.GetActiveScene().name);
         if (PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
             if (Input.GetKeyUp("space"))
