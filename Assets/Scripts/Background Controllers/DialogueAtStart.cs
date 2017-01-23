@@ -20,12 +20,12 @@ public class DialogueAtStart : MonoBehaviour {
                 PhilDialogue.Instance.ContinueDialogue();
             }
         }
-        else
+        else if (GameObject.Find("CountdownKeeper") != null)
         {
-            if (SceneManager.GetActiveScene().name!="Driving level"&& SceneManager.GetActiveScene().name != "Jumper level")
-            {
-                GameObject.Find("CountdownKeeper").GetComponent<CountDown>().startcounting = true;
-            }
+            GameObject.Find("CountdownKeeper").GetComponent<CountDown>().startcounting = true;
+        }
+        else
+        { 
             Time.timeScale = 1.0f;
             Destroy(this);
         }
