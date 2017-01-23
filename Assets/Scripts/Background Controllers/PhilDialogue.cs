@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
@@ -37,7 +38,7 @@ public class PhilDialogue : MonoBehaviour {
     public void CreateDialogue()
     {
         print( "started dialog");
-        dialogueText.text = dialogueLines[dialogueIndex];
+		dialogueText.text = dialogueLines[dialogueIndex].Replace("\n", Environment.NewLine);
         dialoguePanel.SetActive(true);
     }
 
@@ -47,8 +48,7 @@ public class PhilDialogue : MonoBehaviour {
         if (dialogueIndex < dialogueLines.Count - 1)
         {
             dialogueIndex++;
-            dialogueText.text = dialogueLines[dialogueIndex];
-            print("Dialogue continue");
+			dialogueText.text = dialogueLines [dialogueIndex].Replace("\n", Environment.NewLine);
         }
         else
         {

@@ -55,7 +55,6 @@ public class QuizDialogue : MonoBehaviour
 		if (doorCode == null) {
 			doorCode = "1946";
 		}
-		print ("Dialog: " + doorCode);
 	}
 
     public void StartQuiz()

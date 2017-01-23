@@ -17,8 +17,10 @@ public class Call_Elevator : Switchable{
 
 
 	void Awake() {
-        levelCompletedPanel = GameObject.Find("MainMenuCanvas").gameObject.transform.FindChild("Level Completed Panel").gameObject;
-        anim = GetComponent<Animator> ();
+		if (GameObject.Find ("MainMenuCanvas") != null) {
+			levelCompletedPanel = GameObject.Find ("MainMenuCanvas").gameObject.transform.FindChild ("Level Completed Panel").gameObject;
+		}
+		anim = GetComponent<Animator> ();
 	}
 
 
@@ -36,7 +38,6 @@ public class Call_Elevator : Switchable{
 
 	public void HidePlayer () {
         items = GameObject.FindWithTag("Player").transform.FindChild("Inventory").childCount + 1;
-        print("hallo");
         PhilMovement.player.SetActive (false);
     }
 
