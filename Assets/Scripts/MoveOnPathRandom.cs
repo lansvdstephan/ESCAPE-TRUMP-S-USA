@@ -51,7 +51,6 @@ public class MoveOnPathRandom : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        Debug.Log(agent.speed);
         prevPos = currPos;
         currPos = transform.position;
         if (hitPlayer)
