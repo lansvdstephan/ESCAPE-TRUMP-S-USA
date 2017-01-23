@@ -22,11 +22,13 @@ public class DialogueAtStart : MonoBehaviour {
         else if (GameObject.Find("CountdownKeeper") != null)
         {
             GameObject.Find("CountdownKeeper").GetComponent<CountDown>().startcounting = true;
+            Time.timeScale = 1.0f;
+            Destroy(this.gameObject);
         }
         else
         { 
             Time.timeScale = 1.0f;
-            Destroy(this);
+            Destroy(this.gameObject);
         }
 	}
    

@@ -32,6 +32,7 @@ public class PhilDialogue : MonoBehaviour {
         dialogueIndex = 0;
         dialogueLines = new List<string>(lines.Length);
         dialogueLines.AddRange(lines);
+        Time.timeScale = 0f;
         CreateDialogue();
     }
 
@@ -44,8 +45,7 @@ public class PhilDialogue : MonoBehaviour {
 
     public void ContinueDialogue()
     {
-
-        if (dialogueIndex < dialogueLines.Count)
+        if (dialogueIndex < dialogueLines.Count -1)
         {
             dialogueIndex++;
 			dialogueText.text = dialogueLines [dialogueIndex].Replace("\n", Environment.NewLine);

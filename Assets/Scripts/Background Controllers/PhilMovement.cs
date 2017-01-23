@@ -64,6 +64,7 @@ public class PhilMovement : MonoBehaviour {
 
     void FixedUpdate()
     {
+        // Prefend moving if Dialogue window opend
         if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
             Move();
@@ -72,7 +73,6 @@ public class PhilMovement : MonoBehaviour {
 
     void LateUpdate()
     {
-        // Prefend moving if Dialogue window opend
        
         if (hand.transform.childCount != 0 && !animOn)
         {
