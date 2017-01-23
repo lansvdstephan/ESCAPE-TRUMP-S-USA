@@ -36,9 +36,9 @@ public class Movement : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        if (health <= 0)
+		if (health <= 0 || fuel <= 0)
         {
-            GameObject.Find("MainMenuCanvas").transform.FindChild("UIManager").GetComponent<UIManager>().GameOver(true);
+			this.gameObject.GetComponent<Animator> ().SetTrigger ("Crash");
         }
         if(damaged)
         {
@@ -136,5 +136,10 @@ public class Movement : MonoBehaviour {
         }
 
     }
+
+	void GameOver(){
+		GameObject.Find("MainMenuCanvas").transform.FindChild("UIManager").GetComponent<UIManager>().GameOver(true);
+		print ("GameOver");
+	}
 
 }
