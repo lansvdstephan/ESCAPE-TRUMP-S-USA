@@ -133,7 +133,6 @@ public class Movement : MonoBehaviour {
             winText.text = "You are Crashed";
             this.health = this.health - damageDoneByCollision;
             damaged = true;
-            Debug.Log("On");
         }
 
     }

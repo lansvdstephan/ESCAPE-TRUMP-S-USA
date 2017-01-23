@@ -43,7 +43,8 @@ public class TTMovement : MonoBehaviour {
 
         if (player != null && fireCountdown <= 0f)
         {
-            StartCoroutine(Shoot());
+			//shoot via animation ShootNew() is called
+			anim.SetTrigger(animThrowingHash);
             fireCountdown = 1f / fireRate;
         }
         fireCountdown -= Time.deltaTime;
@@ -77,60 +78,51 @@ public class TTMovement : MonoBehaviour {
     }
 
     private float GetHorizontalMovement()
-    {
-        hArr[2] = hArr[1];
-        hArr[1] = hArr[0];
-        hArr[0] = Random.Range(-1f, 1f);
-        float h = (hArr[2] + hArr[1] + hArr[0]) / 3;
-        if ( h < hBorder && h > -hBorder)
-        {
-            h = 0;
-        }
-        return h;
-    }
+	{
+		hArr [2] = hArr [1];
+		hArr [1] = hArr [0];
+		hArr [0] = Random.Range (-1f, 1f);
+		float h = (hArr [2] + hArr [1] + hArr [0]) / 3;
+		if (h < hBorder && h > -hBorder) {
+			h = 0;
+		}
+		return h;
+	}
+		
+	public void ShootNew()
+	{
+		GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+		Bullet bullet = bulletGO.GetComponent<Bullet>();
 
-    void OnCollisionEnter(Collision collision)
-    {
+		if (bullet != null)
+		{
+			Vector3 pos = firePoint.position;
+			Vector3 targetPosition = player.transform.position;
+			float targetSpeed = player.GetComponent<Movement>().correctedSpeed;
+			float zCorrection = ((pos - targetPosition).magnitude / (targetSpeed + speed)) * targetSpeed;
+			targetPosition = new Vector3(targetPosition.x, targetPosition.y, targetPosition.z + zCorrection);
 
-    }
+			float xf = targetPosition.x - pos.x;
+			float zf = targetPosition.z - pos.z;
+			float hf = targetPosition.y - pos.y;
 
-    IEnumerator Shoot()
-    {
-        anim.SetTrigger(animThrowingHash);
-        yield return new WaitForSeconds(1.2f);
-        GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Bullet bullet = bulletGO.GetComponent<Bullet>();
+			Vector3 plainDir = new Vector3(xf, 0, zf);
+			plainDir = plainDir.normalized;
+			float yf = Mathf.Tan(throwAngle);
+			Vector3 forceDir = new Vector3(plainDir.x, yf, plainDir.z);
+			forceDir = forceDir.normalized;
 
-        if (bullet != null)
-        {
-            Vector3 pos = firePoint.position;
-            Vector3 targetPosition = player.transform.position;
-            float targetSpeed = player.GetComponent<Movement>().correctedSpeed;
-            float zCorrection = ((pos - targetPosition).magnitude / (targetSpeed + speed)) * targetSpeed;
-            targetPosition = new Vector3(targetPosition.x, targetPosition.y, targetPosition.z + zCorrection + 4f);
+			float cost = Mathf.Cos(throwAngle);
+			float g = Mathf.Abs(Physics.gravity.y);
+			float R = Mathf.Sqrt(xf * xf + zf * zf);
 
-            float xf = targetPosition.x - pos.x;
-            float zf = targetPosition.z - pos.z;
-            float hf = targetPosition.y - pos.y;
+			float bulletSpeed = Mathf.Sqrt(R * R * g / Mathf.Abs(R * Mathf.Sin(2 * throwAngle) - 2 * hf * cost * cost));
 
-            Vector3 plainDir = new Vector3(xf, 0, zf);
-            plainDir = plainDir.normalized;
-            float yf = Mathf.Tan(throwAngle);
-            Vector3 forceDir = new Vector3(plainDir.x, yf, plainDir.z);
-            forceDir = forceDir.normalized;
-
-            float cost = Mathf.Cos(throwAngle);
-            float g = Mathf.Abs(Physics.gravity.y);
-            float R = Mathf.Sqrt(xf * xf + zf * zf);
-
-            float bulletSpeed = Mathf.Sqrt(R * R * g / Mathf.Abs(R * Mathf.Sin(2 * throwAngle) - 2 * hf * cost * cost));
-
-            Rigidbody bulletRB = bullet.GetComponent<Rigidbody>();
-            if (bulletRB != null)
-            {
-                bulletRB.AddForce(forceDir * bulletSpeed, ForceMode.VelocityChange);
-            }
-        }
-
-    }
+			Rigidbody bulletRB = bullet.GetComponent<Rigidbody>();
+			if (bulletRB != null)
+			{
+				bulletRB.AddForce(forceDir * bulletSpeed, ForceMode.VelocityChange);
+			}
+		}
+	}	
 }
