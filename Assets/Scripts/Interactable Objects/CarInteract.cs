@@ -16,7 +16,11 @@ public class CarInteract : PhilInteractable {
     
     void Awake()
     {
-        levelCompletedPanel = GameObject.Find("MainMenuCanvas").gameObject.transform.FindChild("Level Completed Panel").gameObject;
+        if (GameObject.Find("MainMenuCanvas") != null)
+        {
+            levelCompletedPanel = GameObject.Find("MainMenuCanvas").gameObject.transform.FindChild("Level Completed Panel").gameObject;
+        }
+        
         if (lockedDialogue.Length == 0)
         {
             lockedDialogue = new string[1];
