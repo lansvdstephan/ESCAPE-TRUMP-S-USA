@@ -44,7 +44,7 @@ public class PhilDialogue : MonoBehaviour {
     public void ContinueDialogue()
     {
 
-        if (dialogueIndex < dialogueLines.Count - 1)
+        if (dialogueIndex < dialogueLines.Count)
         {
             dialogueIndex++;
             dialogueText.text = dialogueLines[dialogueIndex];
