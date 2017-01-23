@@ -7,8 +7,12 @@ public class Movement : MonoBehaviour {
     public float speed = 1;
     public float correctedSpeed;
     public float health = 100;
+	public float healthItem = 20;
     public float damageDoneByCollision = 10;
     public float fuel = 100;
+	public float fuelItem = 10;
+
+
 
     [Header("Texts")]
     public Text fuelText;
@@ -79,7 +83,7 @@ public class Movement : MonoBehaviour {
         }
         else
         {
-            winText.text = "You are Crashed";
+            winText.text = "You have Crashed";
             this.enabled = false;
             correctedSpeed = 0;
         }
@@ -107,14 +111,14 @@ public class Movement : MonoBehaviour {
     {
         if (other.CompareTag("Fuel"))
         {
-            this.fuel += 10;
+			this.fuel += fuelItem;
             Destroy(other.gameObject);
             fuels = true;
             
         }
         if (other.CompareTag("Health"))
         {
-            this.health += 20;
+			this.health += healthItem;
             Destroy(other.gameObject);
             healthje = true;
         }
@@ -130,7 +134,7 @@ public class Movement : MonoBehaviour {
     {
         if (collision.gameObject.CompareTag("Obstackle"))
         {
-            winText.text = "You are Crashed";
+            winText.text = "You have Crashed";
             this.health = this.health - damageDoneByCollision;
             damaged = true;
         }

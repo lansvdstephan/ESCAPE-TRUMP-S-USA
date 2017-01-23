@@ -82,6 +82,8 @@ public class Creator : MonoBehaviour {
 				endLevel = true;
                 counter = 0;
 				Destroy (GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<CameraMovement1> ());
+				GameObject.FindWithTag ("Player").GetComponent<Movement> ().health = 1000;
+				GameObject.FindWithTag ("Player").GetComponent<Movement> ().fuel = 1000;
 				endDistance = GameObject.FindWithTag ("Player").GetComponent<Movement> ().points;
 				//DisableObsCreators ();
                 print("This is the End.");
