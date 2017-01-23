@@ -7,8 +7,8 @@ public class TTMovement : MonoBehaviour {
 
     [Header("Shooting")]
     public GameObject bulletPrefab;
+    public float horinzontaleSpeed = 40f;
     public float fireRate = 1f;
-    public float throwAngle = 20f;
     private float fireCountdown = 1f;
 
     private float minDistance = 10;
@@ -29,7 +29,7 @@ public class TTMovement : MonoBehaviour {
         {
             hArr[i] = 0f;
         }
-        throwAngle = (throwAngle / 180) * Mathf.PI;
+
     }
 	
 	void Start () {
@@ -99,7 +99,7 @@ public class TTMovement : MonoBehaviour {
 			Vector3 pos = firePoint.position;
 			Vector3 targetPosition = player.transform.position;
 			float targetSpeed = player.GetComponent<Movement>().correctedSpeed;
-			float zCorrection = ((pos - targetPosition).magnitude / (targetSpeed + speed)) * targetSpeed;
+			float zCorrection = ((pos - targetPosition).magnitude / (targetSpeed + horinzontaleSpeed)) * targetSpeed;
 			targetPosition = new Vector3(targetPosition.x, targetPosition.y, targetPosition.z + zCorrection);
 
 			float xf = targetPosition.x - pos.x;
@@ -108,17 +108,20 @@ public class TTMovement : MonoBehaviour {
 
 			Vector3 plainDir = new Vector3(xf, 0, zf);
 			plainDir = plainDir.normalized;
-			float yf = Mathf.Tan(throwAngle);
-			Vector3 forceDir = new Vector3(plainDir.x, yf, plainDir.z);
-			forceDir = forceDir.normalized;
-
-			float cost = Mathf.Cos(throwAngle);
+	
 			float g = Mathf.Abs(Physics.gravity.y);
 			float R = Mathf.Sqrt(xf * xf + zf * zf);
+            float verticalSpeed = (R * g) / (2 * horinzontaleSpeed) + (2 * hf * horinzontaleSpeed);
+            float bulletSpeed = Mathf.Sqrt(Mathf.Pow(verticalSpeed, 2) + Mathf.Pow(horinzontaleSpeed, 2));
 
-			float bulletSpeed = Mathf.Sqrt(R * R * g / Mathf.Abs(R * Mathf.Sin(2 * throwAngle) - 2 * hf * cost * cost));
+            float throwAngle = Mathf.Atan2(verticalSpeed, horinzontaleSpeed);
+            float yf = Mathf.Tan(throwAngle); 
 
-			Rigidbody bulletRB = bullet.GetComponent<Rigidbody>();
+
+            Vector3 forceDir = new Vector3(plainDir.x, yf, plainDir.z);
+            forceDir = forceDir.normalized;
+
+            Rigidbody bulletRB = bullet.GetComponent<Rigidbody>();
 			if (bulletRB != null)
 			{
 				bulletRB.AddForce(forceDir * bulletSpeed, ForceMode.VelocityChange);
