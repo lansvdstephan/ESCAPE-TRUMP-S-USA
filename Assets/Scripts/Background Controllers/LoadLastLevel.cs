@@ -15,7 +15,10 @@ public class LoadLastLevel : MonoBehaviour
     
     void Awake()
     {
-        levelCompletedPanel = GameObject.Find("MainMenuCanvas").gameObject.transform.FindChild("Level Completed Panel").gameObject;
+        if (GameObject.Find("MainMenuCanvas") != null)
+        {
+            levelCompletedPanel = GameObject.Find("MainMenuCanvas").gameObject.transform.FindChild("Level Completed Panel").gameObject;
+        }
     }
     void Start()
     {
