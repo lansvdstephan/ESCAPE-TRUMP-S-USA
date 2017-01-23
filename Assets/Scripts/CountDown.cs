@@ -47,6 +47,8 @@ public class CountDown : MonoBehaviour
         mseconds = Mathf.Floor(100*(tijd - minutes * 60f - seconds));
         if (mseconds < 10f)
             timeText.text = "0"+ minutes + ":" + seconds + ":" + "0" + mseconds;
+        else if(seconds < 10f)
+            timeText.text = "0" + minutes + ":0" + seconds + ":" + mseconds;
         else
             timeText.text = "0" + minutes + ":" + seconds + ":" + mseconds;
     }

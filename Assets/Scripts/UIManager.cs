@@ -44,13 +44,6 @@ public class UIManager : MonoBehaviour {
 					GameOver (true);
 				}
 			}
-//            else if (GameObject.FindWithTag ("Player").GetComponent<Movement> () != null)
-//            {
-//				if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().health <= 0|| GameObject.FindWithTag("Player").GetComponent<Movement>().fuel==0) {
-//					
-//					GameOver (true);
-//				}
-//			}
             if (GameObject.FindWithTag("Count Down") != null)
             {
                 if (GameObject.FindWithTag("Count Down").GetComponent<CountDown>().tijd == 0f)
