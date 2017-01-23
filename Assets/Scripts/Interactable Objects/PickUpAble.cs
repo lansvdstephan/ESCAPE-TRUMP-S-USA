@@ -19,7 +19,7 @@ public class PickUpAble : PhilInteractable {
  
     public override void Interact(GameObject player)
     {
-        
+        Time.timeScale = 0f;
         if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
             if ( this.foundDialog != null) PhilDialogue.Instance.AddNewDialogue(this.foundDialog);

@@ -54,6 +54,7 @@ public class PhilDialogue : MonoBehaviour {
         {
             dialoguePanel.SetActive(false);
             print("Dialogue ended");
+            Time.timeScale = 1f;
         }
     }
 }

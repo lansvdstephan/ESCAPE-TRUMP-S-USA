@@ -65,7 +65,7 @@ public class smartMoveOnPath : MonoBehaviour
         {
             if(!check)
             {
-                this.gameObject.GetComponent<AudioSource>().Play();
+                this.gameObject.GetComponent<AudioSource>().Play(); 
             }
             check = true;
             followPlayer();

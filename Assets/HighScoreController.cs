@@ -18,15 +18,17 @@ public class HighScoreController : MonoBehaviour {
     public GameObject HighscoreScores2;
     public GameObject Highscores;
     public int score;
+    public bool gameFinished=false;
     
 
-    void Start()
+    void OnEnable()
     {
         StartCoroutine(loadingScores());
         playerName = Name_field.GetComponent<Text>().text;
-        if (true)
+        if (gameFinished==true)
         {
             StartCoroutine(addScores(name, score));
+            gameFinished = false;
         }
         else
         {
@@ -37,7 +39,7 @@ public class HighScoreController : MonoBehaviour {
     public IEnumerator addScores(string name, int score)
     {
         string hash = Md5Sum(playerName + score + secretKey);
-        string postURL = addScoreURL + "name=" + WWW.EscapeURL(playerName) + "&score=" + score + "&hash="+ hash;
+        string postURL = addScoreURL + "first_name=" + WWW.EscapeURL(playerName) + "&score=" + score + "&hash="+ hash;
         WWW post = new WWW(postURL);
         yield return post;
         if (post.error != null)

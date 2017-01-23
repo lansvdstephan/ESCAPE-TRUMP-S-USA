@@ -34,9 +34,12 @@ public class CalculateScore : MonoBehaviour {
     private Text Text5;
     public int totalScore;
     public GameObject ContinueButton;
+    public GameObject GameCompletedPanel;
+    public int currentScene;
     // Use this for initialization
     void Awake()
     {
+        currentScene = 1;
         Text1 = this.transform.FindChild("Text1").GetComponent<Text>();
         Text2 = this.transform.FindChild("Text2").GetComponent<Text>();
         Text3 = this.transform.FindChild("Text3").GetComponent<Text>();
@@ -83,14 +86,14 @@ public class CalculateScore : MonoBehaviour {
         yield return new WaitForSecondsRealtime(2f);
         if (timeBool)
         {
-            int speed = 4;
+            int speed = 10;
             while (timeLeft > 0)
             {
                 if(timeLeft < 200)
                 {
-                    speed = 2;
+                    speed = 5;
                 }
-                if(timeLeft < 75)
+                if(timeLeft < 30)
                 {
                     speed = 1;
                 }
@@ -109,14 +112,14 @@ public class CalculateScore : MonoBehaviour {
         
         if (healthBool)
         {
-            int speed = 4;
+            int speed = 10;
             while (health > 0)
             {
                 if (health < 200)
                 {
-                    speed = 2;
+                    speed = 5;
                 }
-                if(health < 75)
+                if(health < 30)
                 {
                     speed = 1;
                 }
@@ -135,14 +138,14 @@ public class CalculateScore : MonoBehaviour {
 
         if (fuelBool)
         {
-            int speed = 4;
+            int speed = 10;
             while (fuel > 0)
             {
                 if (fuel < 200)
                 {
-                    speed = 2;
+                    speed = 5;
                 }
-                if(fuel < 75)
+                if(fuel < 30)
                 {
                     speed = 1;
                 }
@@ -204,8 +207,27 @@ public class CalculateScore : MonoBehaviour {
         itemScore = 0;
         healthScore = 0;
         fuelScore = 0;
+        text21 = "";
+        text22 = "";
+        text23 = "";
+        text24 = "";
+        text31 = "";
+        text32 = "";
+        text33 = "";
+        text34 = "";
         ContinueButton.SetActive(false);
         Time.timeScale = 1.0f;
-        SceneManager.LoadScene(SceneManager.sceneCount + 1);
+        if (currentScene != 6)
+        {
+            currentScene += 1;
+            SceneManager.LoadScene(currentScene);
+        }
+        else
+        {
+            GameCompletedPanel.transform.FindChild("ScoreText").GetComponent<Text>().text = "Score: " + totalScore;
+            GameObject.Find("High Score Panel").GetComponent<HighScoreController>().score = totalScore;
+            GameObject.Find("High Score Panel").GetComponent<HighScoreController>().gameFinished = true;
+            GameCompletedPanel.SetActive(true);
+        }
     }
 }

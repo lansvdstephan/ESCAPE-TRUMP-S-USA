@@ -36,6 +36,10 @@ public class Movement : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        if (health <= 0)
+        {
+            GameObject.Find("MainMenuCanvas").transform.FindChild("UIManager").GetComponent<UIManager>().GameOver(true);
+        }
         if(damaged)
         {
             damageImage.color = flashColor;

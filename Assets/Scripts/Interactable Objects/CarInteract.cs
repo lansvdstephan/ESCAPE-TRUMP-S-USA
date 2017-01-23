@@ -13,10 +13,7 @@ public class CarInteract : PhilInteractable {
     public string[] wrongKey;
 
     private GameObject levelCompletedPanel;
-    public int items;
-
-
-
+    
     void Awake()
     {
         levelCompletedPanel = GameObject.Find("MainMenuCanvas").gameObject.transform.FindChild("Level Completed Panel").gameObject;
@@ -40,7 +37,7 @@ public class CarInteract : PhilInteractable {
 
 		
 	public void NextLevel () {
-        items = GameObject.FindWithTag("Player").transform.FindChild("Inventory").childCount + 1;
+        int items = GameObject.FindWithTag("Player").transform.FindChild("Inventory").childCount + 1;
         Time.timeScale = 0.0f;
         string timeLeftString = GameObject.Find("CountdownText").gameObject.transform.FindChild("TimeText").GetComponent<Text>().text;
         float timeLeft = GameObject.Find("CountdownKeeper").GetComponent<CountDown>().tijd;
