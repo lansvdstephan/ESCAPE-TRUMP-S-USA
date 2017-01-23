@@ -98,11 +98,12 @@ public class TTMovement : MonoBehaviour {
 		{
 			Vector3 pos = firePoint.position;
 			Vector3 targetPosition = player.transform.position;
+            print(targetPosition);
 			float targetSpeed = player.GetComponent<Movement>().correctedSpeed;
 			float zCorrection = ((pos - targetPosition).magnitude / (targetSpeed + horinzontaleSpeed)) * targetSpeed;
 			targetPosition = new Vector3(targetPosition.x, targetPosition.y, targetPosition.z + zCorrection);
-
-			float xf = targetPosition.x - pos.x;
+            print(targetPosition);
+            float xf = targetPosition.x - pos.x;
 			float zf = targetPosition.z - pos.z;
 			float hf = targetPosition.y - pos.y;
 
@@ -111,12 +112,13 @@ public class TTMovement : MonoBehaviour {
 	
 			float g = Mathf.Abs(Physics.gravity.y);
 			float R = Mathf.Sqrt(xf * xf + zf * zf);
-            float verticalSpeed = (R * g) / (2 * horinzontaleSpeed) + (2 * hf * horinzontaleSpeed);
+            float verticalSpeed = (R * g) / (2 * horinzontaleSpeed) + (hf * horinzontaleSpeed)/R;
             float bulletSpeed = Mathf.Sqrt(Mathf.Pow(verticalSpeed, 2) + Mathf.Pow(horinzontaleSpeed, 2));
+            print(verticalSpeed);
+
 
             float throwAngle = Mathf.Atan2(verticalSpeed, horinzontaleSpeed);
-            float yf = Mathf.Tan(throwAngle); 
-
+            float yf = Mathf.Tan(throwAngle);
 
             Vector3 forceDir = new Vector3(plainDir.x, yf, plainDir.z);
             forceDir = forceDir.normalized;
@@ -125,6 +127,7 @@ public class TTMovement : MonoBehaviour {
 			if (bulletRB != null)
 			{
 				bulletRB.AddForce(forceDir * bulletSpeed, ForceMode.VelocityChange);
+                print("biem");
 			}
 		}
 	}	
