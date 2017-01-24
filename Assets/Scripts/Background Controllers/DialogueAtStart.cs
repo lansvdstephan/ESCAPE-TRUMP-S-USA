@@ -14,10 +14,7 @@ public class DialogueAtStart : MonoBehaviour {
 	void Update () {
         if (PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
-            if (Input.GetKeyUp("space"))
-            {
-                PhilDialogue.Instance.ContinueDialogue();
-            }
+            
         }
         else if (GameObject.Find("CountdownKeeper") != null)
         {
