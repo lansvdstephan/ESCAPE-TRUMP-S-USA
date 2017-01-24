@@ -59,6 +59,12 @@ public class GiveItem : PhilInteractable {
                     givedItem = true;
                     PlaceItem(playerHand.transform.GetChild(0).gameObject);
                 }
+                else if (searchItem.Equals("None"))
+                {
+                    PhilDialogue.Instance.AddNewDialogue(this.rightItem);
+                    givedItem = true;
+                    PlaceItem(null);
+                }
                 else
                 {
                     PhilDialogue.Instance.AddNewDialogue(this.wrongItem);

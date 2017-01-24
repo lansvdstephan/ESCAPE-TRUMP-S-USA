@@ -39,7 +39,7 @@ public class PhilDialogue : MonoBehaviour {
     public void CreateDialogue()
     {
         print( "started dialog");
-		dialogueText.text = dialogueLines[dialogueIndex].Replace("\n", Environment.NewLine);
+		dialogueText.text = dialogueLines[dialogueIndex].Replace("*", Environment.NewLine);
         dialoguePanel.SetActive(true);
     }
 
@@ -48,7 +48,7 @@ public class PhilDialogue : MonoBehaviour {
         if (dialogueIndex < dialogueLines.Count -1)
         {
             dialogueIndex++;
-			dialogueText.text = dialogueLines [dialogueIndex].Replace("\n", Environment.NewLine);
+			dialogueText.text = dialogueLines [dialogueIndex].Replace("*", Environment.NewLine);
         }
         else
         {
