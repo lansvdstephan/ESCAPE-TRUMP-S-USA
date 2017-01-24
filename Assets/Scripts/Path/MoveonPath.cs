@@ -25,6 +25,12 @@ public class MoveonPath : MonoBehaviour
     private float timeLeft = 1f;
     private Vector3 curPoint;
     private Vector3 prevPoint;
+
+    private float timer = 2f;
+    private Vector3 point1 = new Vector3();
+    private Vector3 point2 = new Vector3();
+    private Vector3 point3 = new Vector3();
+
     // Use this for initialization
     void Start()
     {
@@ -40,7 +46,7 @@ public class MoveonPath : MonoBehaviour
     {
         prevPoint = curPoint;
         curPoint = transform.position;
-
+        stucky();
         if(hitPlayer)
         {
             pauseMovement();
@@ -187,5 +193,33 @@ public class MoveonPath : MonoBehaviour
             return f2;
         else
             return f1;
+    }
+
+    private void stucky()
+    {
+        if (timer > 1.90f)
+        {
+            point1 = transform.position;
+        }
+        else if (timer > 1f)
+        {
+            point2 = transform.position;
+        }
+        else if (timer< 0.1f)
+        {
+            float eps = 0.2f;
+            point3 = transform.position;
+            Debug.Log("p1:"  + point1 + "p2:" + point2+ "p3:" + point3 );
+            if ((Mathf.Abs(point1.x - point2.x) < eps) && (Mathf.Abs(point1.x - point3.x) < eps) && (Mathf.Abs(point1.z - point2.z) < eps) && (Mathf.Abs(point1.z - point3.z) < eps))
+            {
+                fow.hear = false;
+                fow.sees = false;
+                check = true;
+                Debug.Log("Been here");
+            }
+            timer = 2f;
+        }
+        Debug.Log(timer);
+        timer = timer - Time.deltaTime;
     }
 }
