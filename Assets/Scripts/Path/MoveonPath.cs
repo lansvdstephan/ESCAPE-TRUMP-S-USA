@@ -219,7 +219,6 @@ public class MoveonPath : MonoBehaviour
             }
             timer = 2f;
         }
-        Debug.Log(timer);
         timer = timer - Time.deltaTime;
     }
 }
