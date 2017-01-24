@@ -45,7 +45,7 @@ public class Creator : MonoBehaviour {
         }
 		if (endLevel) {
 			if (GameObject.FindWithTag ("Player").activeSelf) {
-				if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().points > (endDistance + 0.25*driveHorizonDistance) && cameraOn) {
+				if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().points > (endDistance + 0.35*driveHorizonDistance) && cameraOn) {
 					Destroy (GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<CameraMovement1> ());
 					cameraOn = false;
 					GameObject.FindWithTag ("Player").GetComponent<Movement> ().health = 1000;
@@ -66,10 +66,10 @@ public class Creator : MonoBehaviour {
 		{
 			if (counter % 2 == 0) {
 				Instantiate (obj [i].gameObjectArr [Random.Range (0, obj [i].gameObjectArr.Length)], 
-					new Vector3 (5, this.gameObject.transform.position.y, this.gameObject.transform.position.z), Quaternion.identity);
+					new Vector3 (5, this.gameObject.transform.position.y + 0.01f, this.gameObject.transform.position.z), Quaternion.identity);
 			} else {
 				Instantiate (obj [i].gameObjectArr [Random.Range (0, obj [i].gameObjectArr.Length)], 
-					new Vector3 (5, this.gameObject.transform.position.y + 0.01f, this.gameObject.transform.position.z), Quaternion.identity);
+					new Vector3 (5, this.gameObject.transform.position.y, this.gameObject.transform.position.z), Quaternion.identity);
 			}
 			counter++;
 			print ("Counter = " + counter);
@@ -81,14 +81,13 @@ public class Creator : MonoBehaviour {
             {
                 i++;
                 counter = 0;
-				print ("i = " + i);
+
             }
 			else if (i < obj.Length - 1)
 			{
 				i++;
 				counter = maxPerStage - 1;
 				DisableObsCreators ();
-				print ("Building Wall");
 			}
             else
             {
