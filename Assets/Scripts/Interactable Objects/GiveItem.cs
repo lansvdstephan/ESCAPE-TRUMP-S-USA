@@ -55,15 +55,17 @@ public class GiveItem : PhilInteractable {
             {
                 if (playerHand.transform.GetChild(0).GetComponent<PickUpAble>().name.Equals(searchItem))
                 {
-                    PhilDialogue.Instance.AddNewDialogue(this.rightItem);
+                    
                     givedItem = true;
                     PlaceItem(playerHand.transform.GetChild(0).gameObject);
+                    PhilDialogue.Instance.AddNewDialogue(this.rightItem);
                 }
                 else if (searchItem.Equals("None"))
                 {
-                    PhilDialogue.Instance.AddNewDialogue(this.rightItem);
+                    
                     givedItem = true;
                     PlaceItem(null);
+                    PhilDialogue.Instance.AddNewDialogue(this.rightItem);
                 }
                 else
                 {
