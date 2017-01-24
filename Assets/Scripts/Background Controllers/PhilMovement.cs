@@ -3,7 +3,8 @@ using UnityEngine.UI;
 using System.Collections;
 using System;
 
-public class PhilMovement : MonoBehaviour {
+public class PhilMovement : MonoBehaviour
+{
 
     [Header("Body")]
     public static GameObject player;
@@ -18,7 +19,7 @@ public class PhilMovement : MonoBehaviour {
     public bool animOn;
 
     private Rigidbody rb;
-	private Animator anim;
+    private Animator anim;
     private Quaternion Rotation;
     private float viewRange = 1;
 
@@ -29,7 +30,7 @@ public class PhilMovement : MonoBehaviour {
 
     [Header("Damage")]
     public float flashspeed = 1f;
-    public Color flashColor = new Color(1f,0f,0f,0.1f);
+    public Color flashColor = new Color(1f, 0f, 0f, 0.1f);
     public bool damaged;
     public Image damageImage;
 
@@ -51,15 +52,15 @@ public class PhilMovement : MonoBehaviour {
         health = 100;
         damaged = false;
         player = this.gameObject;
-        rb = GetComponent<Rigidbody> ();
-		anim = GetComponent<Animator> ();
+        rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
     {
         damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashspeed * Time.deltaTime);
         setHealthText();
-      
+
     }
 
     void FixedUpdate()
@@ -73,25 +74,36 @@ public class PhilMovement : MonoBehaviour {
 
     void LateUpdate()
     {
-       
-        if (hand.transform.childCount != 0 && !animOn)
+        if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
-            if (pickedUp)
+            if (hand.transform.childCount != 0)
             {
-                GetPickUpInteraction();
+                if (pickedUp)
+                {
+                    GetPickUpInteraction();
+                }
+                else
+                {
+                    pickedUp = true;
+                }
             }
             else
             {
-                pickedUp = true;
+                GetInteraction();
             }
         }
-        else
+        else if (animOn)
         {
             GetInteraction();
         }
+        else
+        {
+            if (Input.GetKeyUp("space")) PhilDialogue.Instance.ContinueDialogue();
+        }
+
         SwitchingItems();
-		MovementAnimations ();
-   
+        MovementAnimations();
+
     }
 
     void Move()
@@ -101,11 +113,10 @@ public class PhilMovement : MonoBehaviour {
 
 
         // movement
-
-        Vector3 movement = new Vector3(h, 0f, v);
-
+        float y = rb.velocity.y;
+        Vector3 movement = new Vector3(h, 0, v);
         movement = movement.normalized * speed;
-        rb.velocity = movement;
+        print(rb.velocity.y);
 
         // turning
         if (movement == new Vector3(0, 0, 0))
@@ -117,11 +128,15 @@ public class PhilMovement : MonoBehaviour {
             Rotation = Quaternion.LookRotation(movement.normalized);
             rb.MoveRotation(Rotation);
         }
+        // ensured obama will fall continiously
+        movement.Set(movement.x, rb.velocity.y, movement.z);
+        rb.velocity = movement;
     }
 
     void GetInteraction()
     {
-        if (Input.GetKeyUp("space")) {
+        if (Input.GetKeyUp("space"))
+        {
             //Preforming Raycast and Interaction
             Vector3 fwd = transform.TransformDirection(Vector3.forward);
             Vector3 Xas = new Vector3(1, 0, 0);
@@ -186,7 +201,7 @@ public class PhilMovement : MonoBehaviour {
         else if (Input.GetKeyUp(KeyCode.X))
         {
             if (hand.transform.childCount != 0) hand.transform.GetChild(0).GetComponent<PickUpAble>().PlaceItemInFrontOfInventory(player);
-            if (this.transform.FindChild("Inventory").childCount != 0) this.transform.FindChild("Inventory").GetChild(this.transform.FindChild("Inventory").childCount-1).GetComponent<PickUpAble>().PlaceItemInHand(player);
+            if (this.transform.FindChild("Inventory").childCount != 0) this.transform.FindChild("Inventory").GetChild(this.transform.FindChild("Inventory").childCount - 1).GetComponent<PickUpAble>().PlaceItemInHand(player);
             InventorySystem.Instance.SwitchInventoryImange();
         }
     }
@@ -199,16 +214,17 @@ public class PhilMovement : MonoBehaviour {
             print("Picked up item.");
             other.GetComponent<PhilInteractable>().Interact(player);
             pickedUp = false;
-			anim.SetTrigger (animPickupHash);
+            anim.SetTrigger(animPickupHash);
         }
         if (other.CompareTag("Continue Dialogue") && Input.GetKeyUp("space"))
         {
             PhilDialogue.Instance.ContinueDialogue();
         }
+        print("biem");
     }
 
     void OnTriggerEnter(Collider other)
-    { 
+    {
         //Health
         if (other.CompareTag("Health"))
         {
@@ -246,18 +262,22 @@ public class PhilMovement : MonoBehaviour {
             return f2;
     }
 
-	void MovementAnimations(){
-		float v = Input.GetAxis("Vertical");
-		float h = Input.GetAxis("Horizontal");
-		
-		if (v != 0 || h != 0) {
-			anim.SetBool (animWalkingHash, true);
-		}
-		if (v == 0 && h == 0) {
-			anim.SetBool (animWalkingHash, false);
-		}
-		else if (PhilDialogue.Instance.dialoguePanel.activeSelf){
-			anim.SetBool (animWalkingHash, false);
-		}
-	}
+    void MovementAnimations()
+    {
+        float v = Input.GetAxis("Vertical");
+        float h = Input.GetAxis("Horizontal");
+
+        if (v != 0 || h != 0)
+        {
+            anim.SetBool(animWalkingHash, true);
+        }
+        if (v == 0 && h == 0)
+        {
+            anim.SetBool(animWalkingHash, false);
+        }
+        else if (PhilDialogue.Instance.dialoguePanel.activeSelf)
+        {
+            anim.SetBool(animWalkingHash, false);
+        }
+    }
 }

@@ -39,7 +39,6 @@ public class ForbiddenArea : MonoBehaviour {
             {
                 PhilDialogue.Instance.AddNewDialogue(this.dontEnter);
             }
-            print("lil");
         }
     }
 }
