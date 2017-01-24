@@ -47,7 +47,10 @@ public class Movement : MonoBehaviour {
 	void Update () {
 
         VisualEffects();
-
+        if (PhilDialogue.Instance.dialoguePanel.activeSelf && Input.GetKeyUp("space"))
+        {
+            PhilDialogue.Instance.ContinueDialogue();
+        }
         if (fuel > 0 && health > 0)
         {
             Move();

@@ -11,7 +11,7 @@ public class TTMovement : MonoBehaviour {
     public float fireRate = 1f;
     private float fireCountdown = 1f;
 
-    private float minDistance = 10;
+    private float minDistance = 20;
     private float maxDistance = 60;
     private float[] hArr;
     private float hBorder = 0.65f;
