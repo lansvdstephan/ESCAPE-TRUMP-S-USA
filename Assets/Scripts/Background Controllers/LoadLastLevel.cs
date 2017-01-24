@@ -45,6 +45,7 @@ public class LoadLastLevel : MonoBehaviour
             {
                 if (playerHand.transform.GetChild(0).GetComponent<PickUpAble>().name.Equals("Harddrive"))
                 {
+                    print("load");
                     int items = GameObject.FindWithTag("Player").transform.FindChild("Inventory").childCount + 1;
                     Time.timeScale = 0.0f;
                     string timeLeftString = GameObject.Find("CountdownText").gameObject.transform.FindChild("TimeText").GetComponent<Text>().text;
