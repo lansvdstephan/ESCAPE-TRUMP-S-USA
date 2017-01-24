@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class PhilInteractable : MonoBehaviour {
+    public bool noAnimation = true;
 
     public virtual void Interact(GameObject player)
     {

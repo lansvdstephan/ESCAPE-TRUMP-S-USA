@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PhilDialogue : MonoBehaviour {
     public static PhilDialogue Instance { get; set; }
     public GameObject dialoguePanel;
+    public bool Noanimation = true;
 
     private List<string> dialogueLines;
     private Text dialogueText;
@@ -32,7 +33,8 @@ public class PhilDialogue : MonoBehaviour {
         dialogueIndex = 0;
         dialogueLines = new List<string>(lines.Length);
         dialogueLines.AddRange(lines);
-        Time.timeScale = 0f;
+        if(Noanimation)
+            Time.timeScale = 0f;
         CreateDialogue();
     }
 
