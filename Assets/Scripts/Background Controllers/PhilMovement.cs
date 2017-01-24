@@ -104,8 +104,8 @@ public class PhilMovement : MonoBehaviour {
 
         Vector3 movement = new Vector3(h, 0f, v);
 
-		movement = movement.normalized * speed * Time.fixedDeltaTime;
-        rb.MovePosition(transform.position + movement);
+        movement = movement.normalized * speed;
+        rb.velocity = movement;
 
         // turning
         if (movement == new Vector3(0, 0, 0))
