@@ -28,13 +28,6 @@ public class smartMoveOnPath : MonoBehaviour
     private Vector3 curPoint;
     private Vector3 prevPoint;
 
-    //SHOOTING
-    public GameObject bullet;
-    public Transform firePoint;
-    public float fireRate = 0.2f;
-    public float fireCountDown = 0f;
-    private bool richten = false;
-
     private Animator anim;
     private int animWalkingHash = Animator.StringToHash("GuardWalking");
     private int animRunningHash = Animator.StringToHash("GuardRunning");
@@ -73,28 +66,6 @@ public class smartMoveOnPath : MonoBehaviour
             firstpoint = false;
             pause = false;
             count = 0;
-     
-            if (fireCountDown > 0.11f && fireCountDown < 0.15f && !richten)
-            {
-                richten = true;
-                fireCountDown = 0.1f;
-            }
-            else if (richten)
-            {
-                pauseMovement();
-            }
-            else if (fireCountDown <= 0)
-            {
-                Shoot();
-                fireCountDown = 1 / fireRate;
-                fireCountDown = fireCountDown - Time.deltaTime;
-            }
-            else
-            {
-                fireCountDown = fireCountDown - Time.deltaTime;
-            }
-            
-
 
         }
 
@@ -150,7 +121,6 @@ public class smartMoveOnPath : MonoBehaviour
             damageTaken = false;
             hitPlayer = false;
             timeLeft = 1f;
-            richten = false;
         }
     }
 
@@ -286,15 +256,6 @@ public class smartMoveOnPath : MonoBehaviour
             return f2;
         else
             return f1;
-    }
-
-    private void Shoot()
-    {
-        GameObject bulletGO = (GameObject)Instantiate(bullet, firePoint.position, firePoint.rotation);
-        Bullets bullets = bulletGO.GetComponent<Bullets>();
-        
-        if (bullet != null)
-            bullets.Seek(player.transform.position);
     }
 }
 
