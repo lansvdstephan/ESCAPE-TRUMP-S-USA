@@ -219,7 +219,6 @@ public class PhilMovement : MonoBehaviour
         {
             PhilDialogue.Instance.ContinueDialogue();
         }
-        print("biem");
     }
 
     void OnTriggerEnter(Collider other)
