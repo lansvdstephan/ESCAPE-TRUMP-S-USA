@@ -119,11 +119,12 @@ public class CalculateScore : MonoBehaviour {
                 {
                     speed = 5;
                 }
-                if(health < 30)
+                else if (health < 30)
                 {
                     speed = 1;
                 }
                 health -= speed;
+				print ("health: " + health);
                 text22 = health + "\n\n";
                 text2 = text21 + text22 + text23 + text24;
                 Text2.text = text2;
@@ -161,6 +162,7 @@ public class CalculateScore : MonoBehaviour {
             }
             yield return new WaitForSecondsRealtime(1f);
         }
+
         if (itemBool)
         {
             int speed = 4;
