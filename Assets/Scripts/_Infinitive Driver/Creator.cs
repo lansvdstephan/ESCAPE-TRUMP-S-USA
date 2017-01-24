@@ -48,8 +48,6 @@ public class Creator : MonoBehaviour {
 				if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().points > (endDistance + 0.35*driveHorizonDistance) && cameraOn) {
 					Destroy (GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<CameraMovement1> ());
 					cameraOn = false;
-					GameObject.FindWithTag ("Player").GetComponent<Movement> ().health = 1000;
-					GameObject.FindWithTag ("Player").GetComponent<Movement> ().fuel = 1000;
 					print("This is the End.");
 				}
 				if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().points > (endDistance + driveHorizonDistance)) {
