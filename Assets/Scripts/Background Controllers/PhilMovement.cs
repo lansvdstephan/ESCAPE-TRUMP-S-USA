@@ -116,7 +116,6 @@ public class PhilMovement : MonoBehaviour
         float y = rb.velocity.y;
         Vector3 movement = new Vector3(h, 0, v);
         movement = movement.normalized * speed;
-        print(rb.velocity.y);
 
         // turning
         if (movement == new Vector3(0, 0, 0))
