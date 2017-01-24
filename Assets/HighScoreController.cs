@@ -9,7 +9,7 @@ public class HighScoreController : MonoBehaviour {
     private string secretKey = "1dLc9f170GIfi0cdgm5QW267J91tMqM7";
     private string text;
     private string[] highscoreArray;
-    private string playerName;
+    public string playerName;
     public GameObject Name_field;
     public GameObject LoadingTextObject;
     public GameObject HighscoreNames1;
@@ -27,7 +27,7 @@ public class HighScoreController : MonoBehaviour {
         playerName = Name_field.GetComponent<Text>().text;
         if (gameFinished==true)
         {
-            StartCoroutine(addScores(name, score));
+            StartCoroutine(addScores());
             gameFinished = false;
         }
         else
@@ -36,7 +36,7 @@ public class HighScoreController : MonoBehaviour {
         }
 	}
 
-    public IEnumerator addScores(string name, int score)
+    public IEnumerator addScores()
     {
         string hash = Md5Sum(playerName + score + secretKey);
         string postURL = addScoreURL + "first_name=" + WWW.EscapeURL(playerName) + "&score=" + score + "&hash="+ hash;
@@ -76,7 +76,7 @@ public class HighScoreController : MonoBehaviour {
     IEnumerator loadingScores()
     {
         string loadingText = "Loading Highscores";
-        while (LoadingTextObject.active == true)
+        while (LoadingTextObject.activeSelf == true)
         {
             LoadingTextObject.GetComponent<Text>().text = loadingText;
             yield return new WaitForSeconds(0.5f);
