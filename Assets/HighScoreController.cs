@@ -10,22 +10,21 @@ public class HighScoreController : MonoBehaviour {
     private string text;
     private string[] highscoreArray;
     public string playerName;
-    public GameObject Name_field;
     public GameObject LoadingTextObject;
     public GameObject HighscoreNames1;
     public GameObject HighscoreScores1;
     public GameObject HighscoreNames2;
     public GameObject HighscoreScores2;
     public GameObject Highscores;
+
     public int score;
     public bool gameFinished=false;
-    
+    public bool online=true;
 
     void OnEnable()
     {
         StartCoroutine(loadingScores());
-        playerName = Name_field.GetComponent<Text>().text;
-        if (gameFinished==true)
+        if (gameFinished==true&&online)
         {
             StartCoroutine(addScores());
             gameFinished = false;

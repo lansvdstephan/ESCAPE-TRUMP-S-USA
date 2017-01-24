@@ -45,17 +45,20 @@ public class LoadLastLevel : MonoBehaviour
             {
                 if (playerHand.transform.GetChild(0).GetComponent<PickUpAble>().name.Equals("Harddrive"))
                 {
+                    print("load");
                     int items = GameObject.FindWithTag("Player").transform.FindChild("Inventory").childCount + 1;
                     Time.timeScale = 0.0f;
                     string timeLeftString = GameObject.Find("CountdownText").gameObject.transform.FindChild("TimeText").GetComponent<Text>().text;
                     float timeLeft = GameObject.Find("CountdownKeeper").GetComponent<CountDown>().tijd;
+                    int healthLeft = GameObject.FindWithTag("Player").GetComponent<PhilMovement>().health;
 
                     levelCompletedPanel.GetComponent<CalculateScore>().timeBool = true;
                     levelCompletedPanel.GetComponent<CalculateScore>().itemBool = true;
+                    levelCompletedPanel.GetComponent<CalculateScore>().healthBool = true;
                     levelCompletedPanel.GetComponent<CalculateScore>().timeLeft = (int)timeLeft;
                     levelCompletedPanel.GetComponent<CalculateScore>().items = items;
+                    levelCompletedPanel.GetComponent<CalculateScore>().health = healthLeft;
                     levelCompletedPanel.SetActive(true);
-                    
                 }
                 else
                 {

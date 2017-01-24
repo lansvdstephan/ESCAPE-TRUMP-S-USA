@@ -10,6 +10,9 @@ public class LoginScript : MonoBehaviour {
     public GameObject Password_Field;
     public GameObject TitleText;
     public GameObject HighScorePanel;
+    public GameObject LoginPanel;
+    public GameObject StartButtonNonLogin;
+    public GameObject StartButton;
     public string username;
     private string password;
     private string logInURL = "https://insyprojects.ewi.tudelft.nl/ewi3620tu6/login.php?";
@@ -33,23 +36,29 @@ public class LoginScript : MonoBehaviour {
         string postURL = logInURL + "username=" + username + "&password=" + password + "&hash=" + hash;
         WWW post = new WWW(postURL);
         yield return post;
-        print(post.text);
-        print(post.error);
+        string data = post.text;
+        print(string.CompareOrdinal(data, "Logged in succesfully"));
+        print(data);
         if (post.error != null)
         {
             print("Error Logging in:" + post.error);
+            this.enabled = false;
         }
-        else if(post.text== "Logged in succesfully"){
-            TitleText.GetComponent<Text>().text = "Log In Successful.";
-            HighScorePanel.GetComponent<HighScoreController>().playerName = "username";
+        else if(string.CompareOrdinal(data, "Logged in succesfully")==1){
+            TitleText.GetComponent<Text>().text = "Logged in succesfully.";
+            HighScorePanel.GetComponent<HighScoreController>().playerName = username;
+            this.enabled = false;
+            StartButtonNonLogin.SetActive(false);
+            StartButton.SetActive(true);
             yield return new WaitForSeconds(1f);
+            LoginPanel.SetActive(false);
         }
         else
         {
             TitleText.GetComponent<Text>().text = "Invalid Username/Password.";
             Password_Field.GetComponent<InputField>().text = "";
+            this.enabled = false;
         }
-        this.enabled = false;
     }
 
     public string Md5Sum(string strToEncrypt)
@@ -71,4 +80,12 @@ public class LoginScript : MonoBehaviour {
 
         return hashString.PadLeft(32, '0');
     }
+
+    public void PlayOffline()
+    {
+        HighScorePanel.GetComponent<HighScoreController>().online = false;
+        StartButtonNonLogin.SetActive(false);
+        StartButton.SetActive(true);
+    }
+
 }
