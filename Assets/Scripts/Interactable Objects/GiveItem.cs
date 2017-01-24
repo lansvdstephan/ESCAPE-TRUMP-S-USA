@@ -74,9 +74,9 @@ public class GiveItem : PhilInteractable {
             }
             else if (searchItem.Equals("None"))
             {
-                PhilDialogue.Instance.AddNewDialogue(this.rightItem);
                 givedItem = true;
                 PlaceItem(null);
+                PhilDialogue.Instance.AddNewDialogue(this.rightItem);
             }
             else
             {
