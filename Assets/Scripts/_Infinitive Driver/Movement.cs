@@ -71,13 +71,13 @@ public class Movement : MonoBehaviour {
             movement = movement * speed * Time.deltaTime;
             this.transform.position = this.transform.position + movement;
             // prefenting the tank to leave the road
-            if (this.transform.position.x < -14f)
+            if (this.transform.position.x < -9f)
             {
-                this.transform.position = new Vector3(-14f, this.transform.position.y, this.transform.position.z);
+                this.transform.position = new Vector3(-9f, this.transform.position.y, this.transform.position.z);
             }
-            else if (this.transform.position.x > 4f)
+            else if (this.transform.position.x > 9f)
             {
-                this.transform.position = new Vector3(4f, this.transform.position.y, this.transform.position.z);
+                this.transform.position = new Vector3(9f, this.transform.position.y, this.transform.position.z);
             }
             fuel -= Time.deltaTime * 2;
         }
