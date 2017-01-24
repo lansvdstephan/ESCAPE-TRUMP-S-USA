@@ -38,7 +38,7 @@ public class HighScoreController : MonoBehaviour {
     public IEnumerator addScores()
     {
         string hash = Md5Sum(playerName + score + secretKey);
-        string postURL = addScoreURL + "first_name=" + WWW.EscapeURL(playerName) + "&score=" + score + "&hash="+ hash;
+        string postURL = addScoreURL + "username=" + playerName + "&score=" + score + "&hash="+ hash;
         WWW post = new WWW(postURL);
         yield return post;
         if (post.error != null)
