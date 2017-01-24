@@ -12,6 +12,7 @@ public class Creator : MonoBehaviour {
 
 	private float endDistance;
 	private bool endLevel = false;
+	private bool cameraOn = true;
     private int counter;
     private int i;
     private Vector3 offset;
@@ -42,6 +43,20 @@ public class Creator : MonoBehaviour {
         {
             this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, player.transform.position.z + offset.z);
         }
+		if (endLevel) {
+			if (GameObject.FindWithTag ("Player").activeSelf) {
+				if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().points > (endDistance + 0.25*driveHorizonDistance) && cameraOn) {
+					Destroy (GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<CameraMovement1> ());
+					cameraOn = false;
+					GameObject.FindWithTag ("Player").GetComponent<Movement> ().health = 1000;
+					GameObject.FindWithTag ("Player").GetComponent<Movement> ().fuel = 1000;
+					print("This is the End.");
+				}
+				if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().points > (endDistance + driveHorizonDistance)) {
+					EndGame ();
+				}
+			}
+		}
     }
 
 
@@ -51,53 +66,44 @@ public class Creator : MonoBehaviour {
 		{
 			if (counter % 2 == 0) {
 				Instantiate (obj [i].gameObjectArr [Random.Range (0, obj [i].gameObjectArr.Length)], 
-					new Vector3 (0, this.gameObject.transform.position.y, this.gameObject.transform.position.z), Quaternion.identity);
+					new Vector3 (5, this.gameObject.transform.position.y, this.gameObject.transform.position.z), Quaternion.identity);
 			} else {
 				Instantiate (obj [i].gameObjectArr [Random.Range (0, obj [i].gameObjectArr.Length)], 
-					new Vector3 (0, this.gameObject.transform.position.y + 0.01f, this.gameObject.transform.position.z), Quaternion.identity);
+					new Vector3 (5, this.gameObject.transform.position.y + 0.01f, this.gameObject.transform.position.z), Quaternion.identity);
 			}
 			counter++;
-		}
-		if (endLevel) {
-			if (GameObject.FindWithTag ("Player").activeSelf) {
-				if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().points > (endDistance + driveHorizonDistance)) {
-					EndGame ();
-				}
-			}
+			print ("Counter = " + counter);
 		}
 
         if (counter == maxPerStage)
         {
-            if (i < obj.Length - 1)
+            if (i < obj.Length - 2)
             {
                 i++;
                 counter = 0;
+				print ("i = " + i);
             }
-
-			else if (endLevel) {
-				EndGame ();
+			else if (i < obj.Length - 1)
+			{
+				i++;
+				counter = maxPerStage - 1;
+				DisableObsCreators ();
+				print ("Building Wall");
 			}
             else
             {
-				endLevel = true;
-                counter = 0;
-				Destroy (GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<CameraMovement1> ());
-				GameObject.FindWithTag ("Player").GetComponent<Movement> ().health = 1000;
-				GameObject.FindWithTag ("Player").GetComponent<Movement> ().fuel = 1000;
 				endDistance = GameObject.FindWithTag ("Player").GetComponent<Movement> ().points;
-				//DisableObsCreators ();
-                print("This is the End.");
+				endLevel = true;
             }
         }
     }
 
-//	public void DisableObsCreators(){
-//		obstackleCreators = GameObject.FindGameObjectsWithTag ("Obstackle Creator");
-//		foreach (GameObject j in obstackleCreators){
-//			j.SetActive (false);
-//		}
-//		Destroy (GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<CameraMovement1> ());
-//	}
+	public void DisableObsCreators(){
+		obstackleCreators = GameObject.FindGameObjectsWithTag ("Obstackle Creator");
+		foreach (GameObject j in obstackleCreators) {
+			Destroy (j);
+		}
+	}
 
 
     public int GetI()

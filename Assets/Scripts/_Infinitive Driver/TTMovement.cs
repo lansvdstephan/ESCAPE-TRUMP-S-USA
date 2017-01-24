@@ -67,13 +67,13 @@ public class TTMovement : MonoBehaviour {
         }
 
         // prefenting the tank to leave the road
-        if (this.transform.position.x < -14f)
+        if (this.transform.position.x < -9f)
         {
-            this.transform.position = new Vector3(-14f, this.transform.position.y, this.transform.position.z);
+            this.transform.position = new Vector3(-9f, this.transform.position.y, this.transform.position.z);
         }
-        else if (this.transform.position.x > 4f)
+        else if (this.transform.position.x > 9f)
         {
-            this.transform.position = new Vector3(4f, this.transform.position.y, this.transform.position.z);
+            this.transform.position = new Vector3(9f, this.transform.position.y, this.transform.position.z);
         }
     }
 
@@ -98,11 +98,9 @@ public class TTMovement : MonoBehaviour {
 		{
 			Vector3 pos = firePoint.position;
 			Vector3 targetPosition = player.transform.position;
-            print(targetPosition);
 			float targetSpeed = player.GetComponent<Movement>().correctedSpeed;
 			float zCorrection = ((pos - targetPosition).magnitude / (targetSpeed + horinzontaleSpeed)) * targetSpeed;
 			targetPosition = new Vector3(targetPosition.x, targetPosition.y, targetPosition.z + zCorrection);
-            print(targetPosition);
             float xf = targetPosition.x - pos.x;
 			float zf = targetPosition.z - pos.z;
 			float hf = targetPosition.y - pos.y;
@@ -114,7 +112,6 @@ public class TTMovement : MonoBehaviour {
 			float R = Mathf.Sqrt(xf * xf + zf * zf);
             float verticalSpeed = (R * g) / (2 * horinzontaleSpeed) + (hf * horinzontaleSpeed)/R;
             float bulletSpeed = Mathf.Sqrt(Mathf.Pow(verticalSpeed, 2) + Mathf.Pow(horinzontaleSpeed, 2));
-            print(verticalSpeed);
 
 
             float throwAngle = Mathf.Atan2(verticalSpeed, horinzontaleSpeed);
@@ -127,7 +124,6 @@ public class TTMovement : MonoBehaviour {
 			if (bulletRB != null)
 			{
 				bulletRB.AddForce(forceDir * bulletSpeed, ForceMode.VelocityChange);
-                print("biem");
 			}
 		}
 	}	
