@@ -55,6 +55,12 @@ public class InventorySystem : MonoBehaviour {
                 inventoryImage[i].sprite = inventory.transform.GetChild(i).GetChild(0).GetComponent<SpriteRenderer>().sprite;
 
             }
+            for (int i = InventorySize; i < numberOfImages; i++)
+            {
+
+                inventoryImage[i].sprite = null;
+
+            }
         }
         else
         {
