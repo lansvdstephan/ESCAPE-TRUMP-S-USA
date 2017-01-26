@@ -16,6 +16,7 @@ public class PhilMovement : MonoBehaviour
     public float speed;
     public int health;
     public Text healthText;
+    public string[] firstHealtItem;
     public bool animOn;
 
     private Rigidbody rb;
@@ -34,6 +35,8 @@ public class PhilMovement : MonoBehaviour
     public bool damaged;
     public Image damageImage;
 
+    private bool firstTimeHealtItem = true;
+    
 
     void Awake()
     {
@@ -230,6 +233,11 @@ public class PhilMovement : MonoBehaviour
         //Health
         if (other.CompareTag("Health"))
         {
+            if (firstTimeHealtItem)
+            {
+                PhilDialogue.Instance.AddNewDialogue(firstHealtItem);
+                firstTimeHealtItem = false;
+            }
             health = Min(health + 10, 100);
             Destroy(other.gameObject);//.SetActive(false);
         }
