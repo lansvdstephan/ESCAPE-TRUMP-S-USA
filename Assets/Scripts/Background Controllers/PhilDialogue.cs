@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class PhilDialogue : MonoBehaviour {
     public static PhilDialogue Instance { get; set; }
     public GameObject dialoguePanel;
-    public bool Noanimation = true;
+    public bool Noanimation = false;
 
     private List<string> dialogueLines;
     private Text dialogueText;

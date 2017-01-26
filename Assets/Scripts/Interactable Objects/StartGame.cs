@@ -12,17 +12,19 @@ public class StartGame : MonoBehaviour{
 
 	private bool stop = true;
 	private int counter;
-
 	// Use this for initialization
 	void Start() {
 		print("start game");
 		camera.SetTrigger ("TV");
-		PhilDialogue.Instance.AddNewDialogue(dialogue);
+        PhilDialogue.Instance.Noanimation = false;
+        PhilDialogue.Instance.AddNewDialogue(dialogue);
+        
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyUp ("space")) {
+
+        if (Input.GetKeyUp ("space")) {
 			if (dialoguePanel.activeSelf) {
 				PhilDialogue.Instance.ContinueDialogue ();
 

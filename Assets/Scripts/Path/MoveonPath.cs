@@ -209,7 +209,6 @@ public class MoveonPath : MonoBehaviour
         {
             float eps = 0.2f;
             point3 = transform.position;
-            Debug.Log("p1:"  + point1 + "p2:" + point2+ "p3:" + point3 );
             if ((Mathf.Abs(point1.x - point2.x) < eps) && (Mathf.Abs(point1.x - point3.x) < eps) && (Mathf.Abs(point1.z - point2.z) < eps) && (Mathf.Abs(point1.z - point3.z) < eps))
             {
                 fow.hear = false;
