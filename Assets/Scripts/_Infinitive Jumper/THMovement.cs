@@ -1,37 +1,40 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class THMovement : MonoBehaviour {
-    
+public class THMovement : MonoBehaviour
+{
+
     public GameObject player;
     public Transform firePoint;
-	public Animator trumpAnim;
+    public Animator trumpAnim;
 
     [Header("Shooting")]
     public GameObject bulletPrefab;
     public float fireRate = 0.10f;
-    public float throwAngle = 30f;
+    public float horinzontalSpeed = 30f;
 
     private float fireCountdown = 1f;
     private float maxFireRate = 0.25f;
     private float lastUpdated = 10f;
-	private int animThrowingHash = Animator.StringToHash("Throw");
+    private int animThrowingHash = Animator.StringToHash("Throw");
 
     public float speed = 10f;
-    
+
 
     // Use this for initialization
-    void Start () {
-        throwAngle = (throwAngle / 180) * Mathf.PI;
+    void Start()
+    {
+
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         float y = this.transform.position.y;
         if (player != null && fireCountdown <= 0f)
         {
-			
-			StartCoroutine(Shoot());
+
+            StartCoroutine(Shoot());
             fireCountdown = 1f / fireRate;
         }
         fireCountdown -= Time.deltaTime;
@@ -48,41 +51,43 @@ public class THMovement : MonoBehaviour {
         }
     }
 
-	IEnumerator Shoot()
+    IEnumerator Shoot()
     {
-		trumpAnim.SetTrigger (animThrowingHash);
-		yield return new WaitForSeconds(1.2f);
+        trumpAnim.SetTrigger(animThrowingHash);
+        yield return new WaitForSeconds(1.2f);
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 
         if (bullet != null)
         {
-            Vector3 pos = this.transform.position;
+            Vector3 pos = firePoint.position;
             Vector3 targetPosition = player.transform.position;
-            /*float targetSpeed = player.GetComponent<Movement>().correctedSpeed;
-            float zCorrection = ((this.transform.position - targetPosition).x / (targetSpeed)) * targetSpeed;
-            targetPosition = new Vector3(targetPosition.x + zCorrection, targetPosition.y, targetPosition.z);*/
-
+            Vector3 targetSpeed = player.GetComponent<JumpMovement>().correctedSpeed;
+            float xCorrection = ((pos - targetPosition).magnitude / (targetSpeed.x + horinzontalSpeed)) * targetSpeed.x;
+            targetPosition = new Vector3(targetPosition.x + xCorrection, targetPosition.y + 1f, targetPosition.z);
             float xf = targetPosition.x - pos.x;
             float zf = targetPosition.z - pos.z;
             float hf = targetPosition.y - pos.y;
 
             Vector3 plainDir = new Vector3(xf, 0, zf);
             plainDir = plainDir.normalized;
-            float yf = Mathf.Tan(throwAngle);
-            Vector3 forceDir = new Vector3(plainDir.x, yf, plainDir.z);
-            forceDir = forceDir.normalized;
 
-            float cost = Mathf.Cos(throwAngle);
             float g = Mathf.Abs(Physics.gravity.y);
             float R = Mathf.Sqrt(xf * xf + zf * zf);
+            float verticalSpeed = (R * g) / (2 * horinzontalSpeed) + (hf * horinzontalSpeed) / R;
+            float bulletSpeed = Mathf.Sqrt(Mathf.Pow(verticalSpeed, 2) + Mathf.Pow(horinzontalSpeed, 2));
 
-            speed = Mathf.Sqrt(R * R * g / Mathf.Abs(R * Mathf.Sin(2 * throwAngle) - 2 * hf * cost * cost));
+
+            float throwAngle = Mathf.Atan2(verticalSpeed, horinzontalSpeed);
+            float yf = Mathf.Tan(throwAngle);
+
+            Vector3 forceDir = new Vector3(plainDir.x, yf, plainDir.z);
+            forceDir = forceDir.normalized;
 
             Rigidbody bulletRB = bullet.GetComponent<Rigidbody>();
             if (bulletRB != null)
             {
-                bulletRB.AddForce(forceDir * speed, ForceMode.VelocityChange);
+                bulletRB.AddForce(forceDir * bulletSpeed, ForceMode.VelocityChange);
             }
         }
 
