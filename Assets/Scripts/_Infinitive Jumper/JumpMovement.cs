@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
 
 public class JumpMovement : MonoBehaviour {
     public static GameObject player;
@@ -28,6 +29,8 @@ public class JumpMovement : MonoBehaviour {
     public bool onGround = true;
     private float rocketTimer = -1f;
     private float shieldTimer = -1f;
+
+    public GameObject levelCompletedPanel;
 
     void Awake()
     {
@@ -171,6 +174,15 @@ public class JumpMovement : MonoBehaviour {
 
     private void LoadWinningScreen()
     {
-        throw new NotImplementedException();
+        Time.timeScale = 0.0f;
+        string timeLeftString = GameObject.Find("CountdownText").gameObject.transform.FindChild("TimeText").GetComponent<Text>().text;
+        float timeLeft = GameObject.Find("CountdownKeeper").GetComponent<CountDown>().tijd;
+        int healthLeft = GameObject.FindWithTag("Player").GetComponent<PhilMovement>().health;
+
+        levelCompletedPanel.GetComponent<CalculateScore>().timeBool = true;
+        levelCompletedPanel.GetComponent<CalculateScore>().healthBool = true;
+        levelCompletedPanel.GetComponent<CalculateScore>().timeLeft = (int)timeLeft;
+        levelCompletedPanel.GetComponent<CalculateScore>().health = healthLeft;
+        levelCompletedPanel.SetActive(true);
     }
 }

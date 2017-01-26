@@ -6,6 +6,7 @@ public class HighScoreController : MonoBehaviour {
 
     private string addScoreURL = "https://insyprojects.ewi.tudelft.nl/ewi3620tu6/addscore.php?";
     private string getScoresURL = "https://insyprojects.ewi.tudelft.nl/ewi3620tu6/display.php";
+    private string getLocalScoresURL = "https://insyprojects.ewi.tudelft.nl/ewi3620tu6/displaylocal.php?";
     private string secretKey = "1dLc9f170GIfi0cdgm5QW267J91tMqM7";
     private string text;
     private string[] highscoreArray;
@@ -16,6 +17,7 @@ public class HighScoreController : MonoBehaviour {
     public GameObject HighscoreNames2;
     public GameObject HighscoreScores2;
     public GameObject Highscores;
+    public GameObject Title;
 
     public int score;
     public bool gameFinished=false;
@@ -48,8 +50,20 @@ public class HighScoreController : MonoBehaviour {
         StartCoroutine(getScores());
     }
 	
+    public void startGetScores()
+    {
+        StartCoroutine(getScores());
+    }
+
     IEnumerator getScores()
     {
+        Highscores.SetActive(false);
+        StartCoroutine(loadingScores());
+        Title.GetComponent<Text>().text = "Global High Scores";
+        HighscoreNames1.GetComponent<Text>().text = "";
+        HighscoreScores1.GetComponent<Text>().text = "";
+        HighscoreNames2.GetComponent<Text>().text = "";
+        HighscoreScores2.GetComponent<Text>().text = "";
         WWW get = new WWW(getScoresURL);
         yield return get;
         text = get.text;
@@ -65,6 +79,72 @@ public class HighScoreController : MonoBehaviour {
         {            
             LoadingTextObject.SetActive(false);
             HighscoreNames1.GetComponent<Text>().text = highscoreArray[0]+"\n" + highscoreArray[2]+"\n" + highscoreArray[4] + "\n" + highscoreArray[6] + "\n" + highscoreArray[8];
+            HighscoreScores1.GetComponent<Text>().text = highscoreArray[1] + "\n" + highscoreArray[3] + "\n" + highscoreArray[5] + "\n" + highscoreArray[7] + "\n" + highscoreArray[9];
+            HighscoreNames2.GetComponent<Text>().text = highscoreArray[10] + "\n" + highscoreArray[12] + "\n" + highscoreArray[14] + "\n" + highscoreArray[16] + "\n" + highscoreArray[18];
+            HighscoreScores2.GetComponent<Text>().text = highscoreArray[11] + "\n" + highscoreArray[13] + "\n" + highscoreArray[15] + "\n" + highscoreArray[17] + "\n" + highscoreArray[19];
+            Highscores.SetActive(true);
+        }
+    }
+
+    public void startGetLocalScores()
+    {
+        StartCoroutine(getLocalScores());
+    }
+
+    IEnumerator getLocalScores()
+    {
+        Highscores.SetActive(false);
+        StartCoroutine(loadingScores());
+        Title.GetComponent<Text>().text = "Local High Scores";
+        HighscoreNames1.GetComponent<Text>().text = "";
+        HighscoreScores1.GetComponent<Text>().text = "";
+        HighscoreNames2.GetComponent<Text>().text = "";
+        HighscoreScores2.GetComponent<Text>().text = "";
+        string postURL = getLocalScoresURL + "username=" + playerName;
+        WWW post = new WWW(postURL);
+        yield return post;
+        text = post.text;
+        highscoreArray = text.Split('&');
+        print(text);
+        StopCoroutine(loadingScores());
+        if (post.error != null)
+        {
+            print(post.error);
+            LoadingTextObject.GetComponent<Text>().text = "Unable To Load Highscores, Check Internet Connection.";
+        }
+        else
+        {
+            if (highscoreArray[0] == null)
+            {
+                LoadingTextObject.GetComponent<Text>().text = "No Local Highscores Found.";
+            }
+            int i = 0;
+            while (highscoreArray[i] != null){
+                if (i < 10)
+                {
+                    if (i % 2 == 0)
+                    {
+                        HighscoreNames1.GetComponent<Text>().text += highscoreArray[i] + "\n";
+                    }
+                    else
+                    {
+                        HighscoreScores1.GetComponent<Text>().text = highscoreArray[i] + "\n";
+                    }
+                }
+                else
+                {
+                    if (i % 2 == 0)
+                    {
+                        HighscoreNames2.GetComponent<Text>().text += highscoreArray[i] + "\n";
+                    }
+                    else
+                    {
+                        HighscoreScores2.GetComponent<Text>().text = highscoreArray[i] + "\n";
+                    }
+                }
+            }
+            LoadingTextObject.SetActive(false);
+            HighscoreNames1.GetComponent<Text>().text = highscoreArray[0] + "\n" + highscoreArray[2] + "\n" + highscoreArray[4] + "\n" + highscoreArray[6] + "\n" + highscoreArray[8];
             HighscoreScores1.GetComponent<Text>().text = highscoreArray[1] + "\n" + highscoreArray[3] + "\n" + highscoreArray[5] + "\n" + highscoreArray[7] + "\n" + highscoreArray[9];
             HighscoreNames2.GetComponent<Text>().text = highscoreArray[10] + "\n" + highscoreArray[12] + "\n" + highscoreArray[14] + "\n" + highscoreArray[16] + "\n" + highscoreArray[18];
             HighscoreScores2.GetComponent<Text>().text = highscoreArray[11] + "\n" + highscoreArray[13] + "\n" + highscoreArray[15] + "\n" + highscoreArray[17] + "\n" + highscoreArray[19];
