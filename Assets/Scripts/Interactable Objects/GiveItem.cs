@@ -49,7 +49,7 @@ public class GiveItem : PhilInteractable {
         {
             if (givedItem)
             {
-                PhilDialogue.Instance.AddNewDialogue(this.foundDialog);
+                PhilDialogue.Instance.AddNewDialogue(this.foundDialog, dialogueSprite);
             }
             else if (playerHand.transform.childCount != 0)
             {
@@ -58,29 +58,29 @@ public class GiveItem : PhilInteractable {
                     
                     givedItem = true;
                     PlaceItem(playerHand.transform.GetChild(0).gameObject);
-                    PhilDialogue.Instance.AddNewDialogue(this.rightItem);
+                    PhilDialogue.Instance.AddNewDialogue(this.rightItem,dialogueSprite);
                 }
                 else if (searchItem.Equals("None"))
                 {
                     
                     givedItem = true;
                     PlaceItem(null);
-                    PhilDialogue.Instance.AddNewDialogue(this.rightItem);
+                    PhilDialogue.Instance.AddNewDialogue(this.rightItem,dialogueSprite);
                 }
                 else
                 {
-                    PhilDialogue.Instance.AddNewDialogue(this.wrongItem);
+                    PhilDialogue.Instance.AddNewDialogue(this.wrongItem,dialogueSprite);
                 }
             }
             else if (searchItem.Equals("None"))
             {
                 givedItem = true;
                 PlaceItem(null);
-                PhilDialogue.Instance.AddNewDialogue(this.rightItem);
+                PhilDialogue.Instance.AddNewDialogue(this.rightItem,dialogueSprite);
             }
             else
             {
-                PhilDialogue.Instance.AddNewDialogue(this.searchDialog);
+                PhilDialogue.Instance.AddNewDialogue(this.searchDialog,dialogueSprite);
             }
         }
         else
