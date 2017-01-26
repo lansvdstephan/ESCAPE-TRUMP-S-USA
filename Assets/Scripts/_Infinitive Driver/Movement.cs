@@ -34,6 +34,7 @@ public class Movement : MonoBehaviour {
     private bool healthje;
     private bool activated;
     private Rigidbody rb;
+    private Quaternion rotation;
 
 
 
@@ -41,6 +42,7 @@ public class Movement : MonoBehaviour {
         rb = this.GetComponent<Rigidbody>();
         Physics.gravity = Physics.gravity * 9f;
         damageImage.color = invisable;
+       
 	}
 
 	// Update is called once per frame
@@ -88,8 +90,8 @@ public class Movement : MonoBehaviour {
         }
 
         //Rotation
-        Quaternion Rotation = Quaternion.LookRotation(movement.normalized);
-        rb.MoveRotation(Rotation);
+        rotation = Quaternion.LookRotation(movement.normalized);
+        rb.MoveRotation(rotation);
     }
 
     private void VisualEffects()
