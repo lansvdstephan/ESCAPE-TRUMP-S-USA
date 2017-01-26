@@ -34,6 +34,11 @@ public class MoveOnPathRandom : MonoBehaviour
     private Vector3 currPos = new Vector3();
     private Vector3 prevPos = new Vector3();
 
+    private float timer = 2f;
+    private Vector3 points1 = new Vector3();
+    private Vector3 points2 = new Vector3();
+    private Vector3 points3 = new Vector3();
+
     // Use this for initialization
     void Start()
     {
@@ -53,6 +58,7 @@ public class MoveOnPathRandom : MonoBehaviour
     {
         prevPos = currPos;
         currPos = transform.position;
+        stucky();
         if (hitPlayer)
         {
             pauseMovement();
@@ -97,7 +103,6 @@ public class MoveOnPathRandom : MonoBehaviour
 
     void followPlayer()
     {
-        Debug.Log(agent.speed);   
         agent.SetDestination(fow.playerLastSeen);//Move from current position to next position
         agent.speed = 4.2f;
         Quaternion rotation = Quaternion.LookRotation(fow.playerLastSeen - transform.position); // position we are going to minus the position we are looking at
@@ -241,5 +246,34 @@ public class MoveOnPathRandom : MonoBehaviour
             hitPlayer = false;
             timeLeft = 1f;
         }
+    }
+
+    private void stucky()
+    {
+        if (timer > 1.90f)
+        {
+            points1 = transform.position;
+        }
+        else if (timer > 1f)
+        {
+            points2 = transform.position;
+        }
+        else if (timer < 0.1f)
+        {
+            float eps = 0.2f;
+            points3 = transform.position;
+            if ((Mathf.Abs(points1.x - points2.x) < eps) && (Mathf.Abs(points1.x - points3.x) < eps) && (Mathf.Abs(points1.z - points2.z) < eps) && (Mathf.Abs(points1.z - points3.z) < eps))
+            {
+                fow.hear = false;
+                fow.sees = false;
+                check = false;
+                Debug.Log("fixed myself");
+                random = pickRandomPoint();
+                anim.SetBool(animRunningHash, false);
+                agent.SetDestination(random);
+            }
+            timer = 2f;
+        }
+        timer = timer - Time.deltaTime;
     }
 }
