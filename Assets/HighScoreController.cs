@@ -76,12 +76,39 @@ public class HighScoreController : MonoBehaviour {
             LoadingTextObject.GetComponent<Text>().text = "Unable To Load Highscores, Check Internet Connection.";
         }
         else
-        {            
+        {
             LoadingTextObject.SetActive(false);
-            HighscoreNames1.GetComponent<Text>().text = highscoreArray[0]+"\n" + highscoreArray[2]+"\n" + highscoreArray[4] + "\n" + highscoreArray[6] + "\n" + highscoreArray[8];
-            HighscoreScores1.GetComponent<Text>().text = highscoreArray[1] + "\n" + highscoreArray[3] + "\n" + highscoreArray[5] + "\n" + highscoreArray[7] + "\n" + highscoreArray[9];
-            HighscoreNames2.GetComponent<Text>().text = highscoreArray[10] + "\n" + highscoreArray[12] + "\n" + highscoreArray[14] + "\n" + highscoreArray[16] + "\n" + highscoreArray[18];
-            HighscoreScores2.GetComponent<Text>().text = highscoreArray[11] + "\n" + highscoreArray[13] + "\n" + highscoreArray[15] + "\n" + highscoreArray[17] + "\n" + highscoreArray[19];
+            if (highscoreArray[0] == null)
+            {
+                LoadingTextObject.GetComponent<Text>().text = "No Local Highscores Found.";
+            }
+            int i = 0;
+            while (i<highscoreArray.Length)
+            {
+                if (i < 10)
+                {
+                    if (i % 2 == 0)
+                    {
+                        HighscoreNames1.GetComponent<Text>().text += highscoreArray[i] + "\n";
+                    }
+                    else
+                    {
+                        HighscoreScores1.GetComponent<Text>().text += highscoreArray[i] + "\n";
+                    }
+                }
+                else
+                {
+                    if (i % 2 == 0)
+                    {
+                        HighscoreNames2.GetComponent<Text>().text += highscoreArray[i] + "\n";
+                    }
+                    else
+                    {
+                        HighscoreScores2.GetComponent<Text>().text += highscoreArray[i] + "\n";
+                    }
+                }
+                i++;
+            }
             Highscores.SetActive(true);
         }
     }
@@ -114,12 +141,14 @@ public class HighScoreController : MonoBehaviour {
         }
         else
         {
+            LoadingTextObject.SetActive(false);
             if (highscoreArray[0] == null)
             {
                 LoadingTextObject.GetComponent<Text>().text = "No Local Highscores Found.";
             }
             int i = 0;
-            while (highscoreArray[i] != null){
+            while (i < highscoreArray.Length)
+            {
                 if (i < 10)
                 {
                     if (i % 2 == 0)
@@ -128,7 +157,7 @@ public class HighScoreController : MonoBehaviour {
                     }
                     else
                     {
-                        HighscoreScores1.GetComponent<Text>().text = highscoreArray[i] + "\n";
+                        HighscoreScores1.GetComponent<Text>().text += highscoreArray[i] + "\n";
                     }
                 }
                 else
@@ -139,15 +168,11 @@ public class HighScoreController : MonoBehaviour {
                     }
                     else
                     {
-                        HighscoreScores2.GetComponent<Text>().text = highscoreArray[i] + "\n";
+                        HighscoreScores2.GetComponent<Text>().text += highscoreArray[i] + "\n";
                     }
                 }
+                i++;
             }
-            LoadingTextObject.SetActive(false);
-            HighscoreNames1.GetComponent<Text>().text = highscoreArray[0] + "\n" + highscoreArray[2] + "\n" + highscoreArray[4] + "\n" + highscoreArray[6] + "\n" + highscoreArray[8];
-            HighscoreScores1.GetComponent<Text>().text = highscoreArray[1] + "\n" + highscoreArray[3] + "\n" + highscoreArray[5] + "\n" + highscoreArray[7] + "\n" + highscoreArray[9];
-            HighscoreNames2.GetComponent<Text>().text = highscoreArray[10] + "\n" + highscoreArray[12] + "\n" + highscoreArray[14] + "\n" + highscoreArray[16] + "\n" + highscoreArray[18];
-            HighscoreScores2.GetComponent<Text>().text = highscoreArray[11] + "\n" + highscoreArray[13] + "\n" + highscoreArray[15] + "\n" + highscoreArray[17] + "\n" + highscoreArray[19];
             Highscores.SetActive(true);
         }
     }
