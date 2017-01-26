@@ -96,9 +96,13 @@ public class PhilMovement : MonoBehaviour
         {
             GetInteraction();
         }
-        else
+        else if (pickedUp)
         {
             if (Input.GetKeyUp("space")) PhilDialogue.Instance.ContinueDialogue();
+        }
+        else
+        {
+            pickedUp = true;
         }
 
         SwitchingItems();

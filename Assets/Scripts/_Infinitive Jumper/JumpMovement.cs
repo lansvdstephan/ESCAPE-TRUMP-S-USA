@@ -16,7 +16,7 @@ public class JumpMovement : MonoBehaviour {
     private int animTakeOffHash = Animator.StringToHash("Take Off");
     private int animLandingHash = Animator.StringToHash("On Ground");
     private int animFallingHash = Animator.StringToHash("Falling");
-    private Quaternion Rotation;
+    private Quaternion rotation;
     private GameObject landingCube;
     private float verticalVelocity;
     private float pos;
@@ -37,17 +37,75 @@ public class JumpMovement : MonoBehaviour {
         Physics.gravity = Physics.gravity * 9f;
         rb = this.GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
-        Rotation = this.transform.rotation;
+        rotation = this.transform.rotation;
         landingCube = this.transform.FindChild("LandingCube").gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (this.transform.position.y > goal)
+        if (PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
-            LoadWinningScreen();
+            if (Input.GetKeyUp("space"))
+            {
+                PhilDialogue.Instance.ContinueDialogue();
+            }
         }
+        else
+        {
+            if (this.transform.position.y > goal)
+            {
+                LoadWinningScreen();
+            }
+
+            JumpAnimation();
+
+            Move();
+
+            PowerUpControl();
+        }
+    }
+
+    private void Move()
+    {
+        //anim.SetBool(animLandingHash, onGround);
+        float h = Input.GetAxis("Horizontal");
+        Vector3 movement = new Vector3(h, 0, 0);
+        movement = movement * speed * Time.deltaTime;
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Landing"))
+        {
+            movement = movement / 2;
+        }
+        this.transform.position = this.transform.position + movement;
+        if (movement == new Vector3(0, 0, 0))
+        {
+            rb.MoveRotation(rotation);
+        }
+        else
+        {
+            rotation = Quaternion.LookRotation(movement.normalized);
+            rb.MoveRotation(rotation);
+        }
+        anim.SetBool(animWalkingHash, h != 0);
+        if (Input.GetKeyDown("up") && onGround && !anim.GetCurrentAnimatorStateInfo(0).IsName("Take Off"))
+        {
+            anim.SetTrigger(animTakeOffHash);
+            StartCoroutine(Jump());
+        }
+        else if (rocketOn && rocketTimer > 0)
+        {
+            rb.velocity = 25f * Vector3.up;
+            if (rocketTimer == 5f)
+            {
+                this.gameObject.layer = 13;
+                this.transform.FindChild("Cylinder").gameObject.layer = 13;
+            }
+            rocketTimer = rocketTimer - 1 * Time.deltaTime;
+        }
+    }
+
+    private void JumpAnimation()
+    {
         verticalVelocity = rb.velocity.y;
         if (verticalVelocity < -0.1f)
         {
@@ -59,43 +117,13 @@ public class JumpMovement : MonoBehaviour {
         }
         pos = verticalVelocity / 25f;
         if (pos > 0) { pos = 0; }
-        landingCube.transform.localPosition=new Vector3(-0f,-0.50f+pos, 0.15f);
-        landingCube.transform.localScale=new Vector3(0.5f, 0.75f-pos*2f, 2f);
+        landingCube.transform.localPosition = new Vector3(-0f, -0.50f + pos, 0.15f);
+        landingCube.transform.localScale = new Vector3(0.5f, 0.75f - pos * 2f, 2f);
         onGround = Mathf.Abs(verticalVelocity) <= 0.1;
-        //anim.SetBool(animLandingHash, onGround);
-        float h = Input.GetAxis("Horizontal");
-        Vector3 movement = new Vector3(h, 0, 0);
-        movement = movement * speed * Time.deltaTime;
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Landing"))
-        {
-            movement = movement/2;
-        }
-        this.transform.position = this.transform.position + movement;
-        if (movement == new Vector3(0, 0, 0))
-        {
-            rb.MoveRotation(Rotation);
-        }
-        else
-        {
-            Rotation = Quaternion.LookRotation(movement.normalized);
-            rb.MoveRotation(Rotation);
-        }
-        anim.SetBool(animWalkingHash, h != 0);
-        if (Input.GetKeyDown("up") && onGround && !anim.GetCurrentAnimatorStateInfo(0).IsName("Take Off"))
-        {
-            anim.SetTrigger(animTakeOffHash);
-            StartCoroutine(Jump());
-        }
-        else if (rocketOn && rocketTimer > 0)
-        {
-            rb.velocity=25f*Vector3.up;
-            if (rocketTimer == 5f)
-            {
-                this.gameObject.layer = 13;
-                this.transform.FindChild("Cylinder").gameObject.layer = 13;
-            }
-            rocketTimer = rocketTimer - 1 * Time.deltaTime;           
-        }
+    }
+
+    private void PowerUpControl()
+    {
         if (rocketTimer < 0)
         {
             rocketOn = false;

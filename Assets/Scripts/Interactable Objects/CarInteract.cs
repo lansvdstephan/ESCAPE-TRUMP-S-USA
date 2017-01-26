@@ -61,20 +61,17 @@ public class CarInteract : PhilInteractable {
 
         if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
-            if (unlocked)
-            {
-				player.transform.localScale = new Vector3 (0.1f, 0.1f, 0.1f);
-				player.transform.parent = this.transform;
-                this.GetComponent<Animator>().SetTrigger("Drive Away");
-				transform.FindChild ("Lights and smoke").gameObject.SetActive (true);
-            }
-            else if (PhilMovement.hand.transform.childCount != 0 && PhilMovement.hand.transform.GetChild(0).GetComponent<Key>() != null)
+        	if (PhilMovement.hand.transform.childCount != 0 && PhilMovement.hand.transform.GetChild(0).GetComponent<Key>() != null)
             {
                 if (PhilMovement.hand.transform.GetChild(0).GetComponent<Key>().keyCode == this.keyCode)
                 {
                     unlocked = true;
 					PlayerDataForServer.Unlocked (name);
                     PhilDialogue.Instance.AddNewDialogue(unLockedDialogue);
+					player.transform.localScale = new Vector3 (0.1f, 0.1f, 0.1f);
+					player.transform.parent = this.transform;
+					this.GetComponent<Animator>().SetTrigger("Drive Away");
+					transform.FindChild ("Lights and smoke").gameObject.SetActive (true);
                 }
                 else PhilDialogue.Instance.AddNewDialogue(wrongKey);
             }

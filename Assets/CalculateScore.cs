@@ -112,19 +112,21 @@ public class CalculateScore : MonoBehaviour {
         
         if (healthBool)
         {
+            int temphealth = health;
             int speed = 10;
-            while (health > 0)
+            while (temphealth > 0)
             {
                 if (health < 200)
                 {
                     speed = 5;
                 }
-                if(health < 30)
+                else if (health < 30)
                 {
                     speed = 1;
                 }
-                health -= speed;
-                text22 = health + "\n\n";
+                health = health - speed;
+                temphealth = temphealth - speed;
+                text22 = temphealth + "\n\n";
                 text2 = text21 + text22 + text23 + text24;
                 Text2.text = text2;
                 healthScore += speed;
@@ -139,7 +141,8 @@ public class CalculateScore : MonoBehaviour {
         if (fuelBool)
         {
             int speed = 10;
-            while (fuel > 0)
+            int tempfuel = fuel;
+            while (tempfuel > 0)
             {
                 if (fuel < 200)
                 {
@@ -150,7 +153,8 @@ public class CalculateScore : MonoBehaviour {
                     speed = 1;
                 }
                 fuel -= speed;
-                text23 = fuel + "\n\n";
+                tempfuel = tempfuel - speed;
+                text23 = tempfuel + "\n\n";
                 text2 = text21 + text22 + text23 + text24;
                 Text2.text = text2;
                 fuelScore += speed;
@@ -161,6 +165,7 @@ public class CalculateScore : MonoBehaviour {
             }
             yield return new WaitForSecondsRealtime(1f);
         }
+
         if (itemBool)
         {
             int speed = 4;
@@ -203,6 +208,7 @@ public class CalculateScore : MonoBehaviour {
         healthBool = false;
         fuelBool = false;
         text1 = "";
+        health = 0;
         timeScore = 0;
         itemScore = 0;
         healthScore = 0;
