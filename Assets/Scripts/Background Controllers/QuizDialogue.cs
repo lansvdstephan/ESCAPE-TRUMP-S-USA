@@ -95,7 +95,7 @@ public class QuizDialogue : MonoBehaviour
             answeredQuestions = new List<int>(questions.Length);
             quizIndex = Random.Range(0, questions.Length);
             answeredQuestions.Add(quizIndex);
-            trueFalseText.text = "True or False: ";
+            trueFalseText.text = "True or False:              " + "Correct answers: " + questionAmount;
             StartCoroutine(TextScroll(questionLines[quizIndex]));
             initiated = true;
         }
