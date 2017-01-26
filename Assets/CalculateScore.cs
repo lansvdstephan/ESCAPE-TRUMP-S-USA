@@ -126,8 +126,9 @@ public class CalculateScore : MonoBehaviour {
                 {
                     speed = 1;
                 }
-                health = health - speed;
-                temphealth = temphealth - speed;
+                if (currentScene == 3) { temphealth = temphealth - speed * 10; }
+                else { temphealth = temphealth - speed; }
+                if (temphealth < 0) { temphealth = 0; }
                 text22 = temphealth + "\n\n";
                 text2 = text21 + text22 + text23 + text24;
                 Text2.text = text2;
@@ -154,8 +155,8 @@ public class CalculateScore : MonoBehaviour {
                 {
                     speed = 1;
                 }
-                fuel -= speed;
-                tempfuel = tempfuel - speed;
+                tempfuel = tempfuel - speed*10;
+                if (tempfuel < 0) { tempfuel = 0; }
                 text23 = tempfuel + "\n\n";
                 text2 = text21 + text22 + text23 + text24;
                 Text2.text = text2;
