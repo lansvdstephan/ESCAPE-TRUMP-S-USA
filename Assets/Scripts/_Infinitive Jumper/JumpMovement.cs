@@ -11,6 +11,7 @@ public class JumpMovement : MonoBehaviour {
     public float goal = 500;
 
     [Header("Visual Effects")]
+    public float flashspeed = 0.01f;
     public Text healthText;
     public Color flashColor = new Color(1f, 0f, 0f, 0.1f);
     private Color invisable = new Color(255f, 255f, 255f, 0f);
@@ -87,6 +88,7 @@ public class JumpMovement : MonoBehaviour {
                 damageImage.color = flashColor;
                 damaged = false;
             }
+            damageImage.color = Color.Lerp(damageImage.color, invisable, flashspeed * Time.deltaTime);
         }
     }
 

@@ -87,14 +87,24 @@ public class Bullet : MonoBehaviour {
                 target.GetComponent<Movement>().health = target.GetComponent<Movement>().health - damage;
                 target.GetComponent<Movement>().damaged = true;
             }
+            else if (target.GetComponent<JumpMovement>() != null)
+            {
+                target.GetComponent<JumpMovement>().health = target.GetComponent<JumpMovement>().health - damage;
+                target.GetComponent<JumpMovement>().damaged = true;
+            }
         }
     }
 
     void OnCollisionEnter(Collision collision)
     {
+        print(collision.gameObject.tag);
         if (!collision.gameObject.CompareTag("Shield"))
         {
             HitTarget();
+        }
+        else
+        {
+            Destroy(this.gameObject);
         }
         
     }
