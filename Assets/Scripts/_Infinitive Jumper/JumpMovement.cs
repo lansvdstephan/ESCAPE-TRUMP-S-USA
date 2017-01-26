@@ -4,10 +4,13 @@ using System;
 
 public class JumpMovement : MonoBehaviour {
     public static GameObject player;
-    public int speed;
+    public float speed;
+    public Vector3 correctedSpeed;
     public float jumpForce;
-    public bool rocketOn;
     public float goal = 500;
+
+    [Header("Shooting")]
+    public bool rocketOn;
     public float rocketTime = 5f;
     public float shieldTime = 5f;
 
@@ -71,12 +74,8 @@ public class JumpMovement : MonoBehaviour {
         //anim.SetBool(animLandingHash, onGround);
         float h = Input.GetAxis("Horizontal");
         Vector3 movement = new Vector3(h, 0, 0);
-        movement = movement * speed * Time.deltaTime;
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Landing"))
-        {
-            movement = movement / 2;
-        }
-        this.transform.position = this.transform.position + movement;
+        movement = movement * speed;
+       
         if (movement == new Vector3(0, 0, 0))
         {
             rb.MoveRotation(rotation);
@@ -95,13 +94,16 @@ public class JumpMovement : MonoBehaviour {
         else if (rocketOn && rocketTimer > 0)
         {
             rb.velocity = 25f * Vector3.up;
-            if (rocketTimer == 5f)
+            if (rocketTimer == rocketTime)
             {
                 this.gameObject.layer = 13;
                 this.transform.FindChild("Cylinder").gameObject.layer = 13;
             }
             rocketTimer = rocketTimer - 1 * Time.deltaTime;
         }
+        movement.Set(movement.x, rb.velocity.y, movement.z);
+        rb.velocity = movement;
+        correctedSpeed = movement;
     }
 
     private void JumpAnimation()

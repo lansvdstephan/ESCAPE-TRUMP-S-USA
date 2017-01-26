@@ -37,9 +37,9 @@ public class PlatformDropper : MonoBehaviour
         }
         if (Mathf.RoundToInt(y % 100) == 0 && Mathf.RoundToInt(y) > Mathf.RoundToInt(lastUpdated))
         {
-            if (maxDistance < 5) maxDistance += 0.5f;
+            if (maxDistance < 4.55) maxDistance += 0.5f;
             if (minDistance > 2.5) minDistance -= 0.5f;
-            maxDistance = Mathf.Min(4.75f, maxDistance);
+            maxDistance = Mathf.Min(4.55f, maxDistance);
             lastUpdated = y;
             print("updated");
         }

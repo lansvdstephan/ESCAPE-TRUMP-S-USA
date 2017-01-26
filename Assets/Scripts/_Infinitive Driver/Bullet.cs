@@ -69,6 +69,12 @@ public class Bullet : MonoBehaviour {
                 Damage(collider.transform);
             }
         }
+        //this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
+        rb.useGravity = false;
+        rb.velocity = new Vector3(0, 0, 0);
+        rb.angularVelocity = new Vector3(0, 0, 0);
+        this.gameObject.GetComponent<Collider>().enabled = false;
         Invoke("Dead", 3);
     }
 
@@ -81,10 +87,6 @@ public class Bullet : MonoBehaviour {
                 target.GetComponent<Movement>().health = target.GetComponent<Movement>().health - damage;
                 target.GetComponent<Movement>().damaged = true;
             }
-        }
-        else
-        {
-            
         }
     }
 
