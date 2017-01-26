@@ -18,7 +18,7 @@ public class Creator : MonoBehaviour {
     private Vector3 offset;
 	private GameObject[] obstackleCreators;
 
-    public GameObject levelCompletedPanel;
+    private GameObject levelCompletedPanel;
 
     void Awake()
     {
@@ -51,6 +51,7 @@ public class Creator : MonoBehaviour {
 					print("This is the End.");
 				}
 				if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().points > (endDistance + driveHorizonDistance)) {
+                    endLevel = false;
 					EndGame ();
 				}
 			}

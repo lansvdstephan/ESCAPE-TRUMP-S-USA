@@ -43,7 +43,6 @@ public class CarInteract : PhilInteractable {
 	public void NextLevel () {
         int items = GameObject.FindWithTag("Player").transform.FindChild("Inventory").childCount + 1;
         Time.timeScale = 0.0f;
-        string timeLeftString = GameObject.Find("CountdownText").gameObject.transform.FindChild("TimeText").GetComponent<Text>().text;
         float timeLeft = GameObject.Find("CountdownKeeper").GetComponent<CountDown>().tijd;
         int healthLeft = GameObject.FindWithTag("Player").GetComponent<PhilMovement>().health;
 
