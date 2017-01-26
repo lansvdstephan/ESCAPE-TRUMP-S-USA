@@ -6,14 +6,24 @@ using UnityEngine.UI;
 public class JumpMovement : MonoBehaviour {
     public static GameObject player;
     public float speed;
-    public Vector3 correctedSpeed;
     public float jumpForce;
+    public float health = 100;
     public float goal = 500;
 
-    [Header("Shooting")]
+    [Header("Visual Effects")]
+    public Text healthText;
+    public Color flashColor = new Color(1f, 0f, 0f, 0.1f);
+    private Color invisable = new Color(255f, 255f, 255f, 0f);
+    public Image damageImage;
+    public bool damaged;
+
+    [Header("Power Ups")]
     public bool rocketOn;
     public float rocketTime = 5f;
     public float shieldTime = 5f;
+
+    [Header("No need for implementation")]
+    public Vector3 correctedSpeed;
 
     private Animator anim;
     private int animWalkingHash = Animator.StringToHash("Walking");
@@ -35,9 +45,9 @@ public class JumpMovement : MonoBehaviour {
     void Awake()
     {
         player = this.gameObject;
+
     }
 
-    // Use this for initialization
     void Start()
     {
         Physics.gravity = Physics.gravity * 9f;
@@ -45,9 +55,9 @@ public class JumpMovement : MonoBehaviour {
         anim = GetComponent<Animator>();
         rotation = this.transform.rotation;
         landingCube = this.transform.FindChild("LandingCube").gameObject;
+        damageImage.color = invisable;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (PhilDialogue.Instance.dialoguePanel.activeSelf)
@@ -64,11 +74,19 @@ public class JumpMovement : MonoBehaviour {
                 LoadWinningScreen();
             }
 
+            SetHealthText();
+
             JumpAnimation();
 
             Move();
 
             PowerUpControl();
+
+            if (damaged)
+            {
+                damageImage.color = flashColor;
+                damaged = false;
+            }
         }
     }
 
@@ -170,6 +188,11 @@ public class JumpMovement : MonoBehaviour {
             other.GetComponent<Powerup>().Action();
             Destroy(other.gameObject);
         }
+    }
+
+    private void SetHealthText()
+    {
+        healthText.text = "Health:" + health.ToString();
     }
 
     private void LoadWinningScreen()
