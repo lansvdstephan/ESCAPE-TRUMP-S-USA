@@ -6,7 +6,6 @@ public class Rocket : Powerup {
 
     public override void Action()
     {
-        print("Rocket");
         JumpMovement.player.GetComponent<JumpMovement>().rocketOn = true;
     }
 }
