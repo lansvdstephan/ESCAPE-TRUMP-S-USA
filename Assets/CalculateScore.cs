@@ -35,6 +35,7 @@ public class CalculateScore : MonoBehaviour {
     public int totalScore;
     public GameObject ContinueButton;
     public GameObject GameCompletedPanel;
+    public GameObject levelCompletedPanel;
     public int currentScene;
     // Use this for initialization
     void Awake()
@@ -46,9 +47,10 @@ public class CalculateScore : MonoBehaviour {
         Text5 = this.transform.FindChild("Text5").GetComponent<Text>();
     }
 
-    void OnEnable () {
+    void OnEnable()
+    {
         text1 = "";
-        text2 = ""; 
+        text2 = "";
         if (timeBool)
         {
             text1 += "Time Left:\n\n";
@@ -124,8 +126,9 @@ public class CalculateScore : MonoBehaviour {
                 {
                     speed = 1;
                 }
-                health = health - speed;
-                temphealth = temphealth - speed;
+                if (currentScene == 3) { temphealth = temphealth - speed * 10; }
+                else { temphealth = temphealth - speed; }
+                if (temphealth < 0) { temphealth = 0; }
                 text22 = temphealth + "\n\n";
                 text2 = text21 + text22 + text23 + text24;
                 Text2.text = text2;
@@ -144,16 +147,16 @@ public class CalculateScore : MonoBehaviour {
             int tempfuel = fuel;
             while (tempfuel > 0)
             {
-                if (fuel < 200)
+                if (tempfuel < 200)
                 {
                     speed = 5;
                 }
-                if(fuel < 30)
+                if(tempfuel < 30)
                 {
                     speed = 1;
                 }
-                fuel -= speed;
-                tempfuel = tempfuel - speed;
+                tempfuel = tempfuel - speed*10;
+                if (tempfuel < 0) { tempfuel = 0; }
                 text23 = tempfuel + "\n\n";
                 text2 = text21 + text22 + text23 + text24;
                 Text2.text = text2;
@@ -199,6 +202,7 @@ public class CalculateScore : MonoBehaviour {
             yield return new WaitForSecondsRealtime(0.05f);
         }
         ContinueButton.SetActive(true);
+        currentScene += 1;
     }
 
     public void ResetPanel()
@@ -209,6 +213,9 @@ public class CalculateScore : MonoBehaviour {
         fuelBool = false;
         text1 = "";
         health = 0;
+        timeLeft = 0;
+        fuel = 0;
+        items = 0;
         timeScore = 0;
         itemScore = 0;
         healthScore = 0;
@@ -221,11 +228,9 @@ public class CalculateScore : MonoBehaviour {
         text32 = "";
         text33 = "";
         text34 = "";
-        ContinueButton.SetActive(false);
         Time.timeScale = 1.0f;
         if (currentScene != 6)
         {
-            currentScene += 1;
             SceneManager.LoadScene(currentScene);
         }
         else
