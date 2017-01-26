@@ -2,13 +2,14 @@
 using System.Collections;
 
 public class TwitterController : MonoBehaviour {
-
+    public int highscore;
     private string twitterAddress = "http://twitter.com/intent/tweet"; 
     private string tweetLanguage = "en";
-    private string text = "I escaped Trump's USA with a high score of 1000! " + "Can you beat it? ";
-    
+    private string text;
+   
     public void ShareToTwitter () //aanroepen op onClick()
     {
+        text= "I escaped Trump's USA with a score of " + highscore + " points! " + "Can you beat it? ";
         Application.OpenURL(twitterAddress + "?text=" + WWW.EscapeURL(text) + "&amp;lang="
     + WWW.EscapeURL(tweetLanguage));
     }
