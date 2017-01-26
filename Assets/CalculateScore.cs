@@ -233,6 +233,8 @@ public class CalculateScore : MonoBehaviour {
             GameCompletedPanel.transform.FindChild("ScoreText").GetComponent<Text>().text = "Score: " + totalScore;
             GameObject.Find("High Score Panel").GetComponent<HighScoreController>().score = totalScore;
             GameObject.Find("High Score Panel").GetComponent<HighScoreController>().gameFinished = true;
+            GameCompletedPanel.transform.FindChild("ShareOnTwitterButton").GetComponent<TwitterController>().highscore = totalScore;
+            GameCompletedPanel.transform.FindChild("ShareOnFaceBookButton").GetComponent<FacebookController>().highscore = totalScore;
             GameCompletedPanel.SetActive(true);
         }
     }
