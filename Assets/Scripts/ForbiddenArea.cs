@@ -8,6 +8,7 @@ public class ForbiddenArea : MonoBehaviour {
     public string[] mayEnter;
 
     private GameObject headPlayer;
+    public Sprite guardhead;
 
     // Use this for initialization
     void Start () {
@@ -32,11 +33,15 @@ public class ForbiddenArea : MonoBehaviour {
         {
             if (headPlayer.transform.childCount > 1)
             {
+                if (guardhead != null)
+                    PhilDialogue.Instance.joe = guardhead;
                 PhilDialogue.Instance.AddNewDialogue(this.mayEnter);
                 GetComponent<CapsuleCollider>().enabled = false;
             }
             else
             {
+                if (guardhead != null)
+                    PhilDialogue.Instance.joe = guardhead;
                 PhilDialogue.Instance.AddNewDialogue(this.dontEnter);
             }
         }
