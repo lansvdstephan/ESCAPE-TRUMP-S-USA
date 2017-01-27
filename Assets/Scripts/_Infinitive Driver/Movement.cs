@@ -40,7 +40,7 @@ public class Movement : MonoBehaviour {
 
     void Start () {
         rb = this.GetComponent<Rigidbody>();
-        Physics.gravity = Physics.gravity * 9f;
+		Physics.gravity = new Vector3 (0,-10,0) * 9f;
         damageImage.color = invisable;
        
 	}
