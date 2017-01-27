@@ -211,7 +211,7 @@ public class MoveOnPathRandom : MonoBehaviour
     {
         float dist = Vector3.Distance(transform.position, player.transform.position);
 
-        if (!damageTaken && dist < 1.25f)
+        if (!damageTaken && dist < 1.25f && playerHead.transform.childCount == 0)
         {
             damageTaken = true;
             hitPlayer = true;
