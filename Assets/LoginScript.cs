@@ -34,7 +34,7 @@ public class LoginScript : MonoBehaviour {
     public IEnumerator LogIn()
     {
         string hash = Md5Sum(username + password + secretKey);
-        string postURL = logInURL + "username=" + username + "&password=" + password + "&hash=" + hash;
+        string postURL = logInURL + "username=" + WWW.EscapeURL(username) + "&password=" + WWW.EscapeURL(password) + "&hash=" + hash;
         WWW post = new WWW(postURL);
         yield return post;
         string data = post.text;

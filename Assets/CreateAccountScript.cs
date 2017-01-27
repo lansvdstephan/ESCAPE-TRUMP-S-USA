@@ -43,7 +43,7 @@ public class CreateAccountScript : MonoBehaviour {
         else
         {
             string hash = Md5Sum(username + password1 + secretKey);
-            string postURL = registerURL + "username=" + username + "&password=" + password1 + "&hash=" + hash;
+            string postURL = registerURL + "username=" + WWW.EscapeURL(username) + "&password=" + WWW.EscapeURL(password1) + "&hash=" + hash;
             WWW post = new WWW(postURL);
             yield return post;
             string data = System.Text.Encoding.UTF8.GetString(post.bytes, 1, post.bytes.Length - 1);

@@ -75,6 +75,7 @@ public class QuizDialogue : MonoBehaviour
         Time.timeScale = 0.0f;
         trueFalseText.text = "\n " + ">>Access denied";
         StartCoroutine(TextScroll(">>Answer Security Questions \n" + ">>5 questions should be answered correctly \n" + "\n" + ">>Correct answers: " + questionAmount));
+        initiated = false;
     }
     
     public void ContinueQuiz()
