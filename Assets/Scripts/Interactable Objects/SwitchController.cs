@@ -46,7 +46,7 @@ public class SwitchController : PhilInteractable {
                 {
                     if (pushedOnDialogue.Length != 0)
                     {
-                        PhilDialogue.Instance.AddNewDialogue(pushedOnDialogue);
+						PhilDialogue.Instance.AddNewDialogue(pushedOnDialogue,dialogueSprite);
                     }
                     switched.GetComponent<Switchable>().SwitchOn();
                 }
@@ -66,7 +66,12 @@ public class SwitchController : PhilInteractable {
                     unlocked = true;
 					PlayerDataForServer.Unlocked (name);
                     switched.GetComponent<Switchable>().SwitchOn();
-                    PhilDialogue.Instance.AddNewDialogue(unLockedDialogue);
+					if (this.name.Equals ("Elevator")) {
+						PhilDialogue.Instance.AddNewDialogue (unLockedDialogue,dialogueSprite,true);
+					} 
+					else {
+						PhilDialogue.Instance.AddNewDialogue (unLockedDialogue);
+					}
                 }
                 else PhilDialogue.Instance.AddNewDialogue(wrongKey);
             }
