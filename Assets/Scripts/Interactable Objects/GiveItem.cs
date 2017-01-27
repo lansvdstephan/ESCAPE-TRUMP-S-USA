@@ -12,6 +12,7 @@ public class GiveItem : PhilInteractable {
     public string[] wrongItem;
     public string[] rightItem;
     public string[] foundDialog;
+    public Sprite foundSprite;
 
     protected GameObject playerHand;
     protected GameObject player;
@@ -44,43 +45,50 @@ public class GiveItem : PhilInteractable {
 
     }
 
-    public override void Interact(GameObject player) { 
-	    if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
+    public override void Interact(GameObject player) {
+        if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
         {
             if (givedItem)
             {
-                PhilDialogue.Instance.AddNewDialogue(this.foundDialog, dialogueSprite);
+                if (foundSprite != null)
+                {
+                    PhilDialogue.Instance.AddNewDialogue(this.foundDialog, foundSprite);
+                }
+                else
+                {
+                    PhilDialogue.Instance.AddNewDialogue(this.foundDialog, dialogueSprite);
+                }
             }
             else if (playerHand.transform.childCount != 0)
             {
                 if (playerHand.transform.GetChild(0).GetComponent<PickUpAble>().name.Equals(searchItem))
                 {
-                    
+
                     givedItem = true;
                     PlaceItem(playerHand.transform.GetChild(0).gameObject);
-                    PhilDialogue.Instance.AddNewDialogue(this.rightItem,dialogueSprite);
+                    PhilDialogue.Instance.AddNewDialogue(this.rightItem, dialogueSprite);
                 }
                 else if (searchItem.Equals("None"))
                 {
-                    
+
                     givedItem = true;
                     PlaceItem(null);
-                    PhilDialogue.Instance.AddNewDialogue(this.rightItem,dialogueSprite);
+                    PhilDialogue.Instance.AddNewDialogue(this.rightItem, dialogueSprite);
                 }
                 else
                 {
-                    PhilDialogue.Instance.AddNewDialogue(this.wrongItem,dialogueSprite);
+                    PhilDialogue.Instance.AddNewDialogue(this.wrongItem, dialogueSprite);
                 }
             }
             else if (searchItem.Equals("None"))
             {
                 givedItem = true;
                 PlaceItem(null);
-                PhilDialogue.Instance.AddNewDialogue(this.rightItem,dialogueSprite);
+                PhilDialogue.Instance.AddNewDialogue(this.rightItem, dialogueSprite);
             }
             else
             {
-                PhilDialogue.Instance.AddNewDialogue(this.searchDialog,dialogueSprite);
+                PhilDialogue.Instance.AddNewDialogue(this.searchDialog, dialogueSprite);
             }
         }
         else
