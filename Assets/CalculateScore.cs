@@ -232,7 +232,7 @@ public class CalculateScore : MonoBehaviour {
         text33 = "";
         text34 = "";
         Time.timeScale = 1.0f;
-        if (currentScene != 2)
+        if (currentScene != 6)
         {
             SceneManager.LoadScene(currentScene);
         }
