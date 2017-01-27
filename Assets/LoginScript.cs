@@ -38,7 +38,6 @@ public class LoginScript : MonoBehaviour {
         WWW post = new WWW(postURL);
         yield return post;
         string data = post.text;
-        print(string.CompareOrdinal(data, "Logged in succesfully"));
         print(data);
         if (post.error != null)
         {
