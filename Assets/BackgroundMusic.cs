@@ -8,8 +8,11 @@ public class BackgroundMusic : MonoBehaviour {
     public AudioClip clip;
 	// Use this for initialization
 	void Awake () {
-        SoundManager = GameObject.Find("MainMenuCanvas").transform.FindChild("SoundManager").gameObject;
-        SoundManager.GetComponent<SoundManager>().PlayMusic(clip);
+        if (GameObject.Find("MainMenuCanvas") != null)
+        {
+            SoundManager = GameObject.Find("MainMenuCanvas").transform.FindChild("SoundManager").gameObject;
+            SoundManager.GetComponent<SoundManager>().PlayMusic(clip);
+        }
 	}
 	
 }
