@@ -38,9 +38,6 @@ public class SoundManager : MonoBehaviour {
 
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Level Loaded");
-        Debug.Log(scene.name);
-        Debug.Log(mode);
         listener = GameObject.FindWithTag("MainCamera").GetComponent<AudioListener>();
     }
 
