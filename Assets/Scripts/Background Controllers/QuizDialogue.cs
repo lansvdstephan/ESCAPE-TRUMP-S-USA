@@ -22,7 +22,7 @@ public class QuizDialogue : MonoBehaviour
     private List<int> answeredQuestions;
     private Text quizText; 
     private int quizIndex;
-    private int questionAmount;
+    private int questionAmount=0;
     private Text trueFalseText;
 
     public bool isTyping = false;
@@ -63,7 +63,6 @@ public class QuizDialogue : MonoBehaviour
         buttonFalse.SetActive(false);
         quizPanel.SetActive(true);
         Time.timeScale = 0.0f;
-        questionAmount = 0;
         trueFalseText.text = "\n " + ">>Access denied";
         StartCoroutine(TextScroll(">>Answer Security Questions \n" + ">>5 questions should be answered correctly \n")); 
     }
@@ -107,8 +106,10 @@ public class QuizDialogue : MonoBehaviour
             if (questionAnswers[quizIndex] == ans)
             {
                 questionAmount++;
+                trueFalseText.text = "True or False:              " + "Correct answers: " + questionAmount;
                 if (questionAmount == 5)
                 {
+                    questionAmount = 0;
                     StartCoroutine(TextScroll("Code: Secret Area == " + doorCode));
                     trueFalseText.text = " ";
                     buttonTrue.SetActive(false);
