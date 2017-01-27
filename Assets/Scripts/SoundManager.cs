@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour {
 
@@ -10,6 +11,7 @@ public class SoundManager : MonoBehaviour {
     public static SoundManager instance = null;
     public float efxvolume;
     public float musicvolume;
+    public int currentscene=0;
     //public float lowPitchRange = 0.95f;
     //public float highPitchRange = 1.05f;
     // Use this for initialization
@@ -23,7 +25,25 @@ public class SoundManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
         musicSource.ignoreListenerVolume = true;
 	}
-	
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnLevelFinishedLoading;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+    }
+
+    void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("Level Loaded");
+        Debug.Log(scene.name);
+        Debug.Log(mode);
+        listener = GameObject.FindWithTag("MainCamera").GetComponent<AudioListener>();
+    }
+
     public void ChangeEfxVolume()
     {
         efxvolume = masterVolume * GameObject.Find("Sound Effect Volume Slider").GetComponent<Slider>().value;
