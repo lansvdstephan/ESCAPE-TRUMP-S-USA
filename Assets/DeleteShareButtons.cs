@@ -12,10 +12,8 @@ public class DeleteShareButtons : MonoBehaviour {
 	{
 		if (!HighScorePanel.GetComponent<HighScoreController> ().online) {
 			ShareOnTwitterButton.SetActive (false);
-			ShareOnFacebookButton.SetActive (false);
 		} else {
 			ShareOnTwitterButton.SetActive (true);
-			ShareOnFacebookButton.SetActive (true);
 		}
 	}
 }

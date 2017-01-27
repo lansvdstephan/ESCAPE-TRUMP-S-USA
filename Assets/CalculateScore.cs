@@ -157,7 +157,7 @@ public class CalculateScore : MonoBehaviour {
                 {
                     speed = 1;
                 }
-                tempfuel = tempfuel - speed*10;
+                tempfuel = tempfuel - speed;
                 if (tempfuel < 0) { tempfuel = 0; }
                 text23 = tempfuel + "\n\n";
                 text2 = text21 + text22 + text23 + text24;
@@ -244,6 +244,9 @@ public class CalculateScore : MonoBehaviour {
             GameCompletedPanel.transform.FindChild("ShareOnTwitterButton").GetComponent<TwitterController>().highscore = totalScore;
             GameCompletedPanel.transform.FindChild("ShareOnFaceBookButton").GetComponent<FacebookController>().highscore = totalScore;
             GameCompletedPanel.SetActive(true);
+			levelCompletedPanel.SetActive (false);
+			currentScene = 1;
+			totalScore = 0;
         }
     }
 }
