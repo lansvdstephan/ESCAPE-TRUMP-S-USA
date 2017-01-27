@@ -44,11 +44,13 @@ public class CodeDoorController : SwitchController {
             switched.GetComponent<Switchable>().SwitchOn();
 			PlayerDataForServer.Unlocked (name);
             InputSystem.Instance.inputPanel.SetActive(false);
+            Time.timeScale = 1f;
         }
         else
         {
             InputSystem.Instance.inputPanel.SetActive(false);
             if(wrongKey.Length !=0) PhilDialogue.Instance.AddNewDialogue(wrongKey);
+            Time.timeScale = 1f;
         }
     }
 

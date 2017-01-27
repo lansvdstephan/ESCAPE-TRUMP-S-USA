@@ -25,6 +25,7 @@ public class InputSystem : MonoBehaviour {
 
     public void GetInput()
     {
-        inputPanel.SetActive(true);      
+        inputPanel.SetActive(true);
+        Time.timeScale = 0f;
     }
 }
