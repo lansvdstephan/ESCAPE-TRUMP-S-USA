@@ -8,7 +8,7 @@ public class DestroyerTest : MonoBehaviour
     {
         if (other.gameObject.transform.parent != null)
         {
-            if (other.transform.parent.CompareTag("player"))
+            if (other.transform.parent.CompareTag("Player"))
             {
                 if (other.transform.parent.GetComponent<JumpMovement>() != null)
                 {

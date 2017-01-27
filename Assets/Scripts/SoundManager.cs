@@ -63,8 +63,10 @@ public class SoundManager : MonoBehaviour {
     public void PlayMusic(AudioClip clip)
     {
         musicSource.Stop();
-        musicSource.clip = clip;
-        musicSource.Play();
+		if (clip != null) {
+			musicSource.clip = clip;
+			musicSource.Play ();
+		}
     }
     
     //public void PlaySingle(AudioClip clip)
