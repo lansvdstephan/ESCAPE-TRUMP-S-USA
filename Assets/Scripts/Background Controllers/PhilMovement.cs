@@ -11,9 +11,8 @@ public class PhilMovement : MonoBehaviour
     public static GameObject hand;
     public static GameObject head;
 
-    public MoveonPath mop;
-    public smartMoveOnPath smop;
     public float speed;
+   
     public int health;
     public Text healthText;
     public string[] firstHealtItem;
