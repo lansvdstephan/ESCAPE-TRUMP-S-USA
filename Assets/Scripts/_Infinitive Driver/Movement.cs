@@ -55,7 +55,11 @@ public class Movement : MonoBehaviour {
         if (fuel > 0 && health > 0)
         {
             Move();
-            fuel -= Time.deltaTime * 2;
+            if(points < 2650f)
+            {
+                fuel -= Time.deltaTime * 2;
+            }
+            
         }
         else
         {
