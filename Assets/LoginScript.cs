@@ -81,11 +81,4 @@ public class LoginScript : MonoBehaviour {
         return hashString.PadLeft(32, '0');
     }
 
-    public void PlayOffline()
-    {
-        HighScorePanel.GetComponent<HighScoreController>().online = false;
-        StartButtonNonLogin.SetActive(false);
-        StartButton.SetActive(true);
-    }
-
 }

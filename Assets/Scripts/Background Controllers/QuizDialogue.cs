@@ -65,9 +65,7 @@ public class QuizDialogue : MonoBehaviour
         Time.timeScale = 0.0f;
         questionAmount = 0;
         trueFalseText.text = "\n " + ">>Access denied";
-        StartCoroutine(TextScroll(">>Answer Security Questions \n" + ">>5 questions should be answered correctly \n"));
-        //quizText.text = ">>Answer Security Questions \n" + ">>5 questions should be answered correctly \n";  
-       
+        StartCoroutine(TextScroll(">>Answer Security Questions \n" + ">>5 questions should be answered correctly \n")); 
     }
 
     public void StartQuizAfterWrongAnswer()
@@ -115,7 +113,6 @@ public class QuizDialogue : MonoBehaviour
                     trueFalseText.text = " ";
                     buttonTrue.SetActive(false);
                     buttonFalse.SetActive(false);
-                    endDialogue = true;
                 }
                 else
                 {
