@@ -25,7 +25,7 @@ public class JumpMovement : MonoBehaviour {
 
     [Header("No need for implementation")]
     public Vector3 correctedSpeed;
-
+    private GameObject UIManager;
     private Animator anim;
     private int animWalkingHash = Animator.StringToHash("Walking");
     private int animTakeOffHash = Animator.StringToHash("Take Off");
@@ -46,6 +46,10 @@ public class JumpMovement : MonoBehaviour {
     void Awake()
     {
         player = this.gameObject;
+        if (GameObject.FindWithTag("UIManager") != null)
+        {
+            UIManager = GameObject.FindWithTag("UIManager").gameObject;
+        }
 
     }
 
@@ -91,8 +95,14 @@ public class JumpMovement : MonoBehaviour {
             }
             damageImage.color = Color.Lerp(damageImage.color, invisable, flashspeed * Time.deltaTime);
         }
+        if (health <= 0)
+        {UIManager.GetComponent<UIManager>().GameOver(true);}
     }
 
+    void OnDestroy()
+    {
+
+    }
     private void Move()
     {
         //anim.SetBool(animLandingHash, onGround);
