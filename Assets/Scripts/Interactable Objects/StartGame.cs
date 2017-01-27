@@ -18,7 +18,7 @@ public class StartGame : MonoBehaviour{
 		print("start game");
 		camera.SetTrigger ("TV");
         PhilMovement.player.GetComponent<PhilMovement>().animOn = true;
-        PhilDialogue.Instance.AddNewDialogue(dialogue, null, true);
+        PhilDialogue.Instance.AddNewDialogue(dialogue, dialogueSprites[counter], true);
         
 	}
 	
