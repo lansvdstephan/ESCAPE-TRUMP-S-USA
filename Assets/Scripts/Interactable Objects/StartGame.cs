@@ -25,9 +25,8 @@ public class StartGame : MonoBehaviour{
 	void Update () {
 
         if (Input.GetKeyUp ("space")) {
-			if (dialoguePanel.activeSelf) {
-				PhilDialogue.Instance.ContinueDialogue ();
-
+			if (dialoguePanel.activeSelf)
+            { 
 				counter++;
 			}
 		} else if (!dialoguePanel.activeSelf) {
