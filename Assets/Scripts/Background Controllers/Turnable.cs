@@ -14,7 +14,11 @@ public class Turnable : Switchable {
     {
         transform.rotation = Quaternion.Euler(openAngleX, openAngleY, openAngleZ);
         //Quaternion rotation = Quaternion.Euler(0, openAngle, 0);
-        //transform.localRotation = Quaternion.Slerp(transform.localRotation, rotation, smooth*Time.deltaTime);
+        //transform.localRotation = Quaternion.Slerp(transform.localRotation, rotation, smooth*Time.deltaTime); 
+        if (this.GetComponent<AudioSource>() != null)
+        {
+            this.GetComponent<AudioSource>().Play();
+        }
     }
 
     public override void SwitchOff()
