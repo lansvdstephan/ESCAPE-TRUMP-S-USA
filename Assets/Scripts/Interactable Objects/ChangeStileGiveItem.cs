@@ -22,5 +22,9 @@ public class ChangeStileGiveItem : GiveItem {
         sunGlasses.transform.position = PhilMovement.head.transform.position;
         sunGlasses.transform.localRotation = originalRotation;
         sunGlasses.transform.localScale = originalScale;
+        if (this.GetComponent<AudioSource>() != null)
+        {
+            this.GetComponent<AudioSource>().Play();
+        }
     }
 }
