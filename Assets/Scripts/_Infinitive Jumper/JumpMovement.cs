@@ -49,6 +49,7 @@ public class JumpMovement : MonoBehaviour {
         if (GameObject.FindWithTag("UIManager") != null)
         {
             UIManager = GameObject.FindWithTag("UIManager").gameObject;
+			levelCompletedPanel = GameObject.Find ("MainMenuCanvas").gameObject.transform.FindChild ("Level Completed Panel").gameObject;
         }
 
     }
