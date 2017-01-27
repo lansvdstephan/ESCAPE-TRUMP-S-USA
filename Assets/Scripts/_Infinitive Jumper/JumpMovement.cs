@@ -7,7 +7,7 @@ public class JumpMovement : MonoBehaviour {
     public static GameObject player;
     public float speed;
     public float jumpForce;
-    int float health = 100;
+    public int health = 100;
     public float goal = 500;
 
     [Header("Visual Effects")]
