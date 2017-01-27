@@ -16,8 +16,8 @@ public class StartGame : MonoBehaviour{
 	void Start() {
 		print("start game");
 		camera.SetTrigger ("TV");
-        PhilDialogue.Instance.Noanimation = false;
-        PhilDialogue.Instance.AddNewDialogue(dialogue);
+        PhilDialogue.Instance.noAnimation = false;
+        PhilDialogue.Instance.AddNewDialogue(dialogue, null, true);
         
 	}
 	

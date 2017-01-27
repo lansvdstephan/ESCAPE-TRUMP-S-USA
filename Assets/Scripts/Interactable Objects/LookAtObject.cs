@@ -17,7 +17,7 @@ public class LookAtObject : PhilInteractable {
 			anim.SetTrigger (Animator.StringToHash(trigger));
 			ready = true;
 			PhilMovement.player.GetComponent<PhilMovement> ().animOn = true;
-			PhilDialogue.Instance.AddNewDialogue(dialogue);
+			PhilDialogue.Instance.AddNewDialogue(dialogue,dialogueSprite,true);
 
 		}
 		else 
