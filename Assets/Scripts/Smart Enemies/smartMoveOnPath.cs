@@ -25,8 +25,8 @@ public class smartMoveOnPath : MonoBehaviour
 
     private int count = 0;
     private float timeLeft = 1f;
-    private Vector3 curPoint;
-    private Vector3 prevPoint;
+    public Vector3 curPoint;
+    public Vector3 prevPoint;
 
     private Animator anim;
     private int animWalkingHash = Animator.StringToHash("GuardWalking");
@@ -54,6 +54,9 @@ public class smartMoveOnPath : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+
+        prevPoint = curPoint;
+        curPoint = transform.position;
         stucky();
         if (hitPlayer)
         {
@@ -138,7 +141,7 @@ public class smartMoveOnPath : MonoBehaviour
         agent.Resume();
         agent.speed = 4.5f;
         agent.SetDestination(fow.playerLastSeen);
-        Quaternion rotation = Quaternion.LookRotation(fow.playerLastSeen - transform.position); // position we are going to minus the position we are looking at
+        Quaternion rotation = Quaternion.LookRotation(curPoint - prevPoint); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
     }
 
@@ -188,8 +191,8 @@ public class smartMoveOnPath : MonoBehaviour
         int nextpoint = ss.getClosestPoint();
         agent.SetDestination(ss.grid[nextpoint].transform.position);
         agent.speed = 3f;
-
-        Quaternion rotation = Quaternion.LookRotation(ss.grid[nextpoint].transform.position - transform.position); // position we are going to minus the position we are looking at
+        Quaternion rotation = Quaternion.LookRotation(curPoint - prevPoint);
+        //Quaternion rotation = Quaternion.LookRotation(ss.grid[nextpoint].transform.position - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10f);
         float eps = 0.001f;
         if (transform.position.x - ss.grid[nextpoint].transform.position.x <eps && transform.position.z - ss.grid[nextpoint].transform.position.z < eps)
@@ -218,7 +221,8 @@ public class smartMoveOnPath : MonoBehaviour
             firstTime = true;
         }
         agent.SetDestination(toGo);
-        Quaternion rotation = Quaternion.LookRotation(toGo - transform.position); // position we are going to minus the position we are looking at
+        Quaternion rotation = Quaternion.LookRotation(curPoint - prevPoint);
+        //Quaternion rotation = Quaternion.LookRotation(toGo - transform.position); // position we are going to minus the position we are looking at
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
         float eps = 0.1f;
         if (Mathf.Abs(toGo.x - transform.position.x) < eps && Mathf.Abs(toGo.z - transform.position.z) < eps)
