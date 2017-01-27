@@ -54,22 +54,18 @@ public class UIManager : MonoBehaviour {
 				// When SHIFT is held along with tab, go backwards instead of forwards
 				if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
 						next = current.FindSelectableOnUp();
-						print ("next on up");
 				} else {
 						next = current.FindSelectableOnDown();
-						print ("Next on down");
 				}
 			} else {
 				// If there is no current selected gameobject, select the first one
 				if (Selectable.allSelectables.Count > 0) {
 					next = Selectable.allSelectables[0];
-					print ("no selectable");
 				}
 			}
 
 			if (next != null)  {
 				next.Select();
-				print ("Next inputfiled selected");
 			}
 		}
 		
