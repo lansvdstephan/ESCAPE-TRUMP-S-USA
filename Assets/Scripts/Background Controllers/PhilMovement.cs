@@ -47,7 +47,7 @@ public class PhilMovement : MonoBehaviour
 
         hand.transform.localScale = new Vector3(hand.transform.localScale.x / hand.transform.lossyScale.x, hand.transform.localScale.y / hand.transform.lossyScale.y, hand.transform.localScale.z / hand.transform.lossyScale.z);
         head.transform.localScale = new Vector3(head.transform.localScale.x / head.transform.lossyScale.x, head.transform.localScale.y / head.transform.lossyScale.y, head.transform.localScale.z / head.transform.lossyScale.z);
-        Physics.gravity = 9 * Physics.gravity;
+        Physics.gravity = new Vector3(0, -10, 0) * 9f;
     }
 
     void Start()
