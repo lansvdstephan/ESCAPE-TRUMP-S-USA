@@ -43,6 +43,29 @@ public class PhilDialogue : MonoBehaviour {
         narrator.sprite = joe;
     }
 
+    public void CreateDialogue()
+    {
+        print( "started dialog");
+		dialogueText.text = dialogueLines[dialogueIndex].Replace("*", Environment.NewLine);
+        dialoguePanel.SetActive(true);
+    }
+
+    public void ContinueDialogue()
+    {
+        if (dialogueIndex < dialogueLines.Count -1)
+        {
+            dialogueIndex++;
+			dialogueText.text = dialogueLines [dialogueIndex].Replace("*", Environment.NewLine);
+        }
+        else
+        {
+            dialoguePanel.SetActive(false);
+            print("Dialogue ended");
+            Time.timeScale = 1f;
+        }
+    }
+
+    // Same but than with changeable sprites
     public void AddNewDialogue(string[] lines, Sprite converstationPartner)
     {
         dialogueIndex = 0;
@@ -65,7 +88,7 @@ public class PhilDialogue : MonoBehaviour {
         dialogueIndex = 0;
         dialogueLines = new List<string>(lines.Length);
         dialogueLines.AddRange(lines);
-        if(!timeOn)Time.timeScale = 0f;
+        if (!timeOn) Time.timeScale = 0f;
         CreateDialogue();
         if (converstationPartner != null)
         {
@@ -77,19 +100,12 @@ public class PhilDialogue : MonoBehaviour {
         }
     }
 
-    public void CreateDialogue()
+    public void ContinueDialogue(Sprite converstationPartner)
     {
-        print( "started dialog");
-		dialogueText.text = dialogueLines[dialogueIndex].Replace("*", Environment.NewLine);
-        dialoguePanel.SetActive(true);
-    }
-
-    public void ContinueDialogue()
-    {
-        if (dialogueIndex < dialogueLines.Count -1)
+        if (dialogueIndex < dialogueLines.Count - 1)
         {
             dialogueIndex++;
-			dialogueText.text = dialogueLines [dialogueIndex].Replace("*", Environment.NewLine);
+            dialogueText.text = dialogueLines[dialogueIndex].Replace("*", Environment.NewLine);
         }
         else
         {
@@ -97,5 +113,14 @@ public class PhilDialogue : MonoBehaviour {
             print("Dialogue ended");
             Time.timeScale = 1f;
         }
+        if (converstationPartner != null)
+        {
+            narrator.sprite = converstationPartner;
+        }
+        else
+        {
+            narrator.sprite = joe;
+        }
     }
+
 }

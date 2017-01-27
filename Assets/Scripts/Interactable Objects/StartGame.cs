@@ -5,19 +5,20 @@ public class StartGame : MonoBehaviour{
 
     public GameObject dialoguePanel;
 	public string[] dialogue;
+    public Sprite[] dialogueSprites;
 	public Animator trump;
 	public Animator camera;
 
 	public CountDown cd;
 
 	private bool stop = true;
-	private int counter;
+	private int counter = 0;
 	// Use this for initialization
 	void Start() {
 		print("start game");
 		camera.SetTrigger ("TV");
-        PhilDialogue.Instance.noAnimation = false;
-        PhilDialogue.Instance.AddNewDialogue(dialogue, null, true);
+        PhilMovement.player.GetComponent<PhilMovement>().animOn = true;
+        PhilDialogue.Instance.AddNewDialogue(dialogue, dialogueSprites[counter], true);
         
 	}
 	
@@ -28,11 +29,20 @@ public class StartGame : MonoBehaviour{
 			if (dialoguePanel.activeSelf)
             { 
 				counter++;
-			}
+                if (counter < dialogueSprites.Length)
+                {
+                    PhilDialogue.Instance.ContinueDialogue(dialogueSprites[counter]);
+                }
+                else
+                {
+                    PhilDialogue.Instance.ContinueDialogue();
+                }
+            }
 		} else if (!dialoguePanel.activeSelf) {
 			camera.SetTrigger ("TV");
 			cd.startcounting = true;
-			Destroy (this);
+            PhilMovement.player.GetComponent<PhilMovement>().animOn = false;
+            Destroy (this);
 		}
 		if (counter == 8) {
 			if (stop) {

@@ -31,49 +31,49 @@ public class PlayerDataForServer : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		spaces = counter;
-		timeSpent = timer;
+	//void Update () {
+	//	spaces = counter;
+	//	timeSpent = timer;
 
-		//When first level is loaded start counting and timer
-		StartGame ();
+	//	When first level is loaded start counting and timer
+	//	StartGame ();
 
 
-		//Send after level one is complete
-		if (Application.loadedLevel == 2) {
-			if (!firstLevelComplete) {
-				LevelComplete (1);
-			}
-		}
-		//Send after level two is complete
-		if (Application.loadedLevel == 3) {
-			if (!secondLevelComplete) {
-				LevelComplete (2);
-			}
-		}
+	//	Send after level one is complete
+	//	if (Application.loadedLevel == 2) {
+	//		if (!firstLevelComplete) {
+	//			LevelComplete (1);
+	//		}
+	//	}
+	//	Send after level two is complete
+	//	if (Application.loadedLevel == 3) {
+	//		if (!secondLevelComplete) {
+	//			LevelComplete (2);
+	//		}
+	//	}
 
-		//If dead send info about death
-		if (GameObject.FindWithTag ("Player") != null) {
+	//	If dead send info about death
+	//	if (GameObject.FindWithTag ("Player") != null) {
 				
-				if (GameObject.FindWithTag ("Player").GetComponent<PhilMovement> () != null) {
-					if (GameObject.FindWithTag ("Player").GetComponent<PhilMovement> ().health <= 0) {
-						if (!secondLevelGameOver) {
-							GameOver (2);
-						}
-					} else {
-						secondLevelGameOver = false;
-					}
-				} else if (GameObject.FindWithTag ("Player").GetComponent<Movement> () != null) {
-					if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().health <= 0 || GameObject.FindWithTag ("Player").GetComponent<Movement> ().fuel == 0) {
-						if (!thirdLevelGameOver) {
-							GameOver (3);
-						}
-					} else {
-						thirdLevelGameOver = false;
-					}
-				}
-			}	
-		}
+	//			if (GameObject.FindWithTag ("Player").GetComponent<PhilMovement> () != null) {
+	//				if (GameObject.FindWithTag ("Player").GetComponent<PhilMovement> ().health <= 0) {
+	//					if (!secondLevelGameOver) {
+	//						GameOver (2);
+	//					}
+	//				} else {
+	//					secondLevelGameOver = false;
+	//				}
+	//			} else if (GameObject.FindWithTag ("Player").GetComponent<Movement> () != null) {
+	//				if (GameObject.FindWithTag ("Player").GetComponent<Movement> ().health <= 0 || GameObject.FindWithTag ("Player").GetComponent<Movement> ().fuel == 0) {
+	//					if (!thirdLevelGameOver) {
+	//						GameOver (3);
+	//					}
+	//				} else {
+	//					thirdLevelGameOver = false;
+	//				}
+	//			}
+	//		}	
+	//	}
 
 	void StartGame() {
 		//If first level is loaded start Counting

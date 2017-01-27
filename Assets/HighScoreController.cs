@@ -40,7 +40,7 @@ public class HighScoreController : MonoBehaviour {
     public IEnumerator addScores()
     {
         string hash = Md5Sum(playerName + score + secretKey);
-        string postURL = addScoreURL + "username=" + playerName + "&score=" + score + "&hash="+ hash;
+        string postURL = addScoreURL + "username=" + WWW.EscapeURL(playerName) + "&score=" + score + "&hash="+ hash;
         WWW post = new WWW(postURL);
         yield return post;
         if (post.error != null)
@@ -127,7 +127,7 @@ public class HighScoreController : MonoBehaviour {
         HighscoreScores1.GetComponent<Text>().text = "";
         HighscoreNames2.GetComponent<Text>().text = "";
         HighscoreScores2.GetComponent<Text>().text = "";
-        string postURL = getLocalScoresURL + "username=" + playerName;
+        string postURL = getLocalScoresURL + "username=" + WWW.EscapeURL(playerName);
         WWW post = new WWW(postURL);
         yield return post;
         text = post.text;
