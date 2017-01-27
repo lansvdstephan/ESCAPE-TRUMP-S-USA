@@ -36,6 +36,7 @@ public class CalculateScore : MonoBehaviour {
     public GameObject ContinueButton;
     public GameObject GameCompletedPanel;
     public GameObject levelCompletedPanel;
+	public GameObject HighScorePanel;
     public int currentScene;
     // Use this for initialization
     void Awake()
@@ -87,20 +88,21 @@ public class CalculateScore : MonoBehaviour {
     {
         yield return new WaitForSecondsRealtime(2f);
         if (timeBool)
-        {
+        {	
+			int tempTime = timeLeft;
             int speed = 10;
-            while (timeLeft > 0)
+            while (tempTime > 0)
             {
-                if(timeLeft < 200)
+                if(tempTime < 200)
                 {
                     speed = 5;
                 }
-                if(timeLeft < 30)
+                if(tempTime < 30)
                 {
                     speed = 1;
                 }
-                timeLeft -= speed;                
-                text21 = timeLeft + " sec\n\n";
+                tempTime -= speed;                
+                text21 = tempTime + " sec\n\n";
                 text2 = text21 + text22 + text23 + text24;
                 Text2.text = text2;
                 timeScore += speed;
@@ -170,20 +172,21 @@ public class CalculateScore : MonoBehaviour {
         }
 
         if (itemBool)
-        {
+        {	
+			int tempItems = items;
             int speed = 4;
-            while (items > 0)
+            while (tempItems > 0)
             {
-                if (items < 10)
+                if (tempItems < 10)
                 {
                     speed = 2;
                 }
-                if (items < 3)
+                if (tempItems < 3)
                 {
                     speed = 1;
                 }
-                items -= 1;
-                text24 = items + "\n\n";
+                tempItems -= 1;
+                text24 = tempItems + "\n\n";
                 text2 = text21 + text22 + text23 + text24;
                 Text2.text = text2;
                 itemScore += 50;
@@ -229,15 +232,15 @@ public class CalculateScore : MonoBehaviour {
         text33 = "";
         text34 = "";
         Time.timeScale = 1.0f;
-        if (currentScene != 6)
+        if (currentScene != 2)
         {
             SceneManager.LoadScene(currentScene);
         }
         else
         {
             GameCompletedPanel.transform.FindChild("ScoreText").GetComponent<Text>().text = "Score: " + totalScore;
-            GameObject.Find("High Score Panel").GetComponent<HighScoreController>().score = totalScore;
-            GameObject.Find("High Score Panel").GetComponent<HighScoreController>().gameFinished = true;
+            HighScorePanel.GetComponent<HighScoreController>().score = totalScore;
+            HighScorePanel.GetComponent<HighScoreController>().gameFinished = true;
             GameCompletedPanel.transform.FindChild("ShareOnTwitterButton").GetComponent<TwitterController>().highscore = totalScore;
             GameCompletedPanel.transform.FindChild("ShareOnFaceBookButton").GetComponent<FacebookController>().highscore = totalScore;
             GameCompletedPanel.SetActive(true);
