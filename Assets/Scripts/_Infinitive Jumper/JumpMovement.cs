@@ -51,7 +51,8 @@ public class JumpMovement : MonoBehaviour {
 
     void Start()
     {
-        Physics.gravity = Physics.gravity * 9f;
+
+        Physics.gravity = new Vector3(0, -9, 0) * 9f;
         rb = this.GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         rotation = this.transform.rotation;

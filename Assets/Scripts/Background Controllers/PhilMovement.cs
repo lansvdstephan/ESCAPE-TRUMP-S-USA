@@ -35,7 +35,7 @@ public class PhilMovement : MonoBehaviour
     public Image damageImage;
 
     private bool firstTimeHealtItem = true;
-    
+    private bool walkingStair;
 
     void Awake()
     {
@@ -47,6 +47,7 @@ public class PhilMovement : MonoBehaviour
 
         hand.transform.localScale = new Vector3(hand.transform.localScale.x / hand.transform.lossyScale.x, hand.transform.localScale.y / hand.transform.lossyScale.y, hand.transform.localScale.z / hand.transform.lossyScale.z);
         head.transform.localScale = new Vector3(head.transform.localScale.x / head.transform.lossyScale.x, head.transform.localScale.y / head.transform.lossyScale.y, head.transform.localScale.z / head.transform.lossyScale.z);
+        Physics.gravity = 9 * Physics.gravity;
     }
 
     void Start()
@@ -117,11 +118,10 @@ public class PhilMovement : MonoBehaviour
         float v = Input.GetAxis("Vertical");
         float h = Input.GetAxis("Horizontal");
 
-
         // movement
         float y = rb.velocity.y;
+
         Vector3 movement = new Vector3(h, 0, v);
-        movement = movement.normalized * speed;
 
         // turning
         if (movement == new Vector3(0, 0, 0))
@@ -134,7 +134,16 @@ public class PhilMovement : MonoBehaviour
             rb.MoveRotation(Rotation);
         }
         // ensured obama will fall continiously
-        movement.Set(movement.x, rb.velocity.y, movement.z);
+        if (walkingStair)
+        {
+            movement = new Vector3(h, v/3, v/2);
+            movement = movement.normalized * speed;
+        }
+        else
+        {
+            movement = movement.normalized * speed;
+            movement.Set(movement.x, rb.velocity.y, movement.z);
+        }
         rb.velocity = movement;
     }
 
@@ -246,11 +255,23 @@ public class PhilMovement : MonoBehaviour
             damaged = true;
             health = Max(health - 5, 0);
         }
+        if (other.CompareTag("Stair"))
+        {
+            walkingStair = true;
+        }
 
     }
 
-    // Health
-    void setHealthText()
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Stair"))
+        {
+            walkingStair = false;
+        }
+    }
+
+        // Health
+        void setHealthText()
     {
         healthText.text = "Health: " + health.ToString();
     }
