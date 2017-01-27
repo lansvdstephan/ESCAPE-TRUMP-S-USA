@@ -47,7 +47,6 @@ public class Movement : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
         VisualEffects();
         if (PhilDialogue.Instance.dialoguePanel.activeSelf && Input.GetKeyUp("space"))
         {
@@ -149,7 +148,7 @@ public class Movement : MonoBehaviour {
             Destroy(other.gameObject);
             healthje = true;
         }
-        if (other.gameObject.CompareTag("Obstackle"))
+        if (other.gameObject.CompareTag("Obstackle") && points < 2650f)
         {
             //winText.text = "You are Crashed";
             this.health = this.health - damageDoneByCollision;
@@ -159,7 +158,7 @@ public class Movement : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Obstackle"))
+        if (collision.gameObject.CompareTag("Obstackle") && points < 2650f)
         {
             winText.text = "You have Crashed";
             this.health = this.health - damageDoneByCollision;
