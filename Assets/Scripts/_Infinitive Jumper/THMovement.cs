@@ -45,7 +45,7 @@ public class THMovement : MonoBehaviour
         if (Mathf.RoundToInt(y) % 100 == 0 && Mathf.RoundToInt(y) > Mathf.RoundToInt(lastUpdated))
         {
             maxFireRate += 0.25f;
-            maxFireRate = Mathf.Min(1f, maxFireRate);
+            maxFireRate = Mathf.Min(0.5f, maxFireRate);
             lastUpdated = y;
             print(lastUpdated);
         }
