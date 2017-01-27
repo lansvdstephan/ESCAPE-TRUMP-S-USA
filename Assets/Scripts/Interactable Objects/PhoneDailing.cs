@@ -4,17 +4,14 @@ using System.Collections;
 public class PhoneDailing : PhilInteractable {
 
 	public string[] dialogue;
-    public Sprite obama;
 
 	public override void Interact(GameObject Interacted)
 	{
 		if (!PhilDialogue.Instance.dialoguePanel.activeSelf)
 		{
-            if(obama != null)
-                PhilDialogue.Instance.joe = obama;
 			print("hint");
 			GetComponent<AudioSource>().Play();
-			if (dialogue != null) PhilDialogue.Instance.AddNewDialogue(dialogue);
+			if (dialogue != null) PhilDialogue.Instance.AddNewDialogue(dialogue,dialogueSprite);
 		}
 		else
 		{

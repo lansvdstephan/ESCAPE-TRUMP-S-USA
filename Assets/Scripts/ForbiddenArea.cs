@@ -33,16 +33,12 @@ public class ForbiddenArea : MonoBehaviour {
         {
             if (headPlayer.transform.childCount > 1)
             {
-                if (guardhead != null)
-                    PhilDialogue.Instance.joe = guardhead;
-                PhilDialogue.Instance.AddNewDialogue(this.mayEnter);
+                PhilDialogue.Instance.AddNewDialogue(this.mayEnter, guardhead);
                 GetComponent<CapsuleCollider>().enabled = false;
             }
             else
             {
-                if (guardhead != null)
-                    PhilDialogue.Instance.joe = guardhead;
-                PhilDialogue.Instance.AddNewDialogue(this.dontEnter);
+                PhilDialogue.Instance.AddNewDialogue(this.dontEnter, guardhead);
             }
         }
     }
