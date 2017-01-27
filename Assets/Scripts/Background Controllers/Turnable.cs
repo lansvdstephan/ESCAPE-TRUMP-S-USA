@@ -24,5 +24,9 @@ public class Turnable : Switchable {
     public override void SwitchOff()
     {
         transform.rotation = Quaternion.Euler(openAngleX, closeAngleY, openAngleZ);
+        if (this.GetComponent<AudioSource>() != null)
+        {
+            this.GetComponent<AudioSource>().Play();
+        }
     }
 }
