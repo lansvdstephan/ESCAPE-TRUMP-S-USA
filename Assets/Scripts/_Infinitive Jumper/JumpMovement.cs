@@ -7,7 +7,7 @@ public class JumpMovement : MonoBehaviour {
     public static GameObject player;
     public float speed;
     public float jumpForce;
-    public float health = 100;
+    int float health = 100;
     public float goal = 500;
 
     [Header("Visual Effects")]
@@ -203,7 +203,7 @@ public class JumpMovement : MonoBehaviour {
         Time.timeScale = 0.0f;
         string timeLeftString = GameObject.Find("CountdownText").gameObject.transform.FindChild("TimeText").GetComponent<Text>().text;
         float timeLeft = GameObject.Find("CountdownKeeper").GetComponent<CountDown>().tijd;
-        int healthLeft = GameObject.FindWithTag("Player").GetComponent<PhilMovement>().health;
+        int healthLeft = GameObject.FindWithTag("Player").GetComponent<JumpMovement>().health;
 
         levelCompletedPanel.GetComponent<CalculateScore>().timeBool = true;
         levelCompletedPanel.GetComponent<CalculateScore>().healthBool = true;
