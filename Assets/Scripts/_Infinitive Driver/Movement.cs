@@ -72,7 +72,7 @@ public class Movement : MonoBehaviour {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         correctedSpeed = speed * (2 + 0.5f * v);
-        Vector3 movement = new Vector3(h, 0, 2 + 0.5f * v);
+        Vector3 movement = new Vector3(0.7f * h, 0, 2 + 0.5f * v);
         
         // moving the car
         movement = movement * speed * Time.deltaTime;
