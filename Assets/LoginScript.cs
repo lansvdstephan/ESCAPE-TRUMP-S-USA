@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class LoginScript : MonoBehaviour {
 
     private string secretKey = "1dLc9f170GIfi0cdgm5QW267J91tMqM7";
@@ -27,7 +28,7 @@ public class LoginScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
     public IEnumerator LogIn()
